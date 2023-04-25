@@ -4,7 +4,7 @@ const Label = ({ children, label, type, style}) => {
 
   switch (type){
     case "title":
-      style="text-3xl capitalize";
+      style="text-3xl";
       break;
     default:
       style="";
