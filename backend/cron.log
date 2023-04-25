@@ -7,3 +7,5 @@ crond: USER root pid  44 cmd run-parts /etc/periodic/hourly
 crond: USER root pid  47 cmd run-parts /etc/periodic/15min
 crond: USER root pid  48 cmd run-parts /etc/periodic/15min
 crond: USER root pid  49 cmd run-parts /etc/periodic/15min
+crond: USER root pid  51 cmd run-parts /etc/periodic/15min
+crond: USER root pid  52 cmd run-parts /etc/periodic/hourly
