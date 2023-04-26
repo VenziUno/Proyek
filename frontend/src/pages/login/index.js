@@ -12,16 +12,16 @@ export default function Login() {
   }
 
   return (
-    <div className="bg-blue-200">
+    <div className="bg-primary-base">
       <div className="flex items-center justify-center h-screen m-auto">
         <div className="w-full bg-white rounded-lg shadow max-w-md px-6 py-6 space-y-2">
           <Label label="Sign in to your account" type="title"/>
           <div className="space-y-4">
             <Label label="Email">
-              <InputFields style="w-full" placeholder="Enter Your Email" />
+              <InputFields type="email" style="w-full" placeholder="Enter Your Email" />
             </Label>
             <Label label="Password">
-              <InputFields style="w-full" placeholder="* * * * * * * *" />
+              <InputFields type="password" style="w-full" placeholder="* * * * * * * *" icon='eye'/>
             </Label>
             <div className="flex items-center justify-between">
               <div className="flex items-start">
@@ -41,20 +41,20 @@ export default function Login() {
               </div>
               <Link href="forgetPassword" legacyBehavior>
                 <a
-                  className="text-sm font-medium text-primary-600 hover:underline"
+                  className="text-sm font-medium text-black hover:underline"
                 >
                   Forget Password ?
                 </a>
               </Link>
             </div>
-            <Button style="w-full" action="info" width="w-full" handleClick={handleApi}>
-              Sign In
+            <Button style="w-full" width="w-full" handleClick={handleApi}>
+              Sign in to your account
             </Button>
             <p className="text-sm font-light text-gray-500">
               Don’t have an account yet?{" "}
               <Link href="register" legacyBehavior>
                 <a
-                  className="text-sm font-medium text-primary-600 hover:underline"
+                  className="text-sm font-medium text-black hover:underline"
                 >
                   Sign up
                 </a>

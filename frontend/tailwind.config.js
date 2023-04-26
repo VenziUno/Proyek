@@ -13,7 +13,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
 
-      color: {
+      colors: {
         primary: {
           50: "#fff8e1",
           100: "#ffecb3",
@@ -25,6 +25,8 @@ module.exports = {
           700: "#ffa000",
           800: "#ff8f00",
           900: "#ff6f00",
+          base: "#ffc107",
+          hover: "#ffa000",
         },
         secondary: {
           base: "#2196F3",
@@ -46,16 +48,6 @@ module.exports = {
           base: "#f1c40f",
           hover: "#d4af37",
         },
-        // link: {
-        //   base: "#d1d5db",
-        //   hover: "#4b5563",
-        // },
-        // neutral: {
-        //   1: "#F2F2F3",
-        //   2: "#C8CDD0",
-        //   3: "#415058",
-        //   4: "#1F292E",
-        // },
       },
     },
   },
