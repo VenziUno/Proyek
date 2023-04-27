@@ -51,3 +51,11 @@ crond: USER root pid 104 cmd run-parts /etc/periodic/hourly
 crond: USER root pid 105 cmd run-parts /etc/periodic/15min
 crond: USER root pid 106 cmd run-parts /etc/periodic/15min
 crond: USER root pid 115 cmd run-parts /etc/periodic/15min
+crond: crond (busybox 1.35.0) started, log level 8
+crond: USER root pid  16 cmd run-parts /etc/periodic/15min
+crond: USER root pid  18 cmd run-parts /etc/periodic/15min
+crond: USER root pid  31 cmd run-parts /etc/periodic/15min
+crond: USER root pid  32 cmd run-parts /etc/periodic/hourly
+crond: USER root pid  33 cmd run-parts /etc/periodic/15min
+crond: USER root pid  34 cmd run-parts /etc/periodic/15min
+crond: USER root pid  35 cmd run-parts /etc/periodic/15min

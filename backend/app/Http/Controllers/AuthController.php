@@ -16,8 +16,11 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => [
                 'required',
-                'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
+                'min:8',              // must be at least 8 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
             ]
         ]);
 
@@ -28,7 +31,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         // $remember = $request->input('remember', false);
 
-        if(!$token = auth()->guard('api')->attempt($credentials)) {
+        if (!$token = auth()->guard('api')->attempt($credentials)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email atau Password Anda salah'
@@ -46,18 +49,29 @@ class AuthController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'unique:users'],
+            'name' => [
+                'required',
+                'min:2',
+                'max:255'
+            ],
+            'email' => [
+                'required',
+                'email',
+                'unique:users'
+            ],
             'password' => [
                 'required',
-                'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
-                'confirmed'
+                'min:8',              // must be at least 8 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+                'confirmed',          // must be at confirmed
             ]
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json($validator->errors());
         }
 
         $user = User::create([
@@ -76,7 +90,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => false,
-            "message" => "Registration failed. Please try again later. A user with that email address already exists."
+            "message" => "Registration failed. Please try again later."
         ], 409);
     }
 
@@ -89,10 +103,9 @@ class AuthController extends Controller
     {
         $cookie = Cookie::forget('jwt');
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Logout Berhasil!',
-            ])->withCookie($cookie );
-        }
-
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout Berhasil!',
+        ])->withCookie($cookie);
+    }
 }
