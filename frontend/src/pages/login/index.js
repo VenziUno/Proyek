@@ -10,24 +10,28 @@ export default function Login() {
   const [account, setAccount] = useState({
     email: "",
     password: "",
+    remember: false,
   });
 
   const handleApi = () => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`,{
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
         email: account.email,
         password: account.password,
-      }).then((res)=>{
-        sessionStorage.setItem("token", res.data.token);
+        remember: account.remember,
+      })
+      .then((res) => {
+        if (account.remember) {
+          console.log(res.data.token)
+          localStorage.setItem("token", res.data.token);
+        } else {
+          console.log(res.data.token)
+          sessionStorage.setItem("token", res.data.token);
+        }
         router.push("/dashboard");
-      }).catch((error) => console.log(error.response.data()))
+      })
+      .catch((error) => console.log(error));
   };
-
-  useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      router.push("/dashboard");
-    }
-  }, []);
 
   return (
     <div className="bg-primary-base">
@@ -41,7 +45,9 @@ export default function Login() {
                 style="w-full"
                 placeholder="Enter Your Email"
                 value={account.email}
-                setValue={(e) => setAccount({...account,email: e.target.value})}
+                setValue={(e) =>
+                  setAccount({ ...account, email: e.target.value })
+                }
               />
             </Label>
             <Label label="Password">
@@ -51,13 +57,22 @@ export default function Login() {
                 placeholder="* * * * * * * *"
                 icon="eye"
                 value={account.password}
-                setValue={(e) =>setAccount({...account,password: e.target.value})}
+                setValue={(e) =>
+                  setAccount({ ...account, password: e.target.value })
+                }
               />
             </Label>
             <div className="flex items-center justify-between">
               <div className="flex items-start">
                 <div className="flex items-center h-5">
-                  <InputFields style="w-full" type="checkbox" />
+                  <InputFields
+                    style="w-full"
+                    type="checkbox"
+                    value={account.remember}
+                    setValue={(e) =>
+                      setAccount({ ...account, remember: !account.remember })
+                    }
+                  />
                 </div>
                 <div className="ml-3 text-sm">
                   <label className="text-gray-500">Remember me</label>
@@ -69,7 +84,7 @@ export default function Login() {
                 </a>
               </Link>
             </div>
-            <Button style="w-full" width="w-full" handleClick={handleApi}>
+            <Button style="w-full" width="w-full" handleClick={handleApi} >
               Sign in to your account
             </Button>
             <p className="text-sm font-light text-gray-500">

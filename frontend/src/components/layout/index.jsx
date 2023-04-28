@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import router from "next/router";
 import Header from "./header";
 import Sidebar from "./sidebar";
 
 const Layout = ({ children }) => {
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("token")) {
+      router.push("/login");
+    }
+  });
+
   return (
     <div className="w-full ">
       <div className="flex flex-row gap-4 p-4 w-full">
