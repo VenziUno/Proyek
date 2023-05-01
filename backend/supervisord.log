@@ -78,3 +78,23 @@
 2023-04-28 03:45:21,548 INFO success: crond_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2023-04-28 03:45:21,548 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2023-04-28 03:45:21,549 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-05-01 10:14:27,991 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2023-05-01 10:14:28,011 INFO supervisord started with pid 1
+2023-05-01 10:14:29,054 INFO spawned: 'crond_00' with pid 7
+2023-05-01 10:14:29,060 INFO spawned: 'nginx' with pid 8
+2023-05-01 10:14:29,075 INFO spawned: 'php-fpm' with pid 9
+2023-05-01 10:14:29,095 INFO spawned: 'queue' with pid 10
+2023-05-01 10:14:29,463 INFO success: queue entered RUNNING state, process has stayed up for > than 0 seconds (startsecs)
+2023-05-01 10:14:30,508 INFO success: crond_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-05-01 10:14:30,540 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-05-01 10:14:30,546 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-05-01 12:50:47,914 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2023-05-01 12:50:47,933 INFO supervisord started with pid 1
+2023-05-01 12:50:48,946 INFO spawned: 'crond_00' with pid 7
+2023-05-01 12:50:48,951 INFO spawned: 'nginx' with pid 8
+2023-05-01 12:50:48,959 INFO spawned: 'php-fpm' with pid 9
+2023-05-01 12:50:48,967 INFO spawned: 'queue' with pid 10
+2023-05-01 12:50:49,188 INFO success: queue entered RUNNING state, process has stayed up for > than 0 seconds (startsecs)
+2023-05-01 12:50:50,218 INFO success: crond_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-05-01 12:50:50,220 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-05-01 12:50:50,222 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

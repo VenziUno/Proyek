@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
           <Header />
           <div className="w-full h-full pt-5">
             <div    
-                className="w-full bg-white shadow-md h-screen rounded-lg p-6"
+                className="w-full bg-white shadow h-screen rounded-lg p-6"
                 style={{ height: "calc(100vh - 152px)" }}
             >
               {children}

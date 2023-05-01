@@ -27,6 +27,7 @@ module.exports = {
           900: "#ff6f00",
           base: "#ffc107",
           hover: "#ffa000",
+          background:"#000000",
         },
         secondary: {
           base: "#2196F3",

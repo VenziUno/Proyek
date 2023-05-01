@@ -17,14 +17,14 @@ const Header = () => {
       <div className="flex space-x-4">
         <Link href="/settings/level" legacyBehavior>
           <a
-            className=" py-4  rounded-full text-neutral-3 hover:cursor-pointer hover:text-red-400"
+            className=" py-4  rounded-full text-neutral-3 hover:cursor-pointer hover:text-primary-800"
           >
             <HiOutlineBell size={24} />
           </a>
         </Link>
         <Link href="/settings/level" legacyBehavior>
           <a
-            className="py-4 rounded-full text-neutral-3 hover:cursor-pointer hover:text-red-400"
+            className="py-4 rounded-full text-neutral-3 hover:cursor-pointer hover:text-primary-800"
           >
             <HiOutlineCog size={24} />
           </a>
@@ -62,37 +62,27 @@ const Header = () => {
               className="absolute top-20 z-20 w-[260px] bg-white
               divide-y divide-gray-200 rounded-lg drop-shadow-xl"
               id="user-dropdown"
-            >
-              <div className="px-4 py-4 text-md font-semibold cursor-default">
-                Signed in as Pendi
-              </div>
-              
+            > 
               <div className="py-2.5 flex flex-col cursor-default">
-              <Link href="https://mail.starlingschool.my.id/" legacyBehavior>
-                <a className="px-4 py-2 text-md hover:text-red-900">
-                  Login Email
-                </a>
-              </Link>
                 <Link href="/profile" legacyBehavior>
-                  <a className="px-4 py-2 text-md font-medium hover:text-red-900">
+                  <a className="px-4 py-2 text-md font-medium hover:text-primary-800">
                     Profile
                   </a>
                 </Link>
-
-                <Link href="/password" legacyBehavior>
-                  <a className="px-4 py-2 text-md hover:text-red-900">
+                <Link href="/resetPassword" legacyBehavior>
+                  <a className="px-4 py-2 text-md hover:text-primary-800">
                     Password
                   </a>
                 </Link>
               </div>
               <div className="py-2.5 flex flex-col">
-                <Link href="/settings/level" legacyBehavior>
-                  <a className="px-4 py-2 text-md hover:text-red-900">
+                <Link href="/settings" legacyBehavior>
+                  <a className="px-4 py-2 text-md hover:text-primary-800">
                     Settings
                   </a>
                 </Link>
                 <a
-                  className="px-4 py-2 text-md hover:text-red-900 cursor-pointer"
+                  className="px-4 py-2 text-md hover:text-primary-800 cursor-pointer"
                   onClick={(e) => handleLogOut(e)}
                 >
                   Log Out
