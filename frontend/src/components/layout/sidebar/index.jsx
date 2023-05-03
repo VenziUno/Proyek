@@ -28,6 +28,7 @@ const Sidebar = () => {
           <Image
             className="w-16 h-16"
             src="/logo.png"
+            alt="LOGO"
             width={250}
             height={250}
           />
