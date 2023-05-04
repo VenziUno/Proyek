@@ -18,16 +18,9 @@ export default function Login() {
       .post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
         email: account.email,
         password: account.password,
-        remember: account.remember,
       })
       .then((res) => {
-        if (account.remember) {
-          console.log(res.data.token)
-          localStorage.setItem("token", res.data.token);
-        } else {
-          console.log(res.data.token)
-          sessionStorage.setItem("token", res.data.token);
-        }
+        sessionStorage.setItem("token", res.data.authorisation.token);
         router.push("/dashboard");
       })
       .catch((error) => console.log(error));
@@ -62,39 +55,25 @@ export default function Login() {
                 }
               />
             </Label>
+
+            <Button style="w-full" width="w-full" handleClick={handleApi}>
+              Sign in to your account
+            </Button>
             <div className="flex items-center justify-between">
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <InputFields
-                    style="w-full"
-                    type="checkbox"
-                    value={account.remember}
-                    setValue={(e) =>
-                      setAccount({ ...account, remember: !account.remember })
-                    }
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label className="text-gray-500">Remember me</label>
-                </div>
-              </div>
+              <p className="text-sm font-light text-gray-500">
+                Don’t have an account yet?{" "}
+                <Link href="register" legacyBehavior>
+                  <a className="text-sm font-medium text-black hover:underline">
+                    Sign up
+                  </a>
+                </Link>
+              </p>
               <Link href="forgetPassword" legacyBehavior>
                 <a className="text-sm font-medium text-black hover:underline">
                   Forget Password ?
                 </a>
               </Link>
             </div>
-            <Button style="w-full" width="w-full" handleClick={handleApi} >
-              Sign in to your account
-            </Button>
-            <p className="text-sm font-light text-gray-500">
-              Don’t have an account yet?{" "}
-              <Link href="register" legacyBehavior>
-                <a className="text-sm font-medium text-black hover:underline">
-                  Sign up
-                </a>
-              </Link>
-            </p>
           </div>
         </div>
       </div>

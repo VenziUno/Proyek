@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function Todo({data}) {
+function Todo({ data }) {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [todoId, setTodoId] = useState("");
@@ -25,11 +25,17 @@ function Todo({data}) {
       url = `${process.env.NEXT_PUBLIC_API_URL}/api/todos/` + todoId;
       formData.append("_method", "PUT");
     }
-    axios.post(url, formData).then((response) => {
-      setTitle("");
-      fetchTodos();
-      setTodoId("");
-    });
+    axios
+      .post(url, formData, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjgzMjA4NDQwLCJleHAiOjE2ODMyMTIwNDAsIm5iZiI6MTY4MzIwODQ0MCwianRpIjoiVVZKd1NSdHN5TGlqUTlURCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eWvFvuHVNAIop_dAjdmpthaw4Sh4pUy3LA3c39QdX3I`,
+        },
+      })
+      .then((response) => {
+        setTitle("");
+        fetchTodos();
+        setTodoId("");
+      });
   };
 
   function editTodo(id) {
@@ -44,19 +50,29 @@ function Todo({data}) {
   function fetchTodos() {
     // setTodos(data)
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/api/todos`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/api/todos`, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjgzMjA4NDQwLCJleHAiOjE2ODMyMTIwNDAsIm5iZiI6MTY4MzIwODQ0MCwianRpIjoiVVZKd1NSdHN5TGlqUTlURCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eWvFvuHVNAIop_dAjdmpthaw4Sh4pUy3LA3c39QdX3I`,
+        },
+      })
       .then((response) => {
         setTodos(response.data);
       });
   }
 
   function deleteTodo(id) {
-    let params = {'_method':'delete'}
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/todos/`+id, params).then((response)=>{
-      setTitle("");
-      fetchTodos();
-      setTodoId("");
-    })
+    let params = { _method: "delete" };
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/todos/` + id, params ,{
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjgzMjA4NDQwLCJleHAiOjE2ODMyMTIwNDAsIm5iZiI6MTY4MzIwODQ0MCwianRpIjoiVVZKd1NSdHN5TGlqUTlURCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eWvFvuHVNAIop_dAjdmpthaw4Sh4pUy3LA3c39QdX3I`,
+        },
+      })
+      .then((response) => {
+        setTitle("");
+        fetchTodos();
+        setTodoId("");
+      });
   }
 
   return (
