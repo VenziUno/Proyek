@@ -3,14 +3,18 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
         // \App\Models\User::factory(10)->create();
 
@@ -19,9 +23,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Todo::create([
-            'title' => 'Test Todo',
-            'is_done' => 0,
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $this->call([
+            AuthorizationTypeSeeder::class,
         ]);
     }
 }
