@@ -30,7 +30,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user', [AuthController::class, 'user']);
+    Route::get('buildings', [BuildingController::class, 'index']);
+    Route::get('buildings/{id}', [BuildingController::class, 'show']);
+    Route::post('buildings', [BuildingController::class, 'store']);
+    Route::get('rooms', [RoomController::class, 'index']);
+    Route::get('rooms/{id}', [RoomController::class, 'show']);
+    Route::post('rooms', [RoomController::class, 'store']);
     Route::apiResource('todos', TodoController::class);
-    Route::apiResource('buildings', BuildingController::class);
-    Route::apiResource('rooms', RoomController::class);
 });

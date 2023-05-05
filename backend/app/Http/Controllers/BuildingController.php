@@ -21,15 +21,28 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Building::create([
+            'id' => $request->id,
+            'name' => $request->name,
+            'floor' => $request->floor,
+            'tall' => $request->tall,
+            'long' => $request->long,
+            'wide' => $request->wide,
+            'status' => $request->status,
+        ]);
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Success Add Building'
+        ],200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Building $building)
+    public function show(Building $building, $id)
     {
-        //
+        $building = Building::findOrFail($id);
+        return response()->json($building,200);
     }
 
     /**

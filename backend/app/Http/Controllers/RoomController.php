@@ -12,7 +12,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        $rooms = Room::with('buildings')->get();
+        return response()->json($rooms);
     }
 
     /**
@@ -20,15 +21,27 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Room::create([
+            'id' => $request->id,
+            'name' => $request->name,
+            'number_of_floor' => $request->number_of_floor,
+            'maximum_people' => $request->maximum_people,
+            'building_id' => $request->building_id,
+            'status' => $request->status,
+        ]);
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Success Add Room'
+        ],200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
+    public function show(Room $room,$id)
     {
-        //
+        $room = Room::findOrFail($id);
+        return response()->json($room,200);
     }
 
     /**
