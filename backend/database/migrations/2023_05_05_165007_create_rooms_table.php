@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
+            $table->unsignedInteger('number_of_floor');
             $table->unsignedInteger('maximum_people');
             $table->unsignedInteger('status');
             $table->timestamps();

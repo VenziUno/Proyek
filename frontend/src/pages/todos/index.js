@@ -16,7 +16,7 @@ function Todo({ data }) {
 
   const submitFrom = (e) => {
     e.preventDefault();
-
+    const token = sessionStorage.getItem("token");
     var formData = new FormData();
     formData.append("title", title);
     formData.append("is_done", 0);
@@ -28,7 +28,7 @@ function Todo({ data }) {
     axios
       .post(url, formData, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjgzMjA4NDQwLCJleHAiOjE2ODMyMTIwNDAsIm5iZiI6MTY4MzIwODQ0MCwianRpIjoiVVZKd1NSdHN5TGlqUTlURCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eWvFvuHVNAIop_dAjdmpthaw4Sh4pUy3LA3c39QdX3I`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
@@ -49,10 +49,11 @@ function Todo({ data }) {
 
   function fetchTodos() {
     // setTodos(data)
-    axios
+    const token = sessionStorage.getItem("token");
+    axios 
       .get(`${process.env.NEXT_PUBLIC_API_URL}/api/todos`, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjgzMjA4NDQwLCJleHAiOjE2ODMyMTIwNDAsIm5iZiI6MTY4MzIwODQ0MCwianRpIjoiVVZKd1NSdHN5TGlqUTlURCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eWvFvuHVNAIop_dAjdmpthaw4Sh4pUy3LA3c39QdX3I`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
@@ -62,10 +63,11 @@ function Todo({ data }) {
 
   function deleteTodo(id) {
     let params = { _method: "delete" };
+    const token = sessionStorage.getItem("token");
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/api/todos/` + id, params ,{
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjgzMjA4NDQwLCJleHAiOjE2ODMyMTIwNDAsIm5iZiI6MTY4MzIwODQ0MCwianRpIjoiVVZKd1NSdHN5TGlqUTlURCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eWvFvuHVNAIop_dAjdmpthaw4Sh4pUy3LA3c39QdX3I`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {

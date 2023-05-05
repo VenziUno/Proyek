@@ -12,8 +12,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $room = Room::with('building')->get();
-        return response()->json($room);
+        //
     }
 
     /**

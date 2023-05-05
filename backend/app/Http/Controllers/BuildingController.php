@@ -12,7 +12,6 @@ class BuildingController extends Controller
      */
     public function index()
     {
-        //
         $buildings = Building::with('rooms')->get();
         return response()->json($buildings);
     }

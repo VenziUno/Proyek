@@ -28,6 +28,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user', [AuthController::class, 'user']);
     Route::apiResource('todos', TodoController::class);
     Route::apiResource('buildings', BuildingController::class);
