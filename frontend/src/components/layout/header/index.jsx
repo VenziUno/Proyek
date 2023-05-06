@@ -9,7 +9,7 @@ const Header = () => {
         setShowProfileDropdown(!showProfileDropdown);
     };
   return (
-    <div className="flex flex-row justify-between items-center bg-primary-500 shadow rounded-lg px-6 w-full h-[100px] py-auto border-b border-neutral-2 shadow-md-b">
+    <div className="flex flex-row justify-between items-center bg-primary-500 shadow rounded-lg px-6 w-full h-[100px] py-auto">
       <div className="flex flex-col space-y-2">
         <div className="font-bold text-3xl">Dashboard</div>
           <div className="font-medium text-sm">Hello Pendi!!!</div>

@@ -11,9 +11,11 @@ const InputFields = ({
   setValue,
   placeholder,
   disabled,
-  label,
   style,
   icon,
+  min,
+  max,
+  title,
 }) => {
   switch (disabled) {
     case true:
@@ -21,7 +23,7 @@ const InputFields = ({
       placeholder = null;
       break;
   }
-  
+
   const [isActive, setIsActive] = useState(false);
 
   return icon ? (
@@ -38,7 +40,7 @@ const InputFields = ({
                 onChange={setValue}
                 placeholder={placeholder}
                 disabled={disabled}
-                label={label || placeholder}
+                title={title}
                 className={`${style} outline-none`}
               />
               <button className="cursor-pointer px-2">
@@ -53,7 +55,7 @@ const InputFields = ({
                 onChange={setValue}
                 placeholder={placeholder}
                 disabled={disabled}
-                label={label || placeholder}
+                title={title}
                 className={`${style} outline-none`}
               />
               <button className="cursor-pointer px-2">
@@ -74,7 +76,7 @@ const InputFields = ({
             onChange={setValue}
             placeholder={placeholder}
             disabled={disabled}
-            label={label || placeholder}
+            title={title}
             className={`${style} outline-none`}
           />
           <button>
@@ -90,8 +92,10 @@ const InputFields = ({
       onChange={setValue}
       placeholder={placeholder}
       disabled={disabled}
-      label={label || placeholder}
       className={`flex border border-slate-400 bg-white shadow rounded px-2 text-base py-2 outline-none ${style}`}
+      min={min}
+      max={max}
+      title={title}
     />
   );
 };

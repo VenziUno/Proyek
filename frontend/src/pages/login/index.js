@@ -25,6 +25,15 @@ export default function Login() {
       })
       .catch((error) => console.log(error));
   };
+  
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      // Jika ada informasi login yang tersimpan, hapus session storage
+      sessionStorage.clear();
+      // Redirect ke halaman login
+      window.location.href = "/login";
+    }
+  });
 
   return (
     <div className="bg-primary-base">

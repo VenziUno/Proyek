@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        $this->call([
-            AuthorizationTypeSeeder::class,
-        ]);
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // $this->call([
+
+        // ]);
     }
 }
