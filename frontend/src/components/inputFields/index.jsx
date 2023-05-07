@@ -13,6 +13,7 @@ const InputFields = ({
   disabled,
   style,
   icon,
+  iconStyle,
   min,
   max,
   title,
@@ -24,11 +25,20 @@ const InputFields = ({
       break;
   }
 
+  switch (icon){
+    case 'search':
+      iconStyle = 'rounded-full pl-4 pr-2'
+      break;
+    default:
+      iconStyle ='rounded px-2'
+      break;
+  }
+
   const [isActive, setIsActive] = useState(false);
 
   return icon ? (
     <div
-      className={`flex border border-slate-400 bg-white shadow rounded px-2 text-base py-2 outline-none ${style}`}
+      className={`flex border border-slate-400 bg-white shadow text-base py-2 outline-none ${style} ${iconStyle}`}
     >
       {icon == "eye" ? (
         <>
@@ -79,7 +89,7 @@ const InputFields = ({
             title={title}
             className={`${style} outline-none`}
           />
-          <button>
+          <button className="px-1 hover:rounded-full hover:bg-slate-100">
             <AiOutlineSearch />
           </button>
         </>

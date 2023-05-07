@@ -1,7 +1,7 @@
 import Layout from '@/components/layout'
 import React from 'react'
 
-export default function Customer() {
+export default function Room() {
   return (
     <Layout></Layout>
   )
