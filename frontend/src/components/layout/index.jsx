@@ -52,14 +52,14 @@ const Layout = ({ children }) => {
   ]);
 
   return (
-    <div className="w-full overflow-hidden bg-slate-100">
+    <div className="w-full overflow-hidden">
       <div className="flex flex-row gap-4 p-4 w-full ">
         <Sidebar />
         <div className="flex flex-col flex-grow h-full  ">
           <Header />
           <div className="w-full h-full pt-5 ">
             <div
-              className="bg-blue-200 rounded-lg shadow-sm scrollbar-thin scrollbar-thumb-primary-500 scrollbar-thumb-rounded overflow-y-auto"
+              className="bg-white rounded-lg shadow scrollbar-thin scrollbar-thumb-primary-500 scrollbar-thumb-rounded overflow-y-auto"
               style={{ height: "calc(100vh - 152px)" }}
             >
               {children}

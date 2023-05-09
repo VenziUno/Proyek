@@ -35,7 +35,7 @@ const Tabel = ({
   const location = useRouter();
   const path = location.route;
   return (
-    <div className="p-4 h-full">
+    <div className="p-4 h-full w-full">
       <TableTopNav 
         path={path}
         title={title} 
@@ -44,7 +44,7 @@ const Tabel = ({
         search={search}
         list={list}
       />
-      <table className="border-separate border-spacing-y-3 ">
+      <table className="border-separate border-spacing-y-3 w-full">
         <TableHead
           table_head_formatted={table_head_formatted}
           actionView={actionView}

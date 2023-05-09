@@ -15,7 +15,7 @@ const TableTopNav = ({ path, title, buttonAdd, buttonPrint, search, list }) => {
           <div className="flex flex-row items-center gap-2">
           {buttonAdd && (
               <Button action="info" link={path + "/add"}>
-                Add
+                Create
               </Button>
             )}
             {buttonPrint && <Button link={path + "/print"}>Print</Button>}

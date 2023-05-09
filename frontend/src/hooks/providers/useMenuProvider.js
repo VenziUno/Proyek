@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   RiArticleLine,
   RiDashboardLine,
-  RiFolderKeyholeFill,
 } from "react-icons/ri";
 
 export const useMenuProvider = () => {
@@ -26,14 +25,14 @@ export const useMenuProvider = () => {
             id: 15,
             route: "/master/building",
             name: "Building",
-            title: "Building",
+            title: "Building List",
             detail: "See building details here!",
           },
           {
             id: 16,
             route: "/master/room",
             name: "Room",
-            title: "Room",
+            title: "Room List",
             detail: "See room details here!",
           },
         ],
