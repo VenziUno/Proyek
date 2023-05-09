@@ -3,7 +3,7 @@ import { AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineSwapLeft } from "re
 
 const TableBottomNav = () => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 mt-4">
       <div className="border px-4 py-2 rounded flex gap-2 items-center">
         <AiOutlineDoubleLeft/>
         <div>Back</div>

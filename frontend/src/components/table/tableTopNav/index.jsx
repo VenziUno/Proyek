@@ -1,25 +1,26 @@
 import Button from "@/components/button";
 import InputFields from "@/components/inputFields";
+import Selects from "@/components/selects";
 import React from "react";
 
-const TableTopNav = ({
-  path,
-  Title,
-  ButtonAdd,
-  ButtonArchive,
-  ButtonActive,
-  ButtonPrint,
-  Search,
-}) => {
+const TableTopNav = ({ path, title, buttonAdd, buttonPrint, search, list }) => {
   return (
-    <div className="px-4 py-4 font-semibold border-b text-3xl flex justify-between items-center ">
-      <div>{Title || ""}</div>
-      <div className="flex flex-row items-center gap-2">
-        {Search && <InputFields icon="search"></InputFields>}
-        {ButtonAdd && <Button action='info' link={path + "/add"}>Add</Button>}
-        {ButtonActive && <Button link={path + "/archive"}>Archive</Button>}
-        {ButtonArchive && <Button link={path + "/unarchive"}>Active</Button>}
-        {ButtonPrint && <Button link={path + "/print"}>Print</Button>}
+    <div className="py-2 space-y-2 mb-3 ">
+      <div>
+        <div className="flex justify-between items-center ">
+          <div className="flex flex-row items-center gap-2">
+            {search && <InputFields icon="search"></InputFields>}
+            {list && <Selects list={list} size="w-full" description="Status" />}
+          </div>
+          <div className="flex flex-row items-center gap-2">
+          {buttonAdd && (
+              <Button action="info" link={path + "/add"}>
+                Add
+              </Button>
+            )}
+            {buttonPrint && <Button link={path + "/print"}>Print</Button>}
+          </div>
+        </div>
       </div>
     </div>
   );

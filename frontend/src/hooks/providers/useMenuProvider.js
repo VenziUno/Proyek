@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
-  RiDashboardFill,
+  RiArticleLine,
+  RiDashboardLine,
   RiFolderKeyholeFill,
 } from "react-icons/ri";
 
@@ -11,14 +12,15 @@ export const useMenuProvider = () => {
         id: 1,
         route: "/dashboard",
         name: "Dashboard",
-        title: "Hello !",
-        icon: <RiDashboardFill size={20} />,
+        title: "Dashboard",
+        detail: "Hello !",
+        icon: <RiDashboardLine />,
       },
       {
-        route: "/data_master",
+        route: "/master",
         name: "Master Data",
-        title: "Master DAta",
-        icon: <RiFolderKeyholeFill size={18} />,
+        title: "Master Data",
+        icon: <RiArticleLine />,
         subMenu: [
           {
             id: 15,
@@ -45,7 +47,7 @@ export const useMenuProvider = () => {
         detail: "Update your photo and details here!",
       },
       {
-        route: "/password",
+        route: "/resetPassword",
         name: "Password",
         title: "Change Password",
         detail: "Update your Password here!",
@@ -59,7 +61,7 @@ export const useMenuProvider = () => {
 
   let header;
   const findSelectedMenuInMain = configMenu.mainMenu.find(
-    (i) => selectedMenu === i.route
+    (i) => selectedMenu  === i.route
   );
   if (findSelectedMenuInMain) {
     header = {

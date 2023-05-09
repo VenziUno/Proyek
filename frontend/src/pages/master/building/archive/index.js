@@ -2,7 +2,7 @@ import Layout from "@/components/layout";
 import Table from "@/components/table";
 import React from "react";
 
-export default function Building() {
+export default function ArchiveBuilding() {
   const data = [
     {
       building_id: "B001",
@@ -48,15 +48,10 @@ export default function Building() {
   return (
     <Layout>
       <Table
-        title="Building List"
+        Title="List of buildings"
         data={data}
-        buttonAdd
-        search
-        list={[
-          {label:'Semua', value: ""},
-          {label:'Aktif', value: 1},
-          {label:'Tidak Aktif', value: 0},
-        ]}
+        ButtonAdd
+        Search
         actionEdit
         actionDelete
       />

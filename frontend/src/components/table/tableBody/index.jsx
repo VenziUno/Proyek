@@ -1,11 +1,6 @@
 import Button from "@/components/button";
 import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
-import {
-  HiOutlineArchiveBoxArrowDown,
-  HiOutlineArchiveBoxXMark,
-} from "react-icons/hi2";
-
 const TableBody = ({
   path,
   data,
@@ -13,10 +8,7 @@ const TableBody = ({
   actionView,
   actionDelete,
   actionEdit,
-  actionArchive,
-  actionUnArchive,
 }) => {
-  console.log(data)
   return (
     <tbody>
       {data.map((item, index) => {
@@ -45,16 +37,6 @@ const TableBody = ({
                 {actionDelete && (
                   <Button action="danger">
                     <AiOutlineDelete />
-                  </Button>
-                )}
-                {actionArchive && (
-                  <Button action="warning">
-                    <HiOutlineArchiveBoxArrowDown />
-                  </Button>
-                )}
-                {actionUnArchive && (
-                  <Button action="warning">
-                    <HiOutlineArchiveBoxXMark />
                   </Button>
                 )}
               </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
-import Button from "../Buttons";
+import Button from "../button";
 
 const Selects = ({
   list,
@@ -27,10 +27,10 @@ const Selects = ({
         className={
           disable
             ? `bg-gray-200 px-4 py-2 text-xs flex items-center justify-between rounded border shadow capitalize ${size}`
-            : `bg-white px-4 py-2 text-xs flex items-center justify-between rounded border shadow capitalize ${size}`
+            : `bg-white w-full min-w-full space-x-4 border-slate-400 px-2 max-w-96 py-2 text-base flex items-center justify-between rounded border shadow capitalize ${size}`
           }
       >
-        {selected.label ? selected.label || value : description}
+        <div>{selected.label ? selected.label || value : description}</div>
         {disable ? (
           <BiChevronDown />
         ) : (
@@ -45,11 +45,11 @@ const Selects = ({
             className={`bg-white overflow-y-auto rounded shadow
         ${
           open
-            ? `max-h-[250px] mt-2 mb-2 shadow border absolute z-50 ${size}`
+            ? `max-h-[250px] space-y-2 mt-2 py-2 shadow border border-slate-400 absolute z-50 ${size}`
             : "hidden"
         }`}
           >
-            {search ? (
+            {search && (
               <div className="flex  rounded-full border m-2 px-2 text-xs capitalize sticky top-2 bg-white bg-opacity-80 opacity-90">
                 <input
                   value={inputValue}
@@ -62,13 +62,11 @@ const Selects = ({
                   <FaSearch />
                 </Button>
               </div>
-            ) : (
-              <></>
             )}
             {list.map((item) => (
               <li
                 key={item.label}
-                className={`rounded m-2 p-2 text-xs hover:bg-gray-200 capitalize 
+                className={`px-2 py-2 text-base hover:bg-slate-400 capitalize 
             ${item.label === selected.label && "bg-gray-200"}
             ${
               search

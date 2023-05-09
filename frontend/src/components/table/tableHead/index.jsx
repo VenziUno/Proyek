@@ -5,8 +5,6 @@ const TableHead = ({
   actionView,
   actionDelete,
   actionEdit,
-  actionArchive,
-  actionUnArchive,
 }) => {
   return (
     <thead className="uppercase">
@@ -22,9 +20,7 @@ const TableHead = ({
         <td className="p-4 border-y border-r rounded-r-lg text-center">
           {(actionView ||
             actionDelete ||
-            actionEdit ||
-            actionArchive ||
-            actionUnArchive) &&
+            actionEdit) &&
             "Action"}
         </td>
       </tr>
