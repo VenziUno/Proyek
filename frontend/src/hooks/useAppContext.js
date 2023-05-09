@@ -8,7 +8,7 @@ export const AppProvider = ({ children }) => {
   return (
     <appContext.Provider
       value={{
-        menu,
+        menu
       }}
     >
       {children}

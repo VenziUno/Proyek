@@ -16,6 +16,7 @@ const TableBody = ({
   actionArchive,
   actionUnArchive,
 }) => {
+  console.log(data)
   return (
     <tbody>
       {data.map((item, index) => {

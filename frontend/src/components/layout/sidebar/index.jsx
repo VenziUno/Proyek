@@ -1,18 +1,21 @@
 import Image from "next/image";
-import React, { useState } from "react";
-import {
-  AiOutlineDatabase,
-  AiOutlineDown,
-  AiOutlineHome,
-  AiOutlineLogout,
-  AiOutlineSetting,
-  AiOutlineTeam,
-  AiOutlineUp,
-} from "react-icons/ai";
-import { HiOutlineBuildingStorefront } from "react-icons/hi2";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "@/hooks/useAppContext";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import Link from "next/link";
 
 const Sidebar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
+  const [menus, setMenus] = useState([]);
+
+  const { menu } = useAppContext();
+  const { configMenu, selectedMenu, selectedSubmenu, setSelectedMenu } = menu;
+
+  useEffect(() => {
+    setMenus(configMenu.mainMenu);
+  });
+
+  // console.log(menus);
 
   const handleShowDropDownMenu = () => {
     setDropDownMenu(!dropDownMenu);
@@ -32,103 +35,50 @@ const Sidebar = () => {
             width={250}
             height={250}
           />
-          <div>L O G O</div>
+          <div>LOGO</div>
         </div>
         <div className="space-y-2">
-          <div className="outline-none relative">
-            <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineHome />
+          {menus.map((menu, index) => {
+            return (
+              <div className="outline-none relative" key={index}>
+                <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
+                  {menu.subMenu ? (
+                    <>
+                      <div className="flex space-x-2 items-center">
+                        <div>{menu.icon}</div>
+                        <div>{menu.name}</div>
+                      </div>
+                      <button onClick={handleShowDropDownMenu}>
+                        {dropDownMenu ? <AiOutlineDown /> : <AiOutlineUp />}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex space-x-2 items-center">
+                        <div>{menu.icon}</div>
+                        <div>
+                          <Link href={menu.route}>{menu.name}</Link>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
-                <div>Dashboard</div>
-              </div>
-              {/* <div>
-                <AiOutlineDown></AiOutlineDown>
-              </div> */}
-            </div>
-            {/* <div className="h-36 px-6 p2-4 w-full  bg-primary-300 ">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineHome></AiOutlineHome>
-                </div>
-                <div>Dashboard</div>
-              </div>
-            </div> */}
-          </div>
-          <div className="outline-none ">
-            <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineDatabase />
-                </div>
-                <div>Master</div>
-              </div>
-              <button onClick={handleShowDropDownMenu}>
-                {dropDownMenu ? <AiOutlineDown /> : <AiOutlineUp />}
-              </button>
-            </div>
-            {dropDownMenu ? (
-              <div className="h-fit  w-full mt-1 bg-primary-200 rounded py-2">
-                <div className="flex space-x-2 items-center px-6 py-2 hover:bg-primary-800">
-                  <div>
-                    <HiOutlineBuildingStorefront />
+                {menu.subMenu && dropDownMenu && (
+                  <div className="h-fit  w-full mt-1 bg-primary-200 rounded py-2">
+                    {menu.subMenu.map((submenu, index) => {
+                      return (
+                        <Link href={submenu.route}>
+                          <div className="flex space-x-2 items-center px-9 py-2 hover:bg-primary-800">
+                            <div>{submenu.name}</div>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
-                  <div>Suppier</div>
-                </div>
-                <div className="flex space-x-2 items-center px-6 py-2 hover:bg-primary-800">
-                  <div>
-                    <AiOutlineTeam />
-                  </div>
-                  <div>Pelanggan</div>
-                </div>
+                )}
               </div>
-            ) : (
-              <></>
-            )}
-          </div>
-          <div className="outline-none relative">
-            <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineSetting />
-                </div>
-                <div>Settings</div>
-              </div>
-              {/* <div>
-                <AiOutlineDown></AiOutlineDown>
-              </div> */}
-            </div>
-            {/* <div className="h-36 px-6 p2-4 w-full  bg-primary-300 ">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineHome></AiOutlineHome>
-                </div>
-                <div>Dashboard</div>
-              </div>
-            </div> */}
-          </div>
-          <div className="outline-none relative">
-            <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineLogout />
-                </div>
-                <div>Log Out</div>
-              </div>
-              {/* <div>
-                <AiOutlineDown></AiOutlineDown>
-              </div> */}
-            </div>
-            {/* <div className="h-36 px-6 p2-4 w-full  bg-primary-300 ">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineHome></AiOutlineHome>
-                </div>
-                <div>Dashboard</div>
-              </div>
-            </div> */}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

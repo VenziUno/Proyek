@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import { useRouter } from "next/router";
+// import { useAppContext } from "@/hooks/useAppContext";
 
 const Layout = ({ children }) => {
   const router = useRouter();
+  // const {menu} = useAppContext();
 
   useEffect(() => {
     const session = sessionStorage.getItem("token");
@@ -12,6 +14,42 @@ const Layout = ({ children }) => {
       router.push("/login");
     }
   }, []);
+
+  // const { setSelectedMenu, setSelectedSubmenu, setSelectedActionmenu } = menu;
+  // const path = router.route;
+  // const pathMenu = "/" + path.split("/")[1];
+  // const pathSubMenu = "/" + path.split("/")[2];
+  // const pathAction = "/" + path.split("/")[3];
+
+  // useEffect(() => {
+  //   setSelectedMenu(pathMenu);
+  //   setSelectedSubmenu("");
+  //   setSelectedActionmenu("");
+  //   if (pathSubMenu === "/undefined") {
+  //     setSelectedSubmenu("");
+  //   } else if (
+  //     pathSubMenu === "/add" ||
+  //     pathSubMenu === "/edit" ||
+  //     pathSubMenu === "/archive" ||
+  //     pathSubMenu === "/detail"
+  //   ) {
+  //     setSelectedActionmenu(pathMenu + pathSubMenu);
+  //   } else {
+  //     setSelectedSubmenu(pathMenu + pathSubMenu);
+  //     if (pathAction === "/undefined") {
+  //       setSelectedActionmenu("");
+  //     } else {
+  //       setSelectedActionmenu(pathMenu + pathSubMenu + pathAction);
+  //     }
+  //   }
+  // }, [
+  //   pathAction,
+  //   pathMenu,
+  //   pathSubMenu,
+  //   setSelectedActionmenu,
+  //   setSelectedMenu,
+  //   setSelectedSubmenu,
+  // ]);
 
   return (
     <div className="w-full overflow-hidden bg-slate-100">
