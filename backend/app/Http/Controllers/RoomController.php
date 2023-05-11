@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
@@ -12,7 +13,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = Room::with('buildings')->get();
+        $rooms = Room::all();
         return response()->json($rooms);
     }
 
@@ -21,7 +22,21 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        Room::create([
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|unique:buildings',
+            'name' => 'required',
+            'number_of_floor' => 'required',
+            'maximum_people' => 'required',
+            'building_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $room = Room::create([
             'id' => $request->id,
             'name' => $request->name,
             'number_of_floor' => $request->number_of_floor,
@@ -29,10 +44,18 @@ class RoomController extends Controller
             'building_id' => $request->building_id,
             'status' => $request->status,
         ]);
+        if ($room) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Success Add Building',
+                'user'    => $room,
+            ], 201);
+        }
+
         return response()->json([
-            'status' => 'Success',
-            'message' => 'Success Add Room'
-        ],200);
+            'success' => false,
+            "message" => "Registration failed. Please try again later."
+        ], 409);
     }
 
     /**
@@ -47,16 +70,52 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, Room $room, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|unique:buildings',
+            'name' => 'required',
+            'number_of_floor' => 'required',
+            'maximum_people' => 'required',
+            'building_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $room = Room::find($id)->update([
+            'id' => $request->id,
+            'name' => $request->name,
+            'number_of_floor' => $request->number_of_floor,
+            'maximum_people' => $request->maximum_people,
+            'building_id' => $request->building_id,
+            'status' => $request->status,
+        ]);
+        if ($room) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Success Add Building',
+                'user'    => $room,
+            ], 201);
+        }
+
+        return response()->json([
+            'success' => false,
+            "message" => "Registration failed. Please try again later."
+        ], 409);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Room $room)
+    public function destroy(Room $room,$id)
     {
-        //
+        Room::find($id)->delete();
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Success Add Building'
+        ],200);
     }
 }
