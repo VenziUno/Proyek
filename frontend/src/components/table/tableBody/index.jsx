@@ -1,6 +1,8 @@
 import Button from "@/components/button";
 import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
+import { useRouter } from "next/router";
+import { useAppContext } from "@/hooks/useAppContext";
 const TableBody = ({
   path,
   data,
@@ -9,6 +11,16 @@ const TableBody = ({
   actionDelete,
   actionEdit,
 }) => {
+  const location = useRouter();
+  const { user } = useAppContext();
+  const { setDeleteItem } = user;
+
+  const handleDelete = (item) => {
+    const baseUrl = location.components[path].props.pageProps.baseUrl;
+    const url = `${baseUrl}/${item.id}`;
+    setDeleteItem({ show: true, url: url });
+  };
+
   return (
     <tbody>
       {data.map((item, index) => {
@@ -30,12 +42,12 @@ const TableBody = ({
                   </Button>
                 )}
                 {actionEdit && (
-                  <Button link={path + "/edit/"} action="warning">
+                  <Button link={path + "/edit/"+ item.id} action="warning">
                     <AiOutlineEdit />
                   </Button>
                 )}
                 {actionDelete && (
-                  <Button action="danger">
+                  <Button action="danger" handleClick={() => handleDelete(item)}>
                     <AiOutlineDelete />
                   </Button>
                 )}

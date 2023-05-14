@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Building;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class BuildingController extends Controller
 {
@@ -13,7 +14,16 @@ class BuildingController extends Controller
      */
     public function index()
     {
-        $buildings = Building::all();
+        $buildings = DB::table('buildings')->paginate(5);
+        return response()->json($buildings);
+    }
+
+    /**
+     * Display a listing of the resource With Room.
+     */
+    public function getBuilding()
+    {
+        $buildings = Building::with('rooms')->get();
         return response()->json($buildings);
     }
 

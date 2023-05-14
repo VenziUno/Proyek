@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
@@ -13,7 +14,16 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = Room::all();
+        $rooms = $buildings = DB::table('rooms')->paginate(5);
+        return response()->json($rooms);
+    }
+
+    /**
+     * Display a listing of the resource withroom.
+     */
+    public function getRoom()
+    {
+        $rooms = Room::with('buildings')->get();
         return response()->json($rooms);
     }
 

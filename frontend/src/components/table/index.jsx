@@ -4,6 +4,7 @@ import TableHead from "./tableHead";
 import TableBody from "./tableBody";
 import TableBottomNav from "./tableBottomNav";
 import { useRouter } from "next/router";
+import { HiOutlineXCircle } from "react-icons/hi2";
 
 const Tabel = ({
   title,
@@ -15,7 +16,9 @@ const Tabel = ({
   actionDelete,
   actionEdit,
   actionView,
+  pagination,
 }) => {
+
   let tableHead = [];
   let table_head_formatted = [];
   if (data && data.length > 0) {
@@ -32,8 +35,10 @@ const Tabel = ({
       }
     });
   }
+
   const location = useRouter();
   const path = location.route;
+  
   return (
     <div className="p-4 h-full w-full">
       <TableTopNav 
@@ -44,6 +49,7 @@ const Tabel = ({
         search={search}
         list={list}
       />
+      {data && data.length > 0 ? (
       <table className="border-separate border-spacing-y-3 w-full">
         <TableHead
           table_head_formatted={table_head_formatted}
@@ -60,7 +66,15 @@ const Tabel = ({
           actionDelete={actionDelete}
         />
       </table>
-      <TableBottomNav />
+      ):(
+        <div className="flex flex-col justify-center items-center gap-2 h-80">
+          <HiOutlineXCircle size={40} className="text-primary-400" />
+          <span className="text-sm font-medium text-primary-400">
+            No data found
+          </span>
+        </div>
+      )}
+      {pagination && <TableBottomNav pagination={pagination} />}
     </div>
   );
 };
