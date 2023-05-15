@@ -1,34 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
-const Notifikasi = ({ action, style }) => {
-  switch (action) {
-    case "info":
+const Notifikasi = ({ type, style, title, description }) => {
+  switch (type) {
+    case "Info":
       style = "bg-info-base";
+      title = "Info Alert !";
       break;
-    case "success":
+    case "Success":
       style = "bg-success-base";
+      title = "Success Alert !";
       break;
-    case "warning":
+    case "Warning":
       style = "bg-warning-base";
+      title = "Warning Alert !";
       break;
-    case "danger":
+    case "Danger":
       style = "bg-danger-base";
+      title = "Danger Alert !";
       break;
   }
 
   return (
     <div
-      className={`w-96 h-auto max-h-36 ${style} rounded-lg shadow absolute top-4 right-4`}
+      className={`w-fit z-10 h-auto max-h-36 ${style} rounded-lg shadow absolute top-4 right-4`}
     >
-      <div className="p-4">
-        <div className={`capitalize flex space-x-2 `}>
+      <div className="px-4 py-2">
+        <div className={`capitalize flex space-x-5 items-center `}>
           <div>
             <AiOutlineInfoCircle size="28" className="mt-1" />
           </div>
           <div className="whitespace-normal ">
-            <div className="text-2xl font-bold flex">{action}</div>
-            <div className="">message</div>
+            <div className="text-2xl font-bold flex">{title}</div>
+            <div className="">{description}</div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 const Button = ({ children, action, title, style, link, handleClick,width}) => {
   switch (action) {
     case "light":
-      style = "hover:underline";
+      style = "hover:underline border border-slate-400 rounded";
       break;
     case "info":
       style = "bg-info-base hover:bg-info-hover shadow rounded";

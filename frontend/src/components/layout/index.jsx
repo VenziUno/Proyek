@@ -3,10 +3,15 @@ import Header from "./header";
 import Sidebar from "./sidebar";
 import { useRouter } from "next/router";
 import { useAppContext } from "@/hooks/useAppContext";
+import CardNotif from "../card/cardNotif";
+import Notifikasi from "../notification";
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const {menu} = useAppContext();
+  const {menu,user,basic} = useAppContext();
+  const { showLogout, deleteItem } = user;
+  const { setSelectedMenu, setSelectedSubmenu, setSelectedActionmenu } = menu;
+  const { notification, handleShowNotification } = basic;
 
   useEffect(() => {
     const session = sessionStorage.getItem("token");
@@ -15,7 +20,6 @@ const Layout = ({ children }) => {
     }
   }, []);
 
-  const { setSelectedMenu, setSelectedSubmenu, setSelectedActionmenu } = menu;
   const path = router.route;
   const pathMenu = "/" + path.split("/")[1];
   const pathSubMenu = "/" + path.split("/")[2];
@@ -51,8 +55,26 @@ const Layout = ({ children }) => {
     setSelectedSubmenu,
   ]);
 
+  useEffect(() => {
+    if (notification.show) {
+      handleShowNotification();
+    }
+  }, [handleShowNotification, notification]);
+
   return (
     <div className="w-full overflow-hidden">
+      {notification.show && (
+        <Notifikasi
+          type={notification.type}
+          description={notification.message}
+        />
+      )}
+      {deleteItem.show && (
+        <CardNotif
+          type="delete"
+          title="Are you sure you want to Delete this data?"
+        />
+      )}
       <div className="flex flex-row gap-4 p-4 w-full ">
         <Sidebar />
         <div className="flex flex-col flex-grow h-full  ">

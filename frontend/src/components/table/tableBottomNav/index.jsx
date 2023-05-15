@@ -28,7 +28,7 @@ const TableBottomNav = ({ pagination }) => {
           href={`${route}?page=${
             current_page === 1 ? current_page : current_page - 1
           }`}
-          className={`font-medium px-1.5 py-1.5 w-8 h-full flex justify-center items-center rounded bg-gray-100 border border-gray-200 hover:bg-primary-100 ${
+          className={`font-medium px-1.5 py-1.5 w-8 h-full flex justify-center items-center rounded bg-gray-100 border border-slate-400 hover:bg-primary-100 ${
             current_page === 1 ? "cursor-not-allowed" : ""
           }`}
         >
@@ -39,7 +39,7 @@ const TableBottomNav = ({ pagination }) => {
           return (
             <Link
               href={`${route}?page=${i}`}
-              className={`font-medium px-1.5 py-1.5 w-8 h-full flex justify-center items-center rounded ${
+              className={`font-medium px-1.5 py-1.5 w-8 h-full flex justify-center items-center rounded border-slate-400 ${
                 current_page === i
                   ? "bg-primary-300 border border-primary-300 text-white"
                   : "bg-gray-100 border border-gray-200 hover:bg-primary-100"
@@ -56,7 +56,7 @@ const TableBottomNav = ({ pagination }) => {
           href={`${route}?page=${
             current_page === last_page ? last_page : current_page + 1
           }`}
-          className={`font-medium px-1.5 py-1.5 w-8 h-full flex justify-center items-center rounded bg-gray-100 border border-gray-200 hover:bg-primary-100 ${
+          className={`font-medium px-1.5 py-1.5 w-8 h-full flex justify-center items-center rounded bg-gray-100 border border-slate-400 hover:bg-primary-100 ${
             current_page === last_page ? "cursor-not-allowed" : ""
           }`}
         >

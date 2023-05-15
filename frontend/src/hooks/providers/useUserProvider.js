@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const useUserProvider = () => {
-  const [user_info, setUserInfo] = useState(
+  const [userInfo, setUserInfo] = useState(
     {
       id: null,
       name: "",
@@ -18,7 +18,8 @@ export const useUserProvider = () => {
   });
 
   return {
-    user_info,
+    userInfo,
+    setUserInfo,
     showLogout,
     setShowLogout,
     deleteItem,

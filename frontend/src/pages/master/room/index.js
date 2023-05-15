@@ -21,7 +21,6 @@ const Room = ({ page }) => {
 
   useEffect(() => {
     if (res) {
-      console.log(res)
       const data = res.data.map((room) => {
         const arr = Object.entries(room);
         const filterArr = arr.filter(

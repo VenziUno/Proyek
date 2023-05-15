@@ -128,7 +128,7 @@ class BuildingController extends Controller
         if ($building) {
             return response()->json([
                 'success' => true,
-                'message' => "Edit",
+                'message' => "Success Edit Building",
                 'user'    => $building,
             ], 201);
         }
@@ -146,8 +146,8 @@ class BuildingController extends Controller
     {
         Building::find($id)->delete();
         return response()->json([
-            'status' => 'Success',
-            'message' => 'Success Add Building'
+            'status' => true,
+            'message' => 'Success Delete Building'
         ],200);
     }
 }

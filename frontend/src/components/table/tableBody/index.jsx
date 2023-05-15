@@ -26,15 +26,15 @@ const TableBody = ({
       {data.map((item, index) => {
         return (
           <tr className="border rounded" key={index}>
-            <td className="p-4 border-y border-l rounded-l-lg text-center">
+            <td className="p-4 border-y border-l rounded-l-lg text-center border-slate-400">
               {index + 1}
             </td>
             {tableHead.map((head) => (
-              <td key={"item" + head + index} className="p-4 border-y">
+              <td key={"item" + head + index} className="p-4 border-y border-slate-400">
                 {item[head]}
               </td>
             ))}
-            <td className="border-y border-r rounded-r-lg px-2">
+            <td className="border-y border-r rounded-r-lg px-2 border-slate-400">
               <div className="flex gap-2 justify-center">
                 {actionView && (
                   <Button link={path + "/detail"} action="info">

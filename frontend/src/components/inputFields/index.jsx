@@ -13,14 +13,13 @@ const InputFields = ({
   disabled,
   style,
   icon,
-  iconStyle,
   min,
   max,
   title,
 }) => {
   switch (disabled) {
     case true:
-      style = "font-3xl bg-slate-300 ";
+      style = "font-3xl bg-slate-300 w-full";
       placeholder = null;
       break;
   }
@@ -36,6 +35,7 @@ const InputFields = ({
           {isActive ? (
             <>
               <input
+                autoComplete="off"
                 type="text"
                 value={value}
                 onChange={setValue}
@@ -51,6 +51,7 @@ const InputFields = ({
           ) : (
             <>
               <input
+                autoComplete="off"
                 type={type}
                 value={value}
                 onChange={setValue}
@@ -75,6 +76,7 @@ const InputFields = ({
             <AiOutlineSearch />
           </button>
           <input
+            autoComplete="off"
             type={type}
             value={value}
             onChange={setValue}
@@ -88,6 +90,7 @@ const InputFields = ({
     </div>
   ) : (
     <input
+      autoComplete="off"
       type={type}
       value={value}
       onChange={setValue}

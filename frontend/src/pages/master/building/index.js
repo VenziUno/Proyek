@@ -5,7 +5,7 @@ import { useAppContext } from "@/hooks/useAppContext";
 import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
 
-const Building = ({ page }) => {
+export default function Building ({ page }) {
   const { basic } = useAppContext();
   const { search, move, setMove, route } = basic;
   const location = useRouter();
@@ -19,14 +19,20 @@ const Building = ({ page }) => {
     last_page: "",
   });
 
+  const list = [
+    { label: "Semua", value: "" },
+    { label: "Aktif", value: 1 },
+    { label: "Tidak Aktif", value: 0 },
+  ]
+
   useEffect(() => {
     if (res) {
       const data = res.data.map((gedung) => {
         const arr = Object.entries(gedung);
-        const filterArr = arr.filter(
-          ([key, value]) => key !== "status" && typeof value !== "object"
-        );
-        const newObj = Object.fromEntries(filterArr);
+        // const filterArr = arr.filter(
+        //   ([key, value]) => key !== "status" && typeof value !== "object"
+        // );
+        const newObj = Object.fromEntries(arr);
         return newObj;
       });
       setDataTableGedung(data);
@@ -54,11 +60,7 @@ const Building = ({ page }) => {
         pagination={dataPagination}
         buttonAdd
         search
-        list={[
-          { label: "Semua", value: "" },
-          { label: "Aktif", value: 1 },
-          { label: "Tidak Aktif", value: 0 },
-        ]}
+        list={list}
         actionEdit
         actionDelete
       />
@@ -71,5 +73,3 @@ export async function getServerSideProps(ctx) {
   const baseUrl = `${process.env.API_URL}/api/building`;
   return { props: { page, baseUrl } };
 }
-
-export default Building;

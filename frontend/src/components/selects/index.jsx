@@ -6,7 +6,7 @@ import Button from "../button";
 const Selects = ({
   list,
   size,
-  description,
+  placeholder,
   handleChange,
   value,
   search,
@@ -30,7 +30,7 @@ const Selects = ({
             : `bg-white w-full min-w-full space-x-4 border-slate-400 px-2 max-w-96 py-2 text-base flex items-center justify-between rounded border shadow capitalize ${size}`
           }
       >
-        <div>{selected.label ? selected.label || value : description}</div>
+        <div>{selected.label ? selected.label || value : placeholder}</div>
         {disable ? (
           <BiChevronDown />
         ) : (
