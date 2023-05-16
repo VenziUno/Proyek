@@ -18,7 +18,6 @@ const Tabel = ({
   actionView,
   pagination,
 }) => {
-
   let tableHead = [];
   let table_head_formatted = [];
   if (data && data.length > 0) {
@@ -38,35 +37,38 @@ const Tabel = ({
 
   const location = useRouter();
   const path = location.route;
-  
+
   return (
     <div className="p-4 h-full w-full">
-      <TableTopNav 
+      <TableTopNav
         path={path}
-        title={title} 
+        title={title}
         buttonAdd={buttonAdd}
         buttonPrint={buttonPrint}
         search={search}
         list={list}
       />
       {data && data.length > 0 ? (
-      <table className="border-separate border-spacing-y-3 w-full">
-        <TableHead
-          table_head_formatted={table_head_formatted}
-          actionView={actionView}
-          actionEdit={actionEdit}
-          actionDelete={actionDelete}
-        />
-        <TableBody
-          path={path}
-          data={data}
-          tableHead={tableHead}
-          actionView={actionView}
-          actionEdit={actionEdit}
-          actionDelete={actionDelete}
-        />
-      </table>
-      ):(
+        <>
+          <table className="border-separate border-spacing-y-3 w-full">
+            <TableHead
+              table_head_formatted={table_head_formatted}
+              actionView={actionView}
+              actionEdit={actionEdit}
+              actionDelete={actionDelete}
+            />
+            <TableBody
+              path={path}
+              data={data}
+              tableHead={tableHead}
+              actionView={actionView}
+              actionEdit={actionEdit}
+              actionDelete={actionDelete}
+            />
+          </table>
+          {pagination && <TableBottomNav pagination={pagination} />}
+        </>
+      ) : (
         <div className="flex flex-col justify-center items-center gap-2 h-80">
           <HiOutlineXCircle size={40} className="text-primary-400" />
           <span className="text-sm font-medium text-primary-400">
@@ -74,7 +76,6 @@ const Tabel = ({
           </span>
         </div>
       )}
-      {pagination && <TableBottomNav pagination={pagination} />}
     </div>
   );
 };

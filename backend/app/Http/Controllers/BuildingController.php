@@ -41,7 +41,7 @@ class BuildingController extends Controller
         }
         return response()->json([
             'status' => 'Success',
-            'message' => 'Success Add Building',
+            'message' => 'Success Get Code Building',
             'code'=> $new_number
         ]);
     }
@@ -85,7 +85,7 @@ class BuildingController extends Controller
 
         return response()->json([
             'success' => false,
-            "message" => "Registration failed. Please try again later."
+            "message" => "Create failed, Please try again later."
         ], 409);
     }
 
@@ -95,7 +95,13 @@ class BuildingController extends Controller
     public function show(Building $building, $id)
     {
         $building = Building::findOrFail($id);
-        return response()->json($building,200);
+        if ($building) {
+            return response()->json($building,200);
+        }
+        return response()->json([
+            'status' => 'Success Show Building',
+            'message' => 'Show failed, Please try again later.'
+        ],200);
     }
 
     /**
@@ -128,14 +134,14 @@ class BuildingController extends Controller
         if ($building) {
             return response()->json([
                 'success' => true,
-                'message' => "Success Edit Building",
+                'message' => "Success Update Building",
                 'user'    => $building,
             ], 201);
         }
 
         return response()->json([
             'success' => false,
-            "message" => "Gagal Edit"
+            "message" => "Update failed. Please try again later."
         ], 409);
     }
 
@@ -144,10 +150,16 @@ class BuildingController extends Controller
      */
     public function destroy(Building $building, $id)
     {
-        Building::find($id)->delete();
+        $building = Building::find($id)->delete();
+        if ($building) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Success Delete Building'
+            ],200);
+        }
         return response()->json([
-            'status' => true,
-            'message' => 'Success Delete Building'
+            'status' => 'Success',
+            'message' => 'Delete failed, Please try again later.'
         ],200);
     }
 }

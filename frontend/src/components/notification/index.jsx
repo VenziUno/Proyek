@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Notifikasi = ({ type, style, title, description }) => {

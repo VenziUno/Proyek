@@ -23,8 +23,27 @@ class RoomController extends Controller
      */
     public function getRoom()
     {
-        $rooms = Room::with('buildings')->get();
-        return response()->json($rooms);
+        $room = Room::with('buildings')->get();
+        return response()->json($room);
+    }
+
+        /**
+     * Create a new code according to the one in storage
+     */
+    public function getCode(){
+        $number = Room::orderBy('id', 'desc')->first();
+        if ($number) {
+            $slice = substr($number->id,1);
+            $sum = (int)$slice + 1;
+            $new_number = 'R' . sprintf("%03d", $sum);
+        } else {
+            $new_number = 'R' . sprintf("%03d", 1);
+        }
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Success Get Code Room',
+            'code'=> $new_number
+        ]);
     }
 
     /**
@@ -57,14 +76,14 @@ class RoomController extends Controller
         if ($room) {
             return response()->json([
                 'success' => true,
-                'message' => 'Success Add Building',
+                'message' => 'Success Add Room',
                 'user'    => $room,
             ], 201);
         }
 
         return response()->json([
             'success' => false,
-            "message" => "Registration failed. Please try again later."
+            "message" => "Create failed. Please try again later."
         ], 409);
     }
 
@@ -74,7 +93,13 @@ class RoomController extends Controller
     public function show(Room $room,$id)
     {
         $room = Room::findOrFail($id);
-        return response()->json($room,200);
+        if ($room) {
+            return response()->json($room,200);
+        }
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Show failed, Please try again later.'
+        ],200);
     }
 
     /**
@@ -106,14 +131,14 @@ class RoomController extends Controller
         if ($room) {
             return response()->json([
                 'success' => true,
-                'message' => 'Success Add Building',
+                'message' => 'Success Update Building',
                 'user'    => $room,
             ], 201);
         }
 
         return response()->json([
             'success' => false,
-            "message" => "Registration failed. Please try again later."
+            "message" => "Update failed. Please try again later."
         ], 409);
     }
 
@@ -122,10 +147,16 @@ class RoomController extends Controller
      */
     public function destroy(Room $room,$id)
     {
-        Room::find($id)->delete();
+        $room = Room::find($id)->delete();
+        if ($room) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Success Delete Building'
+            ],200);
+        }
         return response()->json([
             'status' => 'Success',
-            'message' => 'Success Add Building'
+            'message' => 'Delete failed, Please try again later.'
         ],200);
     }
 }

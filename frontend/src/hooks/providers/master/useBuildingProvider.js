@@ -4,8 +4,8 @@ import axios from "axios";
 import { useBasicProvider } from "../useBasicProvider";
 
 export const useBuildingProvider = () => {
-  const { notification, setNotification, handleShowNotification } =
-    useBasicProvider();
+  const { notification, setNotification, handleShowNotification } = useBasicProvider();
+  console.log(notification)
 
   const router = useRouter();
 

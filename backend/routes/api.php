@@ -41,8 +41,11 @@ Route::post('login', [AuthController::class, 'login']);
 
     Route::prefix('/room')->group(function () {
         Route::get('/', [RoomController::class, 'index']);
+        Route::get('/code', [RoomController::class, 'getCode']);
         Route::get('/{id}', [RoomController::class, 'show']);
         Route::post('/', [RoomController::class, 'store']);
+        Route::post('/{id}', [RoomController::class, 'update']);
+        Route::delete('/{id}', [RoomController::class, 'destroy']);
     });
 
     Route::apiResource('todos', TodoController::class);

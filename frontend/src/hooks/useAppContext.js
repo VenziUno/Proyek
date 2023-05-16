@@ -3,6 +3,7 @@ import { useMenuProvider } from "./providers/useMenuProvider";
 import { useBasicProvider } from "./providers/useBasicProvider";
 import { useUserProvider } from "./providers/useUserProvider";
 import { useBuildingProvider } from "./providers/master/useBuildingProvider";
+import { useRoomProvider } from "./providers/master/useRoomProvider";
 
 const appContext = createContext();
 
@@ -13,6 +14,7 @@ export const AppProvider = ({ children }) => {
   
   // Master
   const building = useBuildingProvider();
+  const room = useRoomProvider();
 
   return (
     <appContext.Provider
@@ -21,6 +23,7 @@ export const AppProvider = ({ children }) => {
         basic,
         user,
         building,
+        room,
       }}
     >
       {children}

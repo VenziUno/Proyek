@@ -13,6 +13,8 @@ const Layout = ({ children }) => {
   const { setSelectedMenu, setSelectedSubmenu, setSelectedActionmenu } = menu;
   const { notification, handleShowNotification } = basic;
 
+  console.log(notification)
+
   useEffect(() => {
     const session = sessionStorage.getItem("token");
     if (!session) {
