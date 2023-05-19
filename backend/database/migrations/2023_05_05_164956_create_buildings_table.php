@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('tall');
             $table->unsignedInteger('long');
             $table->unsignedInteger('wide');
-            $table->unsignedInteger('status');
+            $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
         });

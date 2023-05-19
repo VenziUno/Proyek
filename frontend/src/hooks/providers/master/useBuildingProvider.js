@@ -5,7 +5,6 @@ import { useBasicProvider } from "../useBasicProvider";
 
 export const useBuildingProvider = () => {
   const { notification, setNotification, handleShowNotification } = useBasicProvider();
-  console.log(notification)
 
   const router = useRouter();
 
@@ -16,7 +15,7 @@ export const useBuildingProvider = () => {
     long: 0,
     tall: 0,
     wide: 0,
-    status: 0,
+    status: null,
   });
 
   const resetForm = () => {
@@ -27,7 +26,7 @@ export const useBuildingProvider = () => {
       long: 0,
       tall: 0,
       wide: 0,
-      status: 0,
+      status: null,
     });
   };
 

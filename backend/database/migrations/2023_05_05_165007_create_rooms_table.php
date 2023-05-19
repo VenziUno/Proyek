@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('number_of_floor');
             $table->unsignedInteger('maximum_people');
-            $table->unsignedInteger('status');
+            $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
             $table->string('building_id');

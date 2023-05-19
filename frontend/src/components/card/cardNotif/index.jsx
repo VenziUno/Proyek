@@ -1,25 +1,25 @@
 import React from "react";
 import Button from "@/components/button";
 import { AiOutlineClose } from "react-icons/ai";
-import { ImNotification } from "react-icons/im"
+import { ImNotification } from "react-icons/im";
 import { useAppContext } from "@/hooks/useAppContext";
 import { useRouter } from "next/router";
 import axios from "axios";
 
 export default function CardNotif({ type, title }) {
   const { user, basic } = useAppContext();
-  const {
-    setShowLogout,
-    deleteItem,
-    setDeleteItem,
-  } = user;
+  const { setShowLogout, deleteItem, setDeleteItem } = user;
 
   const location = useRouter();
   const path = location.asPath;
+  const query = location.query.page;
   const { notification, setNotification, handleShowNotification } = basic;
 
   const handleConfirm = async (e) => {
     e.preventDefault();
+    if (deleteItem.data === 1) {
+      location.push(`${location.basePath}?page=${query - 1}`);
+    }
     if (type === "logout") {
       const token = sessionStorage.getItem("token");
       if (token) {
@@ -50,7 +50,7 @@ export default function CardNotif({ type, title }) {
       }
     } else if (type === "delete") {
       try {
-        const token = sessionStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("token");
         const res = await axios.delete(deleteItem.url, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -95,10 +95,12 @@ export default function CardNotif({ type, title }) {
             </Button>
           </div>
         )}
-        <ImNotification size={96} className="text-danger-base"/>
+        <ImNotification size={96} className="text-danger-base" />
         <div className="text-center">
           <div className="text-2xl">
-            {type ? title || "Are you sure you want to Delete this data?" : "Data Deleted!"}
+            {type
+              ? title || "Are you sure you want to Delete this data?"
+              : "Data Deleted!"}
           </div>
         </div>
         <div className="w-full flex justify-center items-center px-16">
@@ -107,7 +109,7 @@ export default function CardNotif({ type, title }) {
               <Button action="light" handleClick={(e) => handleConfirm(e)}>
                 {{
                   logout: "Logout",
-                  delete: "Delete"
+                  delete: "Delete",
                 }[type] || ""}
               </Button>
               <Button handleClick={(e) => handleCancel(e)}>Cancel</Button>

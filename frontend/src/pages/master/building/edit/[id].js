@@ -29,7 +29,7 @@ const EditGedung = ({ id }) => {
       form.long === 0 ||
       form.tall === 0 ||
       form.wide === 0 ||
-      form.status === undefined
+      form.status === null
     ) {
       setNotification({
         show: true,
@@ -60,14 +60,13 @@ const EditGedung = ({ id }) => {
             },
           }
         );
-        console.log("success res", res);
         resetForm();
         setNotification({
           show: true,
           type: "Success",
-          message: "Edit data success !",
+          message: res.data.message,
         });
-        router.push("/master/building");
+        router.back();
       } catch (error) {
         resetForm();
         setNotification({
@@ -75,7 +74,7 @@ const EditGedung = ({ id }) => {
           type: "Danger",
           message: error.message,
         });
-        router.push("/master/building");
+        router.back();
       }
     }
   };

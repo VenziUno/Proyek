@@ -23,7 +23,7 @@ export default function AddBuilding() {
       form.long === 0 ||
       form.tall === 0 ||
       form.wide === 0 ||
-      form.status === 0
+      form.status === null
     ) {
       setNotification({
         show: true,
@@ -78,7 +78,6 @@ export default function AddBuilding() {
           }
         );
         resetForm();
-        console.log(res)
         setNotification({
           show: true,
           type: "Success",
@@ -87,12 +86,11 @@ export default function AddBuilding() {
         router.push("/master/building");
       } catch (error) {
         resetForm();
-        console.log(res)
-        // setNotification({
-        //   show: true,
-        //   type: "Danger",
-        //   message: error.message,
-        // });
+        setNotification({
+          show: true,
+          type: "Danger",
+          message: error.message,
+        });
         router.push("/master/building");
       }
     }

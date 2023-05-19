@@ -7,7 +7,6 @@ export const useUserProvider = () => {
       name: "",
       email: "",
       roles_id: "",
-      school_id: null,
     }
   );
   const [showLogout, setShowLogout] = useState(false);
@@ -15,6 +14,7 @@ export const useUserProvider = () => {
   const [deleteItem, setDeleteItem] = useState({
     show: false,
     url: null,
+    data: null
   });
 
   return {

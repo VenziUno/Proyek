@@ -1,39 +1,41 @@
 import React from "react";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import {
+  AiOutlineCheckCircle,
+  AiOutlineInfoCircle,
+  AiOutlineWarning,
+} from "react-icons/ai";
+import { RiErrorWarningLine } from "react-icons/ri";
 
-const Notifikasi = ({ type, style, title, description }) => {
+const Notifikasi = ({ type, style, title, description, icon }) => {
   switch (type) {
     case "Info":
       style = "bg-info-base";
-      title = "Info Alert !";
+      title = "Info";
       break;
     case "Success":
       style = "bg-success-base";
-      title = "Success Alert !";
+      title = "Success";
       break;
     case "Warning":
       style = "bg-warning-base";
-      title = "Warning Alert !";
+      title = "Warning";
       break;
     case "Danger":
       style = "bg-danger-base";
-      title = "Danger Alert !";
+      title = "Danger";
       break;
   }
 
   return (
-    <div
-      className={`w-fit z-10 h-auto max-h-36 ${style} rounded-lg shadow absolute top-4 right-4`}
-    >
-      <div className="px-4 py-2">
-        <div className={`capitalize flex space-x-5 items-center `}>
-          <div>
-            <AiOutlineInfoCircle size="28" className="mt-1" />
-          </div>
-          <div className="whitespace-normal ">
-            <div className="text-2xl font-bold flex">{title}</div>
-            <div className="">{description}</div>
-          </div>
+    <div className="absolute top-4 right-4 border rounded border-slate-400 z-50 flex">
+      <div className={`${style} font-bold rounded-l p-4`}>
+        <AiOutlineInfoCircle className="text-white" />
+      </div>
+      <div
+        className={`border rounded-r bg-white px-4 py-3`}
+      >
+        <div>
+          {title} | {description}
         </div>
       </div>
     </div>

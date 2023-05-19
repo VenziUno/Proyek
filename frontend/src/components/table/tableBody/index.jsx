@@ -3,6 +3,7 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { useAppContext } from "@/hooks/useAppContext";
+
 const TableBody = ({
   path,
   data,
@@ -18,7 +19,7 @@ const TableBody = ({
   const handleDelete = (item) => {
     const baseUrl = location.components[path].props.pageProps.baseUrl;
     const url = `${baseUrl}/${item.id}`;
-    setDeleteItem({ show: true, url: url });
+    setDeleteItem({ show: true, url: url, data: data.length});
   };
 
   return (
@@ -47,7 +48,7 @@ const TableBody = ({
                   </Button>
                 )}
                 {actionDelete && (
-                  <Button action="danger" handleClick={() => handleDelete(item)}>
+                  <Button action="danger" handleClick={() => handleDelete(item)} link={location.asPath}>
                     <AiOutlineDelete />
                   </Button>
                 )}
