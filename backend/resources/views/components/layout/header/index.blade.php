@@ -1,0 +1,90 @@
+<div class="flex flex-row justify-between items-center bg-yellow-500 shadow rounded-lg px-6 w-full h-[100px] py-auto">
+    <div class="flex flex-col space-y-2">
+        <div class="font-bold text-3xl">
+        {{-- {header.title} --}}
+            Title
+        </div>
+      {{-- {header.detail && ( --}}
+        <div class="font-medium text-sm">
+            {{-- {header.detail} --}}
+            Details Title
+        </div>
+      {{-- )} --}}
+    </div>
+    <div class="flex space-x-4">
+      {{-- <Link href="/settings/level" legacyBehavior>
+        <a class=" py-4  rounded-full text-neutral-3 hover:cursor-pointer hover:text-yellow-800">
+          <HiOutlineBell size={24} />
+        </a>
+      </Link>
+      <Link href="/settings/level" legacyBehavior>
+        <a class="py-4 rounded-full text-neutral-3 hover:cursor-pointer hover:text-yellow-800">
+          <HiOutlineCog size={24} />
+        </a>
+      </Link> --}}
+      <div class="flex flex-col items-end relative">
+        <button
+          class="flex flex-row items-center gap-4"
+          onClick={handleToggleProfileDropdown}
+        >
+          <div class="flex flex-col gap-1 justify-center items-end px-4">
+            <div class="font-semibold text-sm text-neutral-4">
+              {{-- {/* {user_info.name} */}  --}}
+              Pendi
+            </div>
+            <div class="font-normal text-sm text-neutral-3">
+              {{-- {/* {user_info.role} */}  --}}
+              Administrator
+            </div>
+          </div>
+          <div class="overflow-hidden relative w-14 h-14 rounded-full bg-gray-100 dark:bg-gray-600">
+            <svg
+              class="absolute -left-1 w-16 h-16 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </div>
+        </button>
+        {{-- {showProfileDropdown && (
+          <div
+            class="absolute top-20 z-20 w-[260px] bg-white
+            divide-y divide-gray-200 rounded-lg drop-shadow-xl"
+            id="user-dropdown"
+          >
+            <div class="py-2.5 flex flex-col cursor-default">
+              <Link href="/profile" legacyBehavior>
+                <div class="px-4 py-2 text-md font-medium hover:text-yellow-800">
+                  Profile
+                </div>
+              </Link>
+              <Link href="/resetPassword" legacyBehavior>
+                <div class="px-4 py-2 text-md hover:text-yellow-800">
+                  Password
+                </div>
+              </Link>
+            </div>
+            <div class="py-2.5 flex flex-col">
+              <Link href="/settings" legacyBehavior>
+                <div class="px-4 py-2 text-md hover:text-yellow-800 hover:underline">
+                  Settings
+                </div>
+              </Link>
+              <div
+                class="px-4 py-2 text-md hover:text-yellow-800 cursor-pointer"
+                onClick={(e) => handleLogOut(e)}
+              >
+                Log Out
+              </div>
+            </div>
+          </div>
+        )} --}}
+      </div>
+    </div>
+  </div>
