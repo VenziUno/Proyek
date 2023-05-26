@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     public function login(Request $request)
@@ -66,6 +66,10 @@ class AuthController extends Controller
                 'regex:/[A-Z]/',      // must contain at least one uppercase letter
                 'regex:/[0-9]/',      // must contain at least one digit
                 'regex:/[@$!%*#?&]/', // must contain a special character
+                'confirmed',
+            ],
+            'role_id' => [
+                'required'
             ]
         ]);
 
@@ -77,13 +81,29 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $request->role_id,
         ]);
 
-        if ($user) {
+        $profile = $user->profile()->create([
+            'photo' => $request->photo,
+            'religion' => $request->religion,
+            'place_of_birth' => $request->place_of_birth,
+            'date_of_birth' => $request->date_of_birth,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'province' => $request->province,
+            'city' => $request->city,
+            'districts' => $request->districts,
+            'portal_code' => $request->portal_code,
+            'user_id' => $user->id,
+        ]);
+
+        if ($user && $profile) {
+            $userWithProfile = User::with('profile')->find($user->id);
             return response()->json([
                 'success' => true,
                 'message' => "Registration successful",
-                'user'    => $user,
+                'user'    => $userWithProfile,
             ], 201);
         }
 
@@ -93,8 +113,9 @@ class AuthController extends Controller
         ], 409);
     }
 
-    public function user(){
-        return response()->json(User::all());
+    public function user()
+    {
+        return response()->json(User::with('profile')->get());
     }
 
     public function logout()

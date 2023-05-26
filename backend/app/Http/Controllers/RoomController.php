@@ -14,7 +14,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = $buildings = DB::table('rooms')->paginate(5);
+        $rooms = DB::table('rooms')->paginate(5);
         return response()->json($rooms);
     }
 
