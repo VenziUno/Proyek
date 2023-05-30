@@ -53,7 +53,7 @@ class RoomController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id' => 'required|unique:buildings',
+            'id' => 'required|unique:rooms',
             'name' => 'required',
             'number_of_floor' => 'required',
             'maximum_people' => 'required',
@@ -108,7 +108,6 @@ class RoomController extends Controller
     public function update(Request $request, Room $room, $id)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|unique:buildings',
             'name' => 'required',
             'number_of_floor' => 'required',
             'maximum_people' => 'required',

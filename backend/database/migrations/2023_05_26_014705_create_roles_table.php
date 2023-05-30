@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('name')->uniqid();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

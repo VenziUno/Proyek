@@ -40,7 +40,7 @@ class BuildingController extends Controller
             $new_number = 'B' . sprintf("%03d", 1);
         }
         return response()->json([
-            'status' => 'Success',
+            'status' => true,
             'message' => 'Success Get Code Building',
             'code'=> $new_number
         ]);
@@ -79,7 +79,7 @@ class BuildingController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Success Add Building',
-                'user'    => $building,
+                'data'    => $building,
             ], 201);
         }
 
@@ -96,10 +96,14 @@ class BuildingController extends Controller
     {
         $building = Building::findOrFail($id);
         if ($building) {
-            return response()->json($building,200);
+            return response()->json([
+                'status' => true,
+                'message'  => 'Success Show Building',
+                'data' => $building,
+        ],200);
         }
         return response()->json([
-            'status' => 'Success Show Building',
+            'status' => false,
             'message' => 'Show failed, Please try again later.'
         ],200);
     }
@@ -158,7 +162,7 @@ class BuildingController extends Controller
             ],200);
         }
         return response()->json([
-            'status' => 'Success',
+            'status' => false,
             'message' => 'Delete failed, Please try again later.'
         ],200);
     }

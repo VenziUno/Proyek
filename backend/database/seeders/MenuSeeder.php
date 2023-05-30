@@ -2,26 +2,24 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\Menu;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class MenuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Role::truncate();
-        Role::insert([
+        Menu::truncate();
+        Menu::insert([
             [
-                'id' => 'RU001',
-                'name' => 'Master',
+                'name' => 'Dashboard',
             ],
             [
-                'id' => 'RU002',
-                'name' => 'Admin',
+                'name' => 'Master',
             ],
         ]);
     }

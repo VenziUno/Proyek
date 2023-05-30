@@ -18,6 +18,8 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
+    protected $guarded = [];
     protected $fillable = [
         'name',
         'email',
@@ -27,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class,'role_id');
     }
 
     public function profile()

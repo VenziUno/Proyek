@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Todo extends Model
 {
     use HasFactory;
-
+    protected $table = 'todos';
+    protected $guarded = [];
     protected $fillable = ['title','is_done'];
 }

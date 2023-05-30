@@ -2,26 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\SubMenu;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class SubMenuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Role::truncate();
-        Role::insert([
+        SubMenu::truncate();
+        SubMenu::insert([
             [
-                'id' => 'RU001',
-                'name' => 'Master',
+                'name' => 'Building',
+                'menu_id' => 2,
             ],
             [
-                'id' => 'RU002',
-                'name' => 'Admin',
+                'name' => 'Room',
+                'menu_id' => 2,
             ],
         ]);
     }

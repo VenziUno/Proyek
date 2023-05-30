@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -37,6 +38,15 @@ Route::post('login', [AuthController::class, 'login']);
         Route::post('/', [BuildingController::class, 'store']);
         Route::post('/{id}', [BuildingController::class, 'update']);
         Route::delete('/{id}', [BuildingController::class, 'destroy']);
+    });
+
+    Route::prefix('/role')->group(function () {
+        Route::get('/', [RoleController::class, 'index']);
+        Route::get('/code', [RoleController::class, 'getCode']);
+        Route::get('/{id}', [RoleController::class, 'show']);
+        Route::post('/', [RoleController::class, 'store']);
+        Route::post('/{id}', [RoleController::class, 'update']);
+        Route::delete('/{id}', [RoleController::class, 'destroy']);
     });
 
     Route::prefix('/room')->group(function () {

@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('authorization_types', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('name',10);
             $table->timestamps();
         });
     }

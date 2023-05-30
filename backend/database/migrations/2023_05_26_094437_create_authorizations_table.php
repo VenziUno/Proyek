@@ -12,8 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('authorizations', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('role_id');
+            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('sub_menu_id');
+            $table->unsignedBigInteger('authorization_type_id');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('sub_menu_id')->references('id')->on('sub_menus');
+            $table->foreign('authorization_type_id')->references('id')->on('authorization_types');
         });
     }
 
