@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('authorizations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('role_id');
-            $table->unsignedBigInteger('menu_id');
-            $table->unsignedBigInteger('sub_menu_id');
+            $table->unsignedBigInteger('menu_id')->nullable();
+            $table->unsignedBigInteger('sub_menu_id')->nullable();
             $table->unsignedBigInteger('authorization_type_id');
             $table->timestamps();
             $table->softDeletes();

@@ -17,4 +17,9 @@ class Role extends Model
     {
         return $this->hasMany(User::class, 'role_id');
     }
+
+    public function authorization()
+    {
+        return $this->hasMany(Authorization::class, 'role_id');
+    }
 }

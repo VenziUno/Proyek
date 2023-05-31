@@ -17,9 +17,11 @@ class MenuSeeder extends Seeder
         Menu::insert([
             [
                 'name' => 'Dashboard',
+                'route_name' => 'dashboard',
             ],
             [
                 'name' => 'Master',
+                'route_name' => '',
             ],
         ]);
     }

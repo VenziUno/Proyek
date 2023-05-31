@@ -10,6 +10,10 @@ class AuthorizationTypes extends Model
     use HasFactory;
     protected $table = 'authorization_types';
     protected $guarded = [];
-    protected $fillable = ['id','name'];
+    protected $fillable = ['id', 'name'];
 
+    public function authorization()
+    {
+        return $this->hasMany(Authorization::class, 'authorization_type_id');
+    }
 }

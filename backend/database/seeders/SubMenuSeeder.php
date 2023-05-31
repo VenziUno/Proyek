@@ -18,10 +18,12 @@ class SubMenuSeeder extends Seeder
             [
                 'name' => 'Building',
                 'menu_id' => 2,
+                'route_name' => 'master/building'
             ],
             [
                 'name' => 'Room',
                 'menu_id' => 2,
+                'route_name' => 'master/room'
             ],
         ]);
     }

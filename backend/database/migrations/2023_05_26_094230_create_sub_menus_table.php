@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name',45);
             $table->unsignedBigInteger('menu_id');
+            $table->string('route_name');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('menu_id')->references('id')->on('menus');

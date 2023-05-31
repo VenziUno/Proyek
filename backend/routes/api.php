@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
+use App\Models\Authorization;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,18 +29,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-// Route::middleware(['auth:api'])->group(function () {
+Route::middleware(['auth:api', 'Authorizations'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user', [AuthController::class, 'user']);
-    Route::prefix('/building')->group(function () {
-        Route::get('/', [BuildingController::class, 'index']);
-        Route::get('/code', [BuildingController::class, 'getCode']);
-        Route::get('/{id}', [BuildingController::class, 'show']);
-        Route::post('/', [BuildingController::class, 'store']);
-        Route::post('/{id}', [BuildingController::class, 'update']);
-        Route::delete('/{id}', [BuildingController::class, 'destroy']);
-    });
 
     Route::prefix('/role')->group(function () {
         Route::get('/', [RoleController::class, 'index']);
@@ -47,6 +41,24 @@ Route::post('login', [AuthController::class, 'login']);
         Route::post('/', [RoleController::class, 'store']);
         Route::post('/{id}', [RoleController::class, 'update']);
         Route::delete('/{id}', [RoleController::class, 'destroy']);
+    });
+
+    Route::prefix('/authorization')->group(function () {
+        Route::get('/', [AuthorizationController::class, 'index']);
+        Route::get('/code', [BuildingController::class, 'getCode']);
+        Route::get('/{id}', [BuildingController::class, 'show']);
+        Route::post('/', [BuildingController::class, 'store']);
+        Route::post('/{id}', [BuildingController::class, 'update']);
+        Route::delete('/{id}', [BuildingController::class, 'destroy']);
+    });
+
+    Route::prefix('/building')->group(function () {
+        Route::get('/', [BuildingController::class, 'index']);
+        Route::get('/code', [BuildingController::class, 'getCode']);
+        Route::get('/{id}', [BuildingController::class, 'show']);
+        Route::post('/', [BuildingController::class, 'store']);
+        Route::post('/{id}', [BuildingController::class, 'update']);
+        Route::delete('/{id}', [BuildingController::class, 'destroy']);
     });
 
     Route::prefix('/room')->group(function () {
@@ -59,4 +71,4 @@ Route::post('login', [AuthController::class, 'login']);
     });
 
     Route::apiResource('todos', TodoController::class);
-// });
+});

@@ -27,16 +27,5 @@ class DatabaseSeeder extends Seeder
             SubMenuSeeder::class,
             AuthorizationTypeSeeder::class
         ]);
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        // $this->call([
-
-        // ]);
     }
 }

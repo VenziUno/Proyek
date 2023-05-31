@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Authorization;
 use Illuminate\Http\Request;
 
 class AuthorizationController extends Controller
@@ -11,7 +12,8 @@ class AuthorizationController extends Controller
      */
     public function index()
     {
-        //
+        $buildings = Authorization::all();
+        return response()->json($buildings);
     }
 
     /**
