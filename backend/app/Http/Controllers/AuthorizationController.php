@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Authorization;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorizationController extends Controller
 {
@@ -12,8 +14,12 @@ class AuthorizationController extends Controller
      */
     public function index()
     {
-        $buildings = Authorization::all();
-        return response()->json($buildings);
+        $user = Auth::user();
+        if ($user) {
+            $roles_id = $user->role_id;
+        }
+        $data = Authorization::where('role_id', $roles_id)->with(['menu','subMenu','authorizationType','role'])->get();
+        return response()->json($data);
     }
 
     /**

@@ -22,20 +22,44 @@ class Authorizations
     {
         $req = $request->route()->getName();
         $exp = explode('_', $req);
-        $menu = Menu::where('route_name', $exp[0])->first();
-        $submenu = SubMenu::where('route_name', $exp[0])->first();
-        $tipe = AuthorizationTypes::where('name', $exp[0])->first();
-        $roles_id = Auth::user()->roles_id;
-        $authorization = Authorization::where('roles_id', $roles_id)->with(['Menu','SubMenu','AuthorizationType','Role'])
-        ->where('menu_id', $menu->id)
-        ->where('sub_menu_id', $submenu->id)
-        ->where('authorization_type_id', $tipe['id'])
-        ->first();
-        if($authorization === null) {
-            if($request->ajax() == true){
-                return response()->json('You need authorization from the Master',401);
+        if (count($exp) == 4) {
+            $menu = Menu::where('route_name', $exp[0])->first();
+            $submenu = SubMenu::where('route_name', $exp[1])->first();
+            $tipe = AuthorizationTypes::where('name', $exp[2])->first();
+            $user = Auth::user();
+            if ($user) {
+                $roles_id = $user->role_id;
             }
-           abort(403, "You don't have access");
+            $authorization = Authorization::where('role_id', $roles_id)->with(['menu', 'subMenu', 'authorizationType', 'role'])
+                ->where('menu_id', $menu->id)
+                ->where('sub_menu_id', $submenu->id)
+                ->where('authorization_type_id', $tipe['id'])
+                ->first();
+            if ($authorization === null) {
+                if ($request->ajax() == true) {
+                    return response()->json('You need authorization from the Master', 401);
+                }
+                return response()->json("You don't have access", 403);
+                abort(403, "You don't have access");
+            }
+        } else {
+            $menu = Menu::where('route_name', $exp[0])->first();
+            $tipe = AuthorizationTypes::where('name', $exp[1])->first();
+            $user = Auth::user();
+            if ($user) {
+                $roles_id = $user->role_id;
+            }
+            $authorization = Authorization::where('role_id', $roles_id)->with(['menu', 'authorizationType', 'role'])
+                ->where('menu_id', $menu->id)
+                ->where('authorization_type_id', $tipe['id'])
+                ->first();
+            if ($authorization === null) {
+                if ($request->ajax() == true) {
+                    return response()->json('You need authorization from the Master', 401);
+                }
+                return response()->json("You don't have access", 403);
+                abort(403, "You don't have access");
+            }
         }
         return $next($request);
     }
