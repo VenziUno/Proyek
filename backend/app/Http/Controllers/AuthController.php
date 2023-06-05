@@ -74,7 +74,7 @@ class AuthController extends Controller
                 'regex:/[A-Z]/',      // must contain at least one uppercase letter
                 'regex:/[0-9]/',      // must contain at least one digit
                 'regex:/[@$!%*#?&]/', // must contain a special character
-                'confirmed',
+                // 'confirmed',
             ],
             'role_id' => [
                 'required'
@@ -211,7 +211,6 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => "Registration successful",
                 'user'    => $userWithProfile,
-                'profile' => $profile
             ], 201);
         }
 

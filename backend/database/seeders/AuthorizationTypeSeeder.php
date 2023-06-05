@@ -22,7 +22,7 @@ class AuthorizationTypeSeeder extends Seeder
                 'name' => 'add',
             ],
             [
-                'name' => 'edit',
+                'name' => 'update',
             ],
             [
                 'name' => 'delete',

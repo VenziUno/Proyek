@@ -106,7 +106,6 @@ class RoleController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => "Success Update Role",
-                'user'    => $role,
             ], 201);
         }
 

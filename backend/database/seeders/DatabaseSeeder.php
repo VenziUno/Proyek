@@ -4,9 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\AuthorizationTypes;
-use App\Models\Menu;
-use App\Models\SubMenu;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +22,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MenuSeeder::class,
             SubMenuSeeder::class,
-            AuthorizationTypeSeeder::class
+            AuthorizationTypeSeeder::class,
+            AuthorizationSeeder::class
         ]);
     }
 }
