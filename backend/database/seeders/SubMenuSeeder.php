@@ -16,14 +16,19 @@ class SubMenuSeeder extends Seeder
         SubMenu::truncate();
         SubMenu::insert([
             [
-                'name' => 'Building',
+                'name' => 'Role',
                 'menu_id' => 2,
-                'route_name' => 'master/building'
+                'route_name' => 'role'
             ],
             [
-                'name' => 'Room',
+                'name' => 'Admin',
                 'menu_id' => 2,
-                'route_name' => 'master/room'
+                'route_name' => 'admin'
+            ],
+            [
+                'name' => 'Authorizatiom',
+                'menu_id' => 2,
+                'route_name' => 'authorization'
             ],
         ]);
     }

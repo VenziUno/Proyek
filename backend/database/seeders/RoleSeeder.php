@@ -17,11 +17,11 @@ class RoleSeeder extends Seeder
         Role::insert([
             [
                 'id' => 'RU001',
-                'name' => 'Master',
+                'name' => 'Master Administrator',
             ],
             [
                 'id' => 'RU002',
-                'name' => 'Admin',
+                'name' => 'Administrator',
             ],
         ]);
     }

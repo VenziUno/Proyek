@@ -13,8 +13,8 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'pendicai3@example.com',
+            'name' => 'Master Administrator',
+            'email' => 'pendicai3@gmail.com',
             'password' => bcrypt('pendichu#210'),
             'role_id' => 'RU001',
         ]);

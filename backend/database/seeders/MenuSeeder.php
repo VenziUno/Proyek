@@ -20,8 +20,8 @@ class MenuSeeder extends Seeder
                 'route_name' => 'dashboard',
             ],
             [
-                'name' => 'Master',
-                'route_name' => '',
+                'name' => 'Settings',
+                'route_name' => 'setting',
             ],
         ]);
     }
