@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoryImages;
+use App\Models\CategoryGallery;
 use Illuminate\Http\Request;
 
-class CategoryImagesController extends Controller
+class CategoryGalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class CategoryImagesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CategoryImages $categoryImages)
+    public function show(CategoryGallery $categoryGallery)
     {
         //
     }
@@ -34,7 +34,7 @@ class CategoryImagesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CategoryImages $categoryImages)
+    public function update(Request $request, CategoryGallery $categoryGallery)
     {
         //
     }
@@ -42,7 +42,7 @@ class CategoryImagesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CategoryImages $categoryImages)
+    public function destroy(CategoryGallery $categoryGallery)
     {
         //
     }

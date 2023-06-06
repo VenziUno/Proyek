@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\videoGallery;
+use App\Models\PictureGallery;
 use Illuminate\Http\Request;
 
-class VideoGalleryController extends Controller
+class PictureGalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class VideoGalleryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(videoGallery $videoGallery)
+    public function show(PictureGallery $pictureGallery)
     {
         //
     }
@@ -34,7 +34,7 @@ class VideoGalleryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, videoGallery $videoGallery)
+    public function update(Request $request, PictureGallery $pictureGallery)
     {
         //
     }
@@ -42,7 +42,7 @@ class VideoGalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(videoGallery $videoGallery)
+    public function destroy(PictureGallery $pictureGallery)
     {
         //
     }
