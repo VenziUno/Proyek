@@ -9,12 +9,12 @@ class PictureGallery extends Model
 {
     use HasFactory;
     protected $table = 'picture_galleries';
-    public $incrementing = false;
-    protected $guarded = [];
-    protected $fillable = ['id','file','title','desc','category_galleri_id'];
+    // public $incrementing = false;
+    protected $guarded = ['*'];
+    protected $fillable = ['id', 'file', 'title', 'desc', 'category_galleries_id'];
 
     public function categoryGallery()
     {
-        return $this->belongsTo(CategoryGallery::class,'category_galleri_id');
+        return $this->belongsTo(CategoryGallery::class, 'category_galleries_id');
     }
 }

@@ -37,7 +37,6 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::prefix('/pictureGallery')->group(function () {
         Route::get('/', [PictureGalleryController::class, 'index'])->name('galeri_picturegallery_view_index');
-        Route::get('/code', [PictureGalleryController::class, 'getcode'])->name('galeri_picturegallery_view_code');
         Route::get('/{id}', [PictureGalleryController::class, 'show'])->name('galeri_picturegallery_view_show');
         Route::post('/', [PictureGalleryController::class, 'store'])->name('galeri_picturegallery_add_store');
         Route::post('/{id}', [PictureGalleryController::class, 'update'])->name('galeri_picturegallery_update_update');

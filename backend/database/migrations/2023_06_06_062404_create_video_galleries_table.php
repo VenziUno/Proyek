@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('video_galleries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('file');
-            $table->string('name');
             $table->string('title');
             $table->text('desc');
-            $table->string('category_galleri_id');
+            $table->string('category_galleries_id');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('category_galleri_id')->references('id')->on('category_galleries')->onDelete('cascade');
+            $table->foreign('category_galleries_id')->references('id')->on('category_galleries')->onDelete('cascade');
         });
     }
 

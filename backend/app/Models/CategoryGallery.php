@@ -15,11 +15,11 @@ class CategoryGallery extends Model
 
     public function pictureGallery()
     {
-        return $this->hasMany(CategoryGallery::class, 'category_galleri_id');
+        return $this->hasMany(PictureGallery::class, 'category_galleries_id');
     }
 
     public function videoGallery()
     {
-        return $this->hasMany(CategoryGallery::class, 'category_galleri_id');
+        return $this->hasMany(VideoGallery::class, 'category_galleries_id');
     }
 }
