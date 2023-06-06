@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('category_galleries', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

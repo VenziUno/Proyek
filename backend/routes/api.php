@@ -2,14 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorizationController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\CategoryGalleryController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PictureGalleryController;
 use App\Http\Controllers\RoleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TodoController;
-use App\Models\Authorization;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +25,24 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('menu', [MenuController::class, 'index']);
+
+    Route::prefix('/categoryGallery')->group(function () {
+        Route::get('/', [CategoryGalleryController::class, 'index'])->name('galeri_categorygallery_view_index');
+        Route::get('/code', [CategoryGalleryController::class, 'getcode'])->name('galeri_categorygallery_view_code');
+        Route::get('/{id}', [CategoryGalleryController::class, 'show'])->name('galeri_categorygallery_view_show');
+        Route::post('/', [CategoryGalleryController::class, 'store'])->name('galeri_categorygallery_add_store');
+        Route::post('/{id}', [CategoryGalleryController::class, 'update'])->name('galeri_categorygallery_update_update');
+        Route::delete('/{id}', [CategoryGalleryController::class, 'destroy'])->name('galeri_categorygallery_delete_destroy');
+    });
+
+    Route::prefix('/pictureGallery')->group(function () {
+        Route::get('/', [PictureGalleryController::class, 'index'])->name('galeri_picturegallery_view_index');
+        Route::get('/code', [PictureGalleryController::class, 'getcode'])->name('galeri_picturegallery_view_code');
+        Route::get('/{id}', [PictureGalleryController::class, 'show'])->name('galeri_picturegallery_view_show');
+        Route::post('/', [PictureGalleryController::class, 'store'])->name('galeri_picturegallery_add_store');
+        Route::post('/{id}', [PictureGalleryController::class, 'update'])->name('galeri_picturegallery_update_update');
+        Route::delete('/{id}', [PictureGalleryController::class, 'destroy'])->name('galeri_picturegallery_delete_destroy');
+    });
 
     Route::middleware(['Authorizations'])->group(function () {
         Route::prefix('/role')->group(function () {
