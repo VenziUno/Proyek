@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\PictureGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Spatie\Flysystem\Filesystem;
 
 class PictureGalleryController extends Controller
 {
@@ -27,38 +29,39 @@ class PictureGalleryController extends Controller
             'file' => 'required',
             'title' => 'required',
             'desc' => 'required',
-            // 'category_galleri_id' => 'required',
+            'category_galleries_id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
-        $file = $request->file('file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = public_path('images/' . $filename);
-        $file->move(public_path('images'), $filename);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('folder_name', 'dropbox');
+            $url = Storage::disk('dropbox')->url($path); // Menyimpan URL file
 
-        $pictureGallery = PictureGallery::create([
-            'file' => $filename,
-            'title' => $request->title,
-            'desc' => $request->desc,
-            'category_galleries_id' => $request->category_galleries_id,
-        ]);
+            $pictureGallery = PictureGallery::create([
+                'file' => $url, // Menyimpan URL file ke dalam kolom 'file'
+                'title' => $request->title,
+                'desc' => $request->desc,
+                'category_galleries_id' => $request->category_galleries_id,
+            ]);
 
-        if ($pictureGallery) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Success Add Category Gallery',
-                'data'    => $pictureGallery,
-                'path' => $path
-            ], 201);
+            if ($pictureGallery) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Success Add Category Gallery',
+                    'data'    => $pictureGallery,
+                    'path' => $url // Mengirim URL file sebagai respons
+                ], 201);
+            }
         }
 
         return response()->json([
             'success' => false,
-            "message" => "Create failed, Please try again later."
-        ], 409);
+            'message' => 'Failed to upload file or create gallery',
+        ], 400);
     }
 
     /**

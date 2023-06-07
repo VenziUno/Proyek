@@ -3,6 +3,7 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { useAppContext } from "@/hooks/useAppContext";
+import Image from "next/image";
 
 const TableBody = ({
   path,
@@ -32,7 +33,17 @@ const TableBody = ({
             </td>
             {tableHead.map((head) => (
               <td key={"item" + head + index} className="p-4 border-y border-slate-400">
-                {item[head]}
+                {head === "file" ? (
+                    <div className="h-10 w-10 relative">
+                      <img
+                        src={item[head]}
+                        alt="logo"
+                        className="object-contain rounded-full"
+                        fill
+                      />
+                    </div>
+                  ):(item[head])
+                }
               </td>
             ))}
             <td className="border-y border-r rounded-r-lg px-2 border-slate-400">

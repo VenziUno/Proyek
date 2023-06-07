@@ -9,7 +9,7 @@ export default function Building ({ page }) {
   const { basic } = useAppContext();
   const { search, move, setMove, route } = basic;
   const location = useRouter();
-  const { res, isLoading, isError } = useFetcher("building", page);
+  const { res, isLoading, isError } = useFetcher("pictureGallery", page);
   const [dataTableGedung, setDataTableGedung] = useState([]);
   const [dataPagination, setDataPagination] = useState({
     from: "",
@@ -70,6 +70,6 @@ export default function Building ({ page }) {
 
 export async function getServerSideProps(ctx) {
   const page = ctx.query.page || 1;
-  const baseUrl = `${process.env.API_URL}/api/building`;
+  const baseUrl = `${process.env.API_URL}/api/pictureGallery`;
   return { props: { page, baseUrl } };
 }
