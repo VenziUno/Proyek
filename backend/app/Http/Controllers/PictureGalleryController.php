@@ -36,8 +36,8 @@ class PictureGalleryController extends Controller
 
         $file = $request->file('file');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $path = public_path('images/' . $filename);
-        $file->move(public_path('images'), $filename);
+        $path = public_path('storage/images/' . $filename);
+        $file->move(public_path('storage/images/'), $filename);
 
         $pictureGallery = PictureGallery::create([
             'file' => $filename,

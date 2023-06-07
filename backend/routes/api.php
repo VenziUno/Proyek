@@ -46,11 +46,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::middleware(['Authorizations'])->group(function () {
         Route::prefix('/role')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('setting_role_view_index');
-            Route::get('/code', [RoleController::class, 'getCode'])->name('settings_view_code');
-            Route::get('/{id}', [RoleController::class, 'show'])->name('role_view_show');
-            Route::post('/', [RoleController::class, 'store'])->name('role_add_store');
-            Route::post('/{id}', [RoleController::class, 'update'])->name('role_update_update');
-            Route::delete('/{id}', [RoleController::class, 'destroy'])->name('role_delete_destory');
+            Route::get('/code', [RoleController::class, 'getCode'])->name('setting_view_code');
+            Route::get('/{id}', [RoleController::class, 'show'])->name('setting_role_view_show');
+            Route::post('/', [RoleController::class, 'store'])->name('setting_role_add_store');
+            Route::post('/{id}', [RoleController::class, 'update'])->name('setting_role_update_update');
+            Route::delete('/{id}', [RoleController::class, 'destroy'])->name('setting_role_delete_destory');
         });
 
         Route::prefix('/admin')->group(function () {
