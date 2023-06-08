@@ -20,7 +20,7 @@ const TableBody = ({
   const handleDelete = (item) => {
     const baseUrl = location.components[path].props.pageProps.baseUrl;
     const url = `${baseUrl}/${item.id}`;
-    setDeleteItem({ show: true, url: url, data: data.length});
+    setDeleteItem({ show: true, url: url, data: data.length });
   };
 
   return (
@@ -32,18 +32,23 @@ const TableBody = ({
               {index + 1}
             </td>
             {tableHead.map((head) => (
-              <td key={"item" + head + index} className="p-4 border-y border-slate-400">
+              <td
+                key={"item" + head + index}
+                className="p-4 border-y border-slate-400"
+              >
                 {head === "file" ? (
-                    <div className="h-10 w-10 relative">
-                      <img
-                        src={item[head]}
-                        alt="logo"
-                        className="object-contain rounded-full"
-                        fill
-                      />
-                    </div>
-                  ):(item[head])
-                }
+                  <div className="h-10 w-10 relative">
+                    <Image
+                      src={item[head]}
+                      alt="Picture of the author"
+                      width={500}
+                      height={500}
+                      className="object-contain rounded-full"
+                    />
+                  </div>
+                ) : (
+                  item[head]
+                )}
               </td>
             ))}
             <td className="border-y border-r rounded-r-lg px-2 border-slate-400">
@@ -54,12 +59,16 @@ const TableBody = ({
                   </Button>
                 )}
                 {actionEdit && (
-                  <Button link={path + "/edit/"+ item.id} action="warning">
+                  <Button link={path + "/edit/" + item.id} action="warning">
                     <AiOutlineEdit />
                   </Button>
                 )}
                 {actionDelete && (
-                  <Button action="danger" handleClick={() => handleDelete(item)} link={location.asPath}>
+                  <Button
+                    action="danger"
+                    handleClick={() => handleDelete(item)}
+                    link={location.asPath}
+                  >
                     <AiOutlineDelete />
                   </Button>
                 )}

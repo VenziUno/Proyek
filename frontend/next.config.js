@@ -6,6 +6,9 @@ const nextConfig = {
     API_URL_SSR:process.env.NEXT_PUBLIC_API_URL_SSR,
     BASE_URL: process.env.BASE_URL,
   },
+  images: {
+    unoptimized: true,
+  },
   swcMinify: true,
   async redirects() {
     return [
