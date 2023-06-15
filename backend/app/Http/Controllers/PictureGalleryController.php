@@ -6,9 +6,6 @@ use App\Models\PictureGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Dropbox\Client;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Config;
 
 class PictureGalleryController extends Controller
 {
@@ -38,12 +35,11 @@ class PictureGalleryController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $path = $file->store('Gallery', 'dropbox');
-            $url = Storage::disk('dropbox')->url($path); // Menyimpan URL file
+            $image  = $request->file('file');
+            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
 
             $pictureGallery = PictureGallery::create([
-                'file' => $url, // Menyimpan URL file ke dalam kolom 'file'
+                'file' => $result, // Menyimpan URL file ke dalam kolom 'file'
                 'title' => $request->title,
                 'desc' => $request->desc,
                 'category_galleries_id' => $request->category_galleries_id,
@@ -100,12 +96,11 @@ class PictureGalleryController extends Controller
 
         if ($request->hasFile('file')) {
             $pictureGallery = PictureGallery::findOrFail($id);
-            $file = $request->file('file');
-            $path = $file->store('Gallery', 'dropbox');
-            $url = Storage::disk('dropbox')->url($path); // Menyimpan URL file
+            $image  = $request->file('file');
+            $result = CloudinaryStorage::replace($pictureGallery->file, $image->getRealPath(), $image->getClientOriginalName());
 
             $pictureGallery = PictureGallery::find($id)->update([
-                'file' => $url, // Menyimpan URL file ke dalam kolom 'file'
+                'file' => $result, // Menyimpan URL file ke dalam kolom 'file'
                 'title' => $request->title,
                 'desc' => $request->desc,
                 'category_galleries_id' => $request->category_galleries_id,
@@ -130,6 +125,8 @@ class PictureGalleryController extends Controller
      */
     public function destroy(PictureGallery $pictureGallery, $id)
     {
+        CloudinaryStorage::delete($pictureGallery->file);
+        $pictureGallery->delete();
         $pictureGallery = PictureGallery::find($id)->delete();
         if ($pictureGallery) {
             return response()->json([

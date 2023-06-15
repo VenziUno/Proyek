@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c81e3356dee9fd06cc76c2ac728a8d99",
+    "content-hash": "c7bb331f0e0cd6f4fc393323b0b3ac20",
     "packages": [
         {
             "name": "brick/math",
@@ -60,6 +60,203 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "cloudinary-labs/cloudinary-laravel",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudinary-devs/cloudinary-laravel.git",
+                "reference": "f331b770b277a75dbde3c61bf1e50096b3e68104"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary-devs/cloudinary-laravel/zipball/f331b770b277a75dbde3c61bf1e50096b3e68104",
+                "reference": "f331b770b277a75dbde3c61bf1e50096b3e68104",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": "^2.0",
+                "ext-json": "*",
+                "illuminate/support": "~6|~7|~8|^9.0|^10.0",
+                "php": "^8.0.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "~4|~5|~6|^7.0",
+                "phpunit/phpunit": "^8.0|^9.5.10",
+                "sempro/phpunit-pretty-print": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CloudinaryLabs\\CloudinaryLaravel\\CloudinaryServiceProvider"
+                    ],
+                    "aliases": {
+                        "Cloudinary": "CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "CloudinaryLabs\\CloudinaryLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Prosper Otemuyiwa",
+                    "email": "prosperotemuyiwa@gmail.com",
+                    "homepage": "https://github.com/unicodeveloper"
+                }
+            ],
+            "description": "A Laravel Cloudinary Package",
+            "homepage": "https://github.com/cloudinary-labs/cloudinary-laravel",
+            "keywords": [
+                "File Transformations",
+                "Media management",
+                "cloudinary",
+                "cloudinary-laravel",
+                "file uploads",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/cloudinary-devs/cloudinary-laravel/issues",
+                "source": "https://github.com/cloudinary-devs/cloudinary-laravel/tree/2.0.3"
+            },
+            "time": "2023-03-01T15:07:23+00:00"
+        },
+        {
+            "name": "cloudinary/cloudinary_php",
+            "version": "2.11.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:cloudinary/cloudinary_php.git",
+                "reference": "d7bf9ddb93be59053e4eb2cf6164ea5f8af77413"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/d7bf9ddb93be59053e4eb2cf6164ea5f8af77413",
+                "reference": "d7bf9ddb93be59053e4eb2cf6164ea5f8af77413",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/transformation-builder-sdk": "^1",
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5.8|^7.4.5",
+                "guzzlehttp/promises": "^1.5.3|^2.0",
+                "guzzlehttp/psr7": "^1.9.1|^2.5",
+                "monolog/monolog": "^1|^2|^3",
+                "php": ">=5.6.0",
+                "psr/log": "^1|^2|^3",
+                "teapot/status-code": "^1|^2"
+            },
+            "require-dev": {
+                "consolidation/robo": "~1",
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "ext-zip": "*",
+                "friendsofphp/php-cs-fixer": "*",
+                "phpmd/phpmd": "*",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/phpunit-bridge": "^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cloudinary",
+                    "homepage": "https://github.com/cloudinary/cloudinary_php/graphs/contributors"
+                }
+            ],
+            "description": "Cloudinary PHP SDK",
+            "homepage": "https://github.com/cloudinary/cloudinary_php",
+            "keywords": [
+                "cdn",
+                "cloud",
+                "cloudinary",
+                "image management",
+                "sdk"
+            ],
+            "support": {
+                "email": "info@cloudinary.com",
+                "issues": "https://github.com/cloudinary/cloudinary_php/issues"
+            },
+            "time": "2023-05-23T13:36:46+00:00"
+        },
+        {
+            "name": "cloudinary/transformation-builder-sdk",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:cloudinary/php-transformation-builder-sdk.git",
+                "reference": "145d0ebc9638a82ec09bed7de57ea89586839bba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary/php-transformation-builder-sdk/zipball/145d0ebc9638a82ec09bed7de57ea89586839bba",
+                "reference": "145d0ebc9638a82ec09bed7de57ea89586839bba",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "consolidation/robo": "~1",
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "ext-zip": "*",
+                "friendsofphp/php-cs-fixer": "*",
+                "phpmd/phpmd": "*",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/phpunit-bridge": "^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cloudinary",
+                    "homepage": "https://github.com/cloudinary/php-transformation-builder-sdk/graphs/contributors"
+                }
+            ],
+            "description": "Cloudinary PHP Transformation Builder SDK",
+            "homepage": "https://github.com/cloudinary/php-transformation-builder-sdk",
+            "keywords": [
+                "cdn",
+                "cloud",
+                "cloudinary",
+                "image management",
+                "sdk"
+            ],
+            "support": {
+                "email": "info@cloudinary.com",
+                "issues": "https://github.com/cloudinary/php-transformation-builder-sdk/issues"
+            },
+            "time": "2023-03-23T02:09:04+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -364,49 +561,6 @@
                 }
             ],
             "time": "2022-09-10T18:51:20+00:00"
-        },
-        {
-            "name": "dropbox/dropbox-sdk",
-            "version": "v1.1.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dropbox/dropbox-sdk-php.git",
-                "reference": "0f1a178ca9c0271bca6426dde8f5a2241578deae"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dropbox/dropbox-sdk-php/zipball/0f1a178ca9c0271bca6426dde8f5a2241578deae",
-                "reference": "0f1a178ca9c0271bca6426dde8f5a2241578deae",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">= 5.3"
-            },
-            "require-dev": {
-                "apigen/apigen": "4.1.2",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.0.0RC3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Dropbox": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Dropbox SDK for PHP",
-            "keywords": [
-                "dropbox"
-            ],
-            "support": {
-                "issues": "https://github.com/dropbox/dropbox-sdk-php/issues",
-                "source": "https://github.com/dropbox/dropbox-sdk-php/tree/v1.1.7"
-            },
-            "time": "2016-08-08T23:48:49+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1643,6 +1797,76 @@
             "time": "2023-01-30T18:31:20+00:00"
         },
         {
+            "name": "laravel/socialite",
+            "version": "v5.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/socialite.git",
+                "reference": "00ea7f8630673ea49304fc8a9fca5a64eb838c7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/00ea7f8630673ea49304fc8a9fca5a64eb838c7e",
+                "reference": "00ea7f8630673ea49304fc8a9fca5a64eb838c7e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "illuminate/contracts": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/http": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "league/oauth1-client": "^1.10.1",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^8.0|^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Socialite\\SocialiteServiceProvider"
+                    ],
+                    "aliases": {
+                        "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Socialite\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel wrapper around OAuth 1 & OAuth 2 libraries.",
+            "homepage": "https://laravel.com",
+            "keywords": [
+                "laravel",
+                "oauth"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/socialite/issues",
+                "source": "https://github.com/laravel/socialite"
+            },
+            "time": "2023-06-06T13:42:43+00:00"
+        },
+        {
             "name": "laravel/tinker",
             "version": "v2.8.1",
             "source": {
@@ -2239,6 +2463,82 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "league/oauth1-client",
+            "version": "v1.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/oauth1-client.git",
+                "reference": "d6365b901b5c287dd41f143033315e2f777e1167"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/d6365b901b5c287dd41f143033315e2f777e1167",
+                "reference": "d6365b901b5c287dd41f143033315e2f777e1167",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "guzzlehttp/psr7": "^1.7|^2.0",
+                "php": ">=7.1||>=8.0"
+            },
+            "require-dev": {
+                "ext-simplexml": "*",
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "mockery/mockery": "^1.3.3",
+                "phpstan/phpstan": "^0.12.42",
+                "phpunit/phpunit": "^7.5||9.5"
+            },
+            "suggest": {
+                "ext-simplexml": "For decoding XML-based responses."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev",
+                    "dev-develop": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\OAuth1\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Corlett",
+                    "email": "bencorlett@me.com",
+                    "homepage": "http://www.webcomm.com.au",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OAuth 1.0 Client Library",
+            "keywords": [
+                "Authentication",
+                "SSO",
+                "authorization",
+                "bitbucket",
+                "identity",
+                "idp",
+                "oauth",
+                "oauth1",
+                "single sign on",
+                "trello",
+                "tumblr",
+                "twitter"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/oauth1-client/issues",
+                "source": "https://github.com/thephpleague/oauth1-client/tree/v1.10.1"
+            },
+            "time": "2022-04-15T14:02:14+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3800,28 +4100,27 @@
         },
         {
             "name": "spatie/dropbox-api",
-            "version": "1.21.2",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/dropbox-api.git",
-                "reference": "9769c737b8d91a75b466ce14ed01b205da276597"
+                "reference": "5b012d68568a560d1cd8888c0be2c2805c4b7c65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/dropbox-api/zipball/9769c737b8d91a75b466ce14ed01b205da276597",
-                "reference": "9769c737b8d91a75b466ce14ed01b205da276597",
+                "url": "https://api.github.com/repos/spatie/dropbox-api/zipball/5b012d68568a560d1cd8888c0be2c2805c4b7c65",
+                "reference": "5b012d68568a560d1cd8888c0be2c2805c4b7c65",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "graham-campbell/guzzle-factory": "^3.0|^4.0|^5.0|^6.0|^7.0",
+                "graham-campbell/guzzle-factory": "^4.0.2|^5.0|^6.0|^7.0",
                 "guzzlehttp/guzzle": "^6.2|^7.0",
-                "php": "^7.1|^8.0"
-            },
-            "conflict": {
-                "guzzlehttp/psr7": "<1.7.0"
+                "php": "^8.1"
             },
             "require-dev": {
+                "laravel/pint": "^1.10.1",
+                "phpstan/phpstan": "^1.10.16",
                 "phpunit/phpunit": "^9.4"
             },
             "type": "library",
@@ -3859,7 +4158,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/dropbox-api/issues",
-                "source": "https://github.com/spatie/dropbox-api/tree/1.21.2"
+                "source": "https://github.com/spatie/dropbox-api/tree/1.22.0"
             },
             "funding": [
                 {
@@ -3871,7 +4170,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-07T11:45:23+00:00"
+            "time": "2023-06-08T07:13:00+00:00"
         },
         {
             "name": "spatie/flysystem-dropbox",
@@ -6183,6 +6482,58 @@
                 }
             ],
             "time": "2023-05-25T13:09:35+00:00"
+        },
+        {
+            "name": "teapot/status-code",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/teapot-php/status-code.git",
+                "reference": "1acbf508c63063b63d5c29be6a13c900923f4d2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/teapot-php/status-code/zipball/1acbf508c63063b63d5c29be6a13c900923f4d2c",
+                "reference": "1acbf508c63063b63d5c29be6a13c900923f4d2c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+            },
+            "require-dev": {
+                "ergebnis/php-cs-fixer-config": "^5.5.2",
+                "vimeo/psalm": "^5.11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Teapot\\StatusCode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barney Hanlon",
+                    "email": "barney@shrikeh.net"
+                },
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "PHP HTTP Response Status code library",
+            "homepage": "https://github.com/teapot-php/status-code",
+            "keywords": [
+                "http"
+            ],
+            "support": {
+                "issues": "https://github.com/teapot-php/status-code/issues",
+                "source": "https://github.com/teapot-php/status-code/tree/2.1.0"
+            },
+            "time": "2023-05-11T09:40:01+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
