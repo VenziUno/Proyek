@@ -3,21 +3,21 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
 import { AiOutlineDown, AiOutlineLogout, AiOutlineUp } from "react-icons/ai";
 import Link from "next/link";
+import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 
 const Sidebar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
   const [menus, setMenus] = useState([]);
 
-  const { menu } = useAppContext();
-  const { configMenu } = menu;
+  const { menu, user } = useAppContext();
+  const { configMenu, selectedMenu, selectedSubmenu, setSelectedMenu } = menu;
+  const { showLogout, setShowLogout } = user;
+  const [showSidemenu, setShowSidemenu] = useState(true);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     setMenus(configMenu.mainMenu);
   });
-
-  const handleShowDropDownMenu = () => {
-    setDropDownMenu(!dropDownMenu);
-  };
 
   return (
     <div
@@ -37,58 +37,74 @@ const Sidebar = () => {
           <div>LOGO</div>
         </div>
         <div className="space-y-2">
-          {menus.map((menu, index) => {
-            return (
-              <div className="outline-none relative" key={index}>
-                {menu.subMenu ? (
-                  <button
-                    onClick={handleShowDropDownMenu}
-                    className="w-full px-3 py-2 rounded  bg-primary-300"
+
+        {menus &&
+          menus.map(
+            ({ route, name, subMenu, icon }) => (
+              <div className="flex flex-col gap-1 bg-primary-500" key={route}>
+                <Link href={subMenu ? "" : route} key={route} legacyBehavior>
+                  <a
+                    title={showSidemenu ? "" : name}
+                    className={
+                      selectedMenu === route
+                        ? `p-2 bg-primary-300`
+                        : `p-2 hover:bg-primary-200`
+                    }
+                    onClick={(e) => {
+                      if (!showSidemenu) {
+                        setShowSidemenu(true);
+                      }
+                      if (route === "/logout") {
+                        e.preventDefault();
+                        setShowLogout(true);
+                      } 
+                      else if (subMenu) {
+                        if (showDropdown === route) {
+                          setShowDropdown(false);
+                        } else {
+                          setShowDropdown(route);
+                        }
+                      }
+                    }}
                   >
-                    <div className="flex items-center rounded justify-between">
-                      <div className="flex space-x-2 items-center">
-                        <div>{menu.icon}</div>
-                        <div>{menu.name}</div>
+                    <div className="flex flex-row justify-between items-center gap-4">
+                      <div className="flex flex-row items-center">
+                        <div className={showSidemenu ? "w-8" : ""}>{icon}</div>
+                        {showSidemenu && name}
                       </div>
-                      {dropDownMenu ? <AiOutlineDown /> : <AiOutlineUp />}
+                      {subMenu &&
+                        showSidemenu &&
+                        (selectedMenu === route || showDropdown === route ? (
+                          <HiChevronUp size={16} />
+                        ) : (
+                          <HiChevronDown size={16} />
+                        ))}
                     </div>
-                  </button>
-                ) : (
-                  <Link href={menu.route}>
-                    <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
-                      <div className="flex space-x-2 items-center">
-                        <div>{menu.icon}</div>
-                        <div>{menu.name}</div>
+                  </a>
+                </Link>
+                {showSidemenu &&
+                  (selectedMenu === route || showDropdown === route) &&
+                  subMenu && (
+                    <div className="flex flex-row justify-center">
+                      <div className="bg-primary-500 flex flex-col w-full">
+                        {subMenu.map((sub) => (
+                          <Link href={sub.route} key={sub.route} legacyBehavior>
+                            <a
+                              className={
+                                selectedSubmenu === sub.route
+                                  ? "pl-6 py-2 bg-primary-300"
+                                  : "pl-6 py-2 hover:bg-primary-200"
+                              }
+                            >
+                              {sub.name}
+                            </a>
+                          </Link>
+                        ))}
                       </div>
                     </div>
-                  </Link>
-                )}
-                {menu.subMenu && dropDownMenu && (
-                  <div className="h-fit  w-full mt-1 bg-primary-200 rounded py-2">
-                    {menu.subMenu.map((submenu, index) => {
-                      return (
-                        <Link href={submenu.route} key={index}>
-                          <div className="flex space-x-2 items-center px-9 py-2 hover:bg-primary-300">
-                            <div>{submenu.name}</div>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
+                  )}
               </div>
-            );
-          })}
-          <div className="outline-none relative">
-            <div className="flex items-center px-3 py-2 rounded justify-between bg-primary-300">
-              <div className="flex space-x-2 items-center">
-                <div>
-                  <AiOutlineLogout />
-                </div>
-                <div>Log Out</div>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
       </div>
     </div>

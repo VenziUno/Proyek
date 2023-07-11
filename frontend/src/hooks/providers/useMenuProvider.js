@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AiOutlineLogout } from "react-icons/ai";
 import {
   RiArticleLine,
   RiDashboardLine,
@@ -71,6 +72,7 @@ export const useMenuProvider = () => {
         ],
       },
       {
+        id: 7,
         route: "/settings",
         name: "Setting",
         title: "Setting",
@@ -105,6 +107,14 @@ export const useMenuProvider = () => {
             detail: "See Authorization details here!",
           },
         ],
+      },
+      {
+        id: 8,
+        route: "/logout",
+        name: "Logout",
+        title: "Logout",
+        detail: "Logout",
+        icon: <AiOutlineLogout />, 
       },
     ],
     additionalMenu: [
