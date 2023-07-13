@@ -1,22 +1,29 @@
+import React, { useState, useEffect } from "react";
 import Button from "@/components/button";
-import InputFields from "@/components/inputFields";
-import Label from "@/components/label";
 import Layout from "@/components/layout";
-import React, { useEffect, useState } from "react";
+import Label from "@/components/label";
+import InputFields from "@/components/inputFields";
 import { useAppContext } from "@/hooks/useAppContext";
 import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Selects from "@/components/selects";
 
-export default function AddRole() {
+const EditRole = ({ id }) => {
   const { role, basic } = useAppContext();
   const { form, setForm, resetForm } = role;
   const { notification, setNotification, handleShowNotification } = basic;
   const router = useRouter();
+  const [status, setStatus] = useState();
+
+  const pilihan_status = [
+    { label: "Aktif", value: 1 },
+    { label: "Tidak Aktif", value: 0 },
+  ];
 
   const handleCheck = () => {
     if (
-      form.id === "" ||
+      form.code === "" ||
       form.name === ""
     ) {
       setNotification({
@@ -30,30 +37,7 @@ export default function AddRole() {
     }
   };
 
-  const pilihan_status = [
-    { label: "Aktif", value: 1 },
-    { label: "Tidak Aktif", value: 0 },
-  ];
-
-  // client side data fetching
-  const {
-    res: resCode,
-    isLoading: isLoadingCode,
-    isError: isErrorCode,
-  } = useFetcher(`role/code`);
-
-  // set value
-  useEffect(() => {
-    if (resCode) {
-      const { code, status } = resCode;
-      if (status) {
-        setForm({ ...form, id: code });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resCode, setForm]);
-
-  const handleSubmitAdd = async () => {
+  const handleSubmitEdit = async () => {
     if (handleCheck()) {
       try {
         const token = sessionStorage.getItem("token");
@@ -62,7 +46,7 @@ export default function AddRole() {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/role`,
+          }/api/role/${form.id}`,
           form,
           {
             headers: {
@@ -77,7 +61,7 @@ export default function AddRole() {
           type: "Success",
           message: res.data.message,
         });
-        router.push("/settings/role");
+        router.back();
       } catch (error) {
         resetForm();
         setNotification({
@@ -85,15 +69,30 @@ export default function AddRole() {
           type: "Danger",
           message: error.message,
         });
-        router.push("/settings/role");
+        router.back();
       }
     }
   };
+
+  // client side data fetching
+  const { res, isLoading, isError } = useFetcher(`role/${id}`);
+  
+  // set value
+  useEffect(() => {
+    if (res !== undefined) {
+      console.log(res)
+      setForm({
+        id: res.data.id,
+        name: res.data.name,
+      });
+    }
+  }, [res, setForm]);
+
   return (
     <Layout>
       <div className="space-y-5 p-2">
-        <Label label="Add Role" type="title" />
-        <div className="gap-2">
+      <Label label="Edit Role" type="title" />
+        <div className="">
           <Label label="Role Code">
             <InputFields
               type="text"
@@ -115,19 +114,32 @@ export default function AddRole() {
             />
           </Label>
         </div>
-        <div className="flex flex-row justify-end gap-4">
+        <div className="flex flex-row justify-end gap-5">
           <Button
             action="light"
-            link="/master/building"
+            link="/setting/role"
             handleClick={resetForm}
           >
-            Cancel
+            Back
           </Button>
-          <Button action="primary" handleClick={handleSubmitAdd}>
-            Save
+          <Button
+            action="primary"
+            handleClick={(e) => {
+              e.preventDefault();
+              handleSubmitEdit();
+            }}
+          >
+            Update
           </Button>
         </div>
       </div>
     </Layout>
   );
+};
+
+export async function getServerSideProps(ctx) {
+  let id = ctx.query.id;
+  return { props: { id } };
 }
+
+export default EditRole;

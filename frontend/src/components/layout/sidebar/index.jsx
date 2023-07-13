@@ -4,6 +4,7 @@ import { useAppContext } from "@/hooks/useAppContext";
 import { AiOutlineDown, AiOutlineLogout, AiOutlineUp } from "react-icons/ai";
 import Link from "next/link";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
@@ -11,10 +12,10 @@ const Sidebar = () => {
 
   const { menu, user } = useAppContext();
   const { configMenu, selectedMenu, selectedSubmenu, setSelectedMenu } = menu;
-  const { showLogout, setShowLogout } = user;
+  const { setShowLogout } = user;
   const [showSidemenu, setShowSidemenu] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
-
+  
   useEffect(() => {
     setMenus(configMenu.mainMenu);
   });
@@ -37,7 +38,6 @@ const Sidebar = () => {
           <div>LOGO</div>
         </div>
         <div className="space-y-2">
-
         {menus &&
           menus.map(
             ({ route, name, subMenu, icon }) => (
