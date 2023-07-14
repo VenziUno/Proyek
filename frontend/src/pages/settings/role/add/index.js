@@ -7,6 +7,7 @@ import { useAppContext } from "@/hooks/useAppContext";
 import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Selects from "@/components/selects";
 
 export default function AddRole() {
   const { role, basic } = useAppContext();
@@ -17,7 +18,8 @@ export default function AddRole() {
   const handleCheck = () => {
     if (
       form.id === "" ||
-      form.name === ""
+      form.name === "" ||
+      form.status === null
     ) {
       setNotification({
         show: true,
@@ -114,11 +116,18 @@ export default function AddRole() {
               setValue={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Label>
+          <Label label="Status">
+            <Selects
+              list={pilihan_status}
+              placeholder="Pilih Status"
+              handleChange={(item) => setForm({ ...form, status: item.value })}
+            />
+          </Label>
         </div>
         <div className="flex flex-row justify-end gap-4">
           <Button
             action="light"
-            link="/master/building"
+            link="/settings/role"
             handleClick={resetForm}
           >
             Cancel

@@ -9,7 +9,6 @@ import axios from "axios";
 export default function CardNotif({ type, title }) {
   const { user, basic } = useAppContext();
   const { setShowLogout, deleteItem, setDeleteItem } = user;
-  console.log(type)
   const location = useRouter();
   const path = location.asPath;
   const query = location.query.page;
@@ -17,9 +16,9 @@ export default function CardNotif({ type, title }) {
 
   const handleConfirm = async (e) => {
     e.preventDefault();
-    // if (deleteItem.data === 1) {
-    //   location.push(`${location.basePath}?page=${query - 1}`);
-    // }
+    if (deleteItem.data === 1) {
+      location.push(`${location.basePath}?page=${query - 1}`);
+    }
     if (type === "logout") {
       const token = sessionStorage.getItem("token");
       if (token) {
@@ -29,7 +28,7 @@ export default function CardNotif({ type, title }) {
               typeof window === "undefined"
                 ? process.env.API_URL_SSR
                 : process.env.API_URL
-            }/logout`,
+            }/api/logout`,
             { token: token },
             {
               headers: {

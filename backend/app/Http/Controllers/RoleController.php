@@ -42,6 +42,7 @@ class RoleController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required|unique:roles',
             'name' => 'required|unique:roles',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -51,6 +52,7 @@ class RoleController extends Controller
         $role=Role::create([
             'id' => $request->id,
             'name' => $request->name,
+            'status' => $request->status,
         ]);
 
         if ($role) {
@@ -92,6 +94,7 @@ class RoleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -100,6 +103,7 @@ class RoleController extends Controller
 
         $role=Role::find($id)->update([
             'name' => $request->name,
+            'status' => $request->status,
         ]);
 
         if ($role) {

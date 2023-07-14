@@ -11,7 +11,7 @@ class Role extends Model
     protected $table = 'roles';
     public $incrementing = false;
     protected $guarded = [];
-    protected $fillable = ['id','name'];
+    protected $fillable = ['id','name','status'];
 
     public function users()
     {

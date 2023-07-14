@@ -21,10 +21,13 @@ const EditRole = ({ id }) => {
     { label: "Tidak Aktif", value: 0 },
   ];
 
+  
+
   const handleCheck = () => {
     if (
       form.code === "" ||
-      form.name === ""
+      form.name === "" ||
+      form.status === null
     ) {
       setNotification({
         show: true,
@@ -84,9 +87,18 @@ const EditRole = ({ id }) => {
       setForm({
         id: res.data.id,
         name: res.data.name,
+        status: res.data.status,
       });
+
+      console.log(res.data.status)
+      if (res.data.status === 0) {
+        setStatus({ label: "Tidak Aktif", value: 0 });
+      } else if (res.data.status === 1) {
+        setStatus({ label: "Aktif", value: 1 });
+      } else setStatus(null);
     }
   }, [res, setForm]);
+
 
   return (
     <Layout>
@@ -113,11 +125,23 @@ const EditRole = ({ id }) => {
               setValue={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Label>
+          <Label label="Status">
+            {status && (
+              <Selects
+                list={pilihan_status}
+                value={status}
+                placeholder="Pilih Status"
+                handleChange={(item) =>
+                  setForm({ ...form, status: item.value })
+                }
+              />
+            )}
+          </Label>
         </div>
         <div className="flex flex-row justify-end gap-5">
           <Button
             action="light"
-            link="/setting/role"
+            link="/settings/role"
             handleClick={resetForm}
           >
             Back

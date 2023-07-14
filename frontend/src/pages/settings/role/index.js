@@ -58,6 +58,7 @@ export default function Role ({ page }) {
         title="Building List"
         data={dataTableGedung}
         pagination={dataPagination}
+        list={list}
         buttonAdd
         search
         actionEdit

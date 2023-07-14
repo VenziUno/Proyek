@@ -75,6 +75,12 @@ const Layout = ({ children }) => {
           title="Are you sure you want to Delete this data?"
         />
       )}
+      {showLogout && (
+        <CardNotif
+          type="logout"
+          title="Yakin Ingin Keluar"
+        />
+      )}
       <div className="flex flex-row gap-4 p-4 w-full ">
         <Sidebar />
         <div className="flex flex-col flex-grow h-full  ">
