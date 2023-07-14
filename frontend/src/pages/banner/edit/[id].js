@@ -9,9 +9,9 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Selects from "@/components/selects";
 
-const EditGedung = ({ id }) => {
-  const { building, basic } = useAppContext();
-  const { form, setForm, resetForm } = building;
+const EditBanner = ({ id }) => {
+  const { banner, basic } = useAppContext();
+  const { form, setForm, resetForm } = banner    ;
   const { notification, setNotification, handleShowNotification } = basic;
   const router = useRouter();
   const [status, setStatus] = useState();
@@ -25,10 +25,6 @@ const EditGedung = ({ id }) => {
     if (
       form.code === "" ||
       form.name === "" ||
-      form.floor === 0 ||
-      form.long === 0 ||
-      form.tall === 0 ||
-      form.wide === 0 ||
       form.status === null
     ) {
       setNotification({
@@ -51,7 +47,7 @@ const EditGedung = ({ id }) => {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/building/${form.id}`,
+          }/api/role/${form.id}`,
           form,
           {
             headers: {
@@ -78,116 +74,89 @@ const EditGedung = ({ id }) => {
       }
     }
   };
-  // client side data fetching
-  const { res, isLoading, isError } = useFetcher(`building/${id}`);
 
+  // client side data fetching
+  const { res, isLoading, isError } = useFetcher(`role/${id}`);
+  
   // set value
   useEffect(() => {
     if (res !== undefined) {
+      console.log(res)
       setForm({
-        id: res.id,
-        name: res.name,
-        floor: res.floor,
-        long: res.long,
-        tall: res.tall,
-        wide: res.wide,
-        status: res.status,
+        id: res.data.id,
+        name: res.data.name,
+        status: res.data.status,
       });
 
-      if (res.status === 0) {
+      console.log(res.data.status)
+      if (res.data.status === 0) {
         setStatus({ label: "Tidak Aktif", value: 0 });
-      } else if (res.status === 1) {
+      } else if (res.data.status === 1) {
         setStatus({ label: "Aktif", value: 1 });
       } else setStatus(null);
     }
   }, [res, setForm]);
 
+
   return (
     <Layout>
       <div className="space-y-5 p-2">
-      <Label label="Edit Building" type="title" />
+      <Label label="Edit Banner" type="title" />
         <div className="">
-          <Label label="Building Code">
+        <Label label="Banner Code">
             <InputFields
               type="text"
               style="w-full"
-              placeholder="Building Code"
-              title="Building Code"
-              value={form.id}
+              placeholder="Banner Code"
+              title="Banner Code"
+              // value={form.id}
               disabled
             />
           </Label>
-          <Label label="Building Name">
+          <Label label="Banner Name">
             <InputFields
               type="text"
               style="w-full"
-              placeholder="Building Name"
-              title="Building Name"
-              value={form.name}
-              setValue={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder="Banner Name"
+              title="Banner Name"
+              // value={form.name}
+              // setValue={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Label>
-          <Label label="Floor Level">
-            <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
+          <Label label="Banner Description">
+            <TextArea
+              type="text"
               style="w-full"
-              title="Floor Level"
-              value={form.floor}
-              setValue={(e) => setForm({ ...form, floor: e.target.value })}
+              placeholder="Banner Description"
+              title="Banner Description"
+              // value={form.description}
+              // setValue={(e) =>
+              //   setForm({ ...form, description: e.target.value })
+              // }
             />
           </Label>
-          <Label label="Tall">
+          <Label label="Banner Image">
             <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
+              type="file"
               style="w-full"
-              title="Tall"
-              value={form.tall}
-              setValue={(e) => setForm({ ...form, tall: e.target.value })}
-            />
-          </Label>
-          <Label label="Long">
-            <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
-              style="w-full"
-              title="Long"
-              value={form.long}
-              setValue={(e) => setForm({ ...form, long: e.target.value })}
-            />
-          </Label>
-          <Label label="Wide">
-            <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
-              style="w-full"
-              title="Wide"
-              value={form.wide}
-              setValue={(e) => setForm({ ...form, wide: e.target.value })}
+              placeholder="Banner Image"
+              title="Banner Image"
+              // value={form.image}
+              // setValue={(e) => setForm({ ...form, image: e.target.value })}
             />
           </Label>
           <Label label="Status">
-            {status && (
-              <Selects
-                list={pilihan_status}
-                value={status}
-                placeholder="Pilih Status"
-                handleChange={(item) =>
-                  setForm({ ...form, status: item.value })
-                }
-              />
-            )}
+            <Selects
+              list={pilihan_status}
+              placeholder="Pilih Status"
+              handleChange={(item) => setForm({ ...form, status: item.value })}
+            />
           </Label>
         </div>
         <div className="flex flex-row justify-end gap-5">
           <Button
             action="light"
-            link="/master/building"
+            link="/settings/role"
             handleClick={resetForm}
           >
             Back
@@ -212,4 +181,4 @@ export async function getServerSideProps(ctx) {
   return { props: { id } };
 }
 
-export default EditGedung;
+export default EditBanner;

@@ -18,10 +18,10 @@ export const useMenuProvider = () => {
       },
       {
         id: 2,
-        route: "/benner",
-        name: "Benner",
-        title: "Benner",
-        detail: "Benner Details",
+        route: "/banner",
+        name: "Banner",
+        title: "Banner",
+        detail: "Banner Details",
         icon: <RiDashboardLine />,
       },
       {

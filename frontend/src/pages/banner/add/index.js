@@ -2,29 +2,21 @@ import Button from "@/components/button";
 import InputFields from "@/components/inputFields";
 import Label from "@/components/label";
 import Layout from "@/components/layout";
-import React, { useEffect, useState } from "react";
+import Selects from "@/components/selects";
+import TextArea from "@/components/textArea";
 import { useAppContext } from "@/hooks/useAppContext";
 import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
-import axios from "axios";
-import Selects from "@/components/selects";
+import React, { useEffect } from "react";
 
-export default function AddBuilding() {
-  const { building, basic } = useAppContext();
-  const { form, setForm, resetForm } = building;
+export default function AddBanner() {
+  const { role, basic } = useAppContext();
+  const { form, setForm, resetForm } = role;
   const { notification, setNotification, handleShowNotification } = basic;
   const router = useRouter();
 
   const handleCheck = () => {
-    if (
-      form.id === "" ||
-      form.name === "" ||
-      form.floor === 0 ||
-      form.long === 0 ||
-      form.tall === 0 ||
-      form.wide === 0 ||
-      form.status === null
-    ) {
+    if (form.id === "" || form.name === "" || form.status === null) {
       setNotification({
         show: true,
         type: "Warning",
@@ -46,7 +38,7 @@ export default function AddBuilding() {
     res: resCode,
     isLoading: isLoadingCode,
     isError: isErrorCode,
-  } = useFetcher(`building/code`);
+  } = useFetcher(`role/code`);
 
   // set value
   useEffect(() => {
@@ -68,7 +60,7 @@ export default function AddBuilding() {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/building`,
+          }/api/role`,
           form,
           {
             headers: {
@@ -83,7 +75,7 @@ export default function AddBuilding() {
           type: "Success",
           message: res.data.message,
         });
-        router.push("/master/building");
+        router.push("/settings/role");
       } catch (error) {
         resetForm();
         setNotification({
@@ -91,77 +83,55 @@ export default function AddBuilding() {
           type: "Danger",
           message: error.message,
         });
-        router.push("/master/building");
+        router.push("/settings/role");
       }
     }
   };
   return (
     <Layout>
       <div className="space-y-5 p-2">
-        <Label label="Add Building" type="title" />
-        <div className="">
-          <Label label="Building Code">
+        <Label label="Add Banner" type="title" />
+        <div className="gap-2">
+          <Label label="Banner Code">
             <InputFields
               type="text"
               style="w-full"
-              placeholder="Building Code"
-              title="Building Code"
-              value={form.id}
+              placeholder="Banner Code"
+              title="Banner Code"
+              // value={form.id}
               disabled
             />
           </Label>
-          <Label label="Building Name">
+          <Label label="Banner Name">
             <InputFields
               type="text"
               style="w-full"
-              placeholder="Building Name"
-              title="Building Name"
-              value={form.name}
-              setValue={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder="Banner Name"
+              title="Banner Name"
+              // value={form.name}
+              // setValue={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Label>
-          <Label label="Floor Level">
-            <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
+          <Label label="Banner Description">
+            <TextArea
+              type="text"
               style="w-full"
-              title="Floor Level"
-              value={form.floor}
-              setValue={(e) => setForm({ ...form, floor: e.target.value })}
+              placeholder="Banner Description"
+              title="Banner Description"
+              // value={form.description}
+              // setValue={(e) =>
+              //   setForm({ ...form, description: e.target.value })
+              // }
             />
           </Label>
-          <Label label="Tall">
+          <Label label="Banner Image">
             <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
+              type="file"
               style="w-full"
-              title="Tall"
-              value={form.tall}
-              setValue={(e) => setForm({ ...form, tall: e.target.value })}
-            />
-          </Label>
-          <Label label="Long">
-            <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
-              style="w-full"
-              title="Long"
-              value={form.long}
-              setValue={(e) => setForm({ ...form, long: e.target.value })}
-            />
-          </Label>
-          <Label label="Wide">
-            <InputFields
-              type="number"
-              min="0"
-              placeholder="0"
-              style="w-full"
-              title="Wide"
-              value={form.wide}
-              setValue={(e) => setForm({ ...form, wide: e.target.value })}
+              placeholder="Banner Image"
+              title="Banner Image"
+              // value={form.image}
+              // setValue={(e) => setForm({ ...form, image: e.target.value })}
             />
           </Label>
           <Label label="Status">
@@ -173,11 +143,7 @@ export default function AddBuilding() {
           </Label>
         </div>
         <div className="flex flex-row justify-end gap-4">
-          <Button
-            action="light"
-            link="/master/building"
-            handleClick={resetForm}
-          >
+          <Button action="light" link="/settings/role" handleClick={resetForm}>
             Cancel
           </Button>
           <Button action="primary" handleClick={handleSubmitAdd}>

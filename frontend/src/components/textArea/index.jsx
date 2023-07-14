@@ -8,13 +8,13 @@ const TextArea = ({ placeholder, style, value, setValue, disabled }) => {
       break;
   }
   return (
-      <textarea
-        value={value}
-        disabled={disabled}
-        onChange={(e) => setValue(e)}
-        placeholder={placeholder}
-        className={`w-full border shadow bg-white h-fit px-4 py-3 text-xs rounded outline-none inline-flex ${style}`}
-      />
+    <textarea
+      value={value}
+      disabled={disabled}
+      onChange={(e) => setValue(e)}
+      placeholder={placeholder}
+      className={`w-full border border-slate-400 shadow bg-white max-h-96 h-40 p-2 rounded outline-none inline-flex ${style}`}
+    />
   );
 };
 
