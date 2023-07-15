@@ -10,13 +10,19 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 export default function AddBanner() {
-  const { role, basic } = useAppContext();
-  const { form, setForm, resetForm } = role;
+  const { banner, basic } = useAppContext();
+  const { form, setForm, resetForm } = banner;
   const { notification, setNotification, handleShowNotification } = basic;
   const router = useRouter();
 
   const handleCheck = () => {
-    if (form.id === "" || form.name === "" || form.status === null) {
+    if (
+      form.id === "" ||
+      form.name === "" ||
+      form.description === "" ||
+      form.image === [] ||
+      form.status === 0
+    ) {
       setNotification({
         show: true,
         type: "Warning",
@@ -99,7 +105,7 @@ export default function AddBanner() {
               placeholder="Banner Code"
               title="Banner Code"
               // value={form.id}
-              disabled
+              // disabled
             />
           </Label>
           <Label label="Banner Name">
@@ -143,7 +149,7 @@ export default function AddBanner() {
           </Label>
         </div>
         <div className="flex flex-row justify-end gap-4">
-          <Button action="light" link="/settings/role" handleClick={resetForm}>
+          <Button action="light" link="/banner" handleClick={resetForm}>
             Cancel
           </Button>
           <Button action="primary" handleClick={handleSubmitAdd}>

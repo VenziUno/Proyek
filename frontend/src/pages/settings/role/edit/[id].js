@@ -21,8 +21,6 @@ const EditRole = ({ id }) => {
     { label: "Tidak Aktif", value: 0 },
   ];
 
-  
-
   const handleCheck = () => {
     if (
       form.code === "" ||

@@ -11,7 +11,7 @@ import Selects from "@/components/selects";
 
 const EditBanner = ({ id }) => {
   const { banner, basic } = useAppContext();
-  const { form, setForm, resetForm } = banner    ;
+  const { form, setForm, resetForm } = banner;
   const { notification, setNotification, handleShowNotification } = basic;
   const router = useRouter();
   const [status, setStatus] = useState();
@@ -23,9 +23,11 @@ const EditBanner = ({ id }) => {
 
   const handleCheck = () => {
     if (
-      form.code === "" ||
+      form.id === "" ||
       form.name === "" ||
-      form.status === null
+      form.description === "" ||
+      form.image === [] ||
+      form.status === 0
     ) {
       setNotification({
         show: true,
@@ -156,7 +158,7 @@ const EditBanner = ({ id }) => {
         <div className="flex flex-row justify-end gap-5">
           <Button
             action="light"
-            link="/settings/role"
+            link="/banner"
             handleClick={resetForm}
           >
             Back

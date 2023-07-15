@@ -5,6 +5,7 @@ import { useUserProvider } from "./providers/useUserProvider";
 import { useBuildingProvider } from "./providers/master/useBuildingProvider";
 import { useRoomProvider } from "./providers/master/useRoomProvider";
 import { useRoleProvider } from "./providers/settings/useRoleProvider";
+import { useBannerProvider } from "./providers/banner/useBannerProvider";
 
 const appContext = createContext();
 
@@ -20,11 +21,15 @@ export const AppProvider = ({ children }) => {
   // Seting
   const role = useRoleProvider();
 
+  // Banner
+  const banner = useBannerProvider();
+
   return (
     <appContext.Provider
       value={{
         menu,
         basic,
+        banner,
         user,
         building,
         role,
