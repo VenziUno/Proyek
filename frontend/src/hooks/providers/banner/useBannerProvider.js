@@ -12,7 +12,7 @@ export const useBannerProvider = () => {
     id: "",
     name: "",
     description: "",
-    image: [],
+    file: "",
     status: null,
   });
 
@@ -21,7 +21,7 @@ export const useBannerProvider = () => {
       id: "",
       name: "",
       description: "",
-      image: "",
+      file: "",
       status: null,
     });
   };
@@ -31,7 +31,7 @@ export const useBannerProvider = () => {
       form.id === "" ||
       form.name === "" ||
       form.description === "" ||
-      form.image === "" ||
+      form.file === "" ||
       form.status === 0
     ) {
       setNotification({
@@ -54,7 +54,7 @@ export const useBannerProvider = () => {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/building`,
+          }/api/banner`,
           form,
           {
             headers: {
@@ -70,7 +70,7 @@ export const useBannerProvider = () => {
           type: "Success",
           message: res.data.message,
         });
-        router.push("/master/building");
+        router.push("/banner");
       } catch (error) {
         resetForm();
         setNotification({
@@ -78,7 +78,7 @@ export const useBannerProvider = () => {
           type: "Danger",
           message: error.message,
         });
-        router.push("/master/building");
+        router.push("/banner");
       }
     }
   };
@@ -92,7 +92,7 @@ export const useBannerProvider = () => {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/building/${form.id}`,
+          }/api/banner/${form.id}`,
           form,
           {
             headers: {
@@ -107,7 +107,7 @@ export const useBannerProvider = () => {
           type: "Success",
           message: "Edit data success !",
         });
-        router.push("/master/building");
+        router.push("/banner");
       } catch (error) {
         resetForm();
         setNotification({
@@ -115,7 +115,7 @@ export const useBannerProvider = () => {
           type: "Danger",
           message: error.message,
         });
-        router.push("/master/building");
+        router.push("/banner");
       }
     }
   };

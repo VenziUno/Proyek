@@ -8,6 +8,7 @@ import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Selects from "@/components/selects";
+import TextArea from "@/components/textArea";
 
 const EditBanner = ({ id }) => {
   const { banner, basic } = useAppContext();
@@ -26,7 +27,7 @@ const EditBanner = ({ id }) => {
       form.id === "" ||
       form.name === "" ||
       form.description === "" ||
-      form.image === [] ||
+      form.file === "" ||
       form.status === 0
     ) {
       setNotification({
@@ -49,7 +50,7 @@ const EditBanner = ({ id }) => {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/role/${form.id}`,
+          }/api/banner/${form.id}`,
           form,
           {
             headers: {
@@ -78,8 +79,10 @@ const EditBanner = ({ id }) => {
   };
 
   // client side data fetching
-  const { res, isLoading, isError } = useFetcher(`role/${id}`);
+  const { res, isLoading, isError } = useFetcher(`banner/${id}`);
   
+  console.log(res)
+
   // set value
   useEffect(() => {
     if (res !== undefined) {
@@ -87,10 +90,10 @@ const EditBanner = ({ id }) => {
       setForm({
         id: res.data.id,
         name: res.data.name,
+        description: res.data.description,
+        file: res.data.file,
         status: res.data.status,
       });
-
-      console.log(res.data.status)
       if (res.data.status === 0) {
         setStatus({ label: "Tidak Aktif", value: 0 });
       } else if (res.data.status === 1) {
@@ -111,7 +114,7 @@ const EditBanner = ({ id }) => {
               style="w-full"
               placeholder="Banner Code"
               title="Banner Code"
-              // value={form.id}
+              value={form.id}
               disabled
             />
           </Label>
@@ -121,8 +124,8 @@ const EditBanner = ({ id }) => {
               style="w-full"
               placeholder="Banner Name"
               title="Banner Name"
-              // value={form.name}
-              // setValue={(e) => setForm({ ...form, name: e.target.value })}
+              value={form.name}
+              setValue={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Label>
           <Label label="Banner Description">
@@ -131,28 +134,33 @@ const EditBanner = ({ id }) => {
               style="w-full"
               placeholder="Banner Description"
               title="Banner Description"
-              // value={form.description}
-              // setValue={(e) =>
-              //   setForm({ ...form, description: e.target.value })
-              // }
+              value={form.description}
+              setValue={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </Label>
           <Label label="Banner Image">
             <InputFields
-              type="file"
+              type="text"
               style="w-full"
               placeholder="Banner Image"
               title="Banner Image"
-              // value={form.image}
-              // setValue={(e) => setForm({ ...form, image: e.target.value })}
+              value={form.file}
+              setValue={(e) => setForm({ ...form, file: e.target.value })}
             />
           </Label>
           <Label label="Status">
-            <Selects
-              list={pilihan_status}
-              placeholder="Pilih Status"
-              handleChange={(item) => setForm({ ...form, status: item.value })}
-            />
+            {status && (
+              <Selects
+                list={pilihan_status}
+                value={status}
+                placeholder="Pilih Status"
+                handleChange={(item) =>
+                  setForm({ ...form, status: item.value })
+                }
+              />
+            )}
           </Label>
         </div>
         <div className="flex flex-row justify-end gap-5">

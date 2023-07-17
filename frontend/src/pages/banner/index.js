@@ -19,8 +19,6 @@ export default function Banner ({ page }) {
     last_page: "",
   });
 
-  console.log(res)
-
   const list = [
     { label: "Semua", value: "" },
     { label: "Aktif", value: 1 },

@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:api'])->group(function () {
+// Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('menu', [MenuController::class, 'index']);
@@ -59,4 +59,4 @@ Route::middleware(['auth:api'])->group(function () {
             Route::get('/', [AuthorizationController::class, 'index'])->name('setting_authorization_view_index');
         });
     });
-});
+// });

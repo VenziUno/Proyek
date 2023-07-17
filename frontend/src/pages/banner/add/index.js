@@ -8,6 +8,7 @@ import { useAppContext } from "@/hooks/useAppContext";
 import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import axios from "axios";
 
 export default function AddBanner() {
   const { banner, basic } = useAppContext();
@@ -20,7 +21,7 @@ export default function AddBanner() {
       form.id === "" ||
       form.name === "" ||
       form.description === "" ||
-      form.image === [] ||
+      form.file === "" ||
       form.status === 0
     ) {
       setNotification({
@@ -44,7 +45,7 @@ export default function AddBanner() {
     res: resCode,
     isLoading: isLoadingCode,
     isError: isErrorCode,
-  } = useFetcher(`role/code`);
+  } = useFetcher(`banner/code`);
 
   // set value
   useEffect(() => {
@@ -66,7 +67,7 @@ export default function AddBanner() {
             typeof window === "undefined"
               ? process.env.API_URL_SSR
               : process.env.API_URL
-          }/api/role`,
+          }/api/banner`,
           form,
           {
             headers: {
@@ -76,12 +77,13 @@ export default function AddBanner() {
           }
         );
         resetForm();
+        console.log(res)
         setNotification({
           show: true,
           type: "Success",
           message: res.data.message,
         });
-        router.push("/settings/role");
+        router.push("/banner");
       } catch (error) {
         resetForm();
         setNotification({
@@ -89,7 +91,7 @@ export default function AddBanner() {
           type: "Danger",
           message: error.message,
         });
-        router.push("/settings/role");
+        router.push("/banner");
       }
     }
   };
@@ -104,8 +106,8 @@ export default function AddBanner() {
               style="w-full"
               placeholder="Banner Code"
               title="Banner Code"
-              // value={form.id}
-              // disabled
+              value={form.id}
+              disabled
             />
           </Label>
           <Label label="Banner Name">
@@ -114,8 +116,8 @@ export default function AddBanner() {
               style="w-full"
               placeholder="Banner Name"
               title="Banner Name"
-              // value={form.name}
-              // setValue={(e) => setForm({ ...form, name: e.target.value })}
+              value={form.name}
+              setValue={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Label>
           <Label label="Banner Description">
@@ -124,10 +126,10 @@ export default function AddBanner() {
               style="w-full"
               placeholder="Banner Description"
               title="Banner Description"
-              // value={form.description}
-              // setValue={(e) =>
-              //   setForm({ ...form, description: e.target.value })
-              // }
+              value={form.description}
+              setValue={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </Label>
           <Label label="Banner Image">
@@ -136,8 +138,8 @@ export default function AddBanner() {
               style="w-full"
               placeholder="Banner Image"
               title="Banner Image"
-              // value={form.image}
-              // setValue={(e) => setForm({ ...form, image: e.target.value })}
+              value={form.file}
+              setValue={(e) => setForm({ ...form, file: e.target.value })}
             />
           </Label>
           <Label label="Status">

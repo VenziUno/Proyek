@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('banners', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('name');
             $table->text('description');
-            $table->text('images');
+            $table->text('file');
             $table->boolean('status');
             $table->softDeletes();
             $table->timestamps();
