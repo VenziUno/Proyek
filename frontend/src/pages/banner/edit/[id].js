@@ -142,12 +142,12 @@ const EditBanner = ({ id }) => {
           </Label>
           <Label label="Banner Image">
             <InputFields
-              type="text"
+              type="file"
               style="w-full"
               placeholder="Banner Image"
               title="Banner Image"
-              value={form.file}
-              setValue={(e) => setForm({ ...form, file: e.target.value })}
+              // value={form.file}
+              setValue={(e) => setForm({ ...form, file: e.target.files[0] })}
             />
           </Label>
           <Label label="Status">

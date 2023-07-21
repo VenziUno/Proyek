@@ -7,7 +7,7 @@ import TextArea from "@/components/textArea";
 import { useAppContext } from "@/hooks/useAppContext";
 import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function AddBanner() {
@@ -21,7 +21,7 @@ export default function AddBanner() {
       form.id === "" ||
       form.name === "" ||
       form.description === "" ||
-      form.file === "" ||
+      form.file === null ||
       form.status === 0
     ) {
       setNotification({
@@ -138,8 +138,9 @@ export default function AddBanner() {
               style="w-full"
               placeholder="Banner Image"
               title="Banner Image"
-              value={form.file}
-              setValue={(e) => setForm({ ...form, file: e.target.value })}
+              setValue={(e) =>
+                setForm({ ...form, file: e.target.files[0] })
+              }
             />
           </Label>
           <Label label="Status">

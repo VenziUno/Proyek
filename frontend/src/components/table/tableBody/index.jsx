@@ -37,17 +37,23 @@ const TableBody = ({
                 className="p-4 border-y border-slate-400"
               >
                 {head === "file" ? (
-                  <div className="h-10 w-10 relative">
+                  <div className="relative">
                     <Image
                       src={item[head]}
                       alt="Picture of the author"
                       width={500}
                       height={500}
-                      className="object-contain rounded-full"
+                      className="object-contain w-10 h-10  border border-black"
                     />
                   </div>
                 ) : (
-                  item[head]
+                  <>
+                    {item[head].length > 45 ? (
+                      <div title={item[head]}>{item[head].slice(0, 50)}...</div>
+                    ) : (
+                      <>{item[head]}</>
+                    )}
+                  </>
                 )}
               </td>
             ))}

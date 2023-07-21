@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -22,10 +23,11 @@ class BannerController extends Controller
      *
      */
 
-    public function getCode(){
+    public function getCode()
+    {
         $number = Banner::orderBy('id', 'desc')->first();
         if ($number) {
-            $slice = substr($number->id,1);
+            $slice = substr($number->id, 1);
             $sum = (int)$slice + 1;
             $new_number = 'B' . sprintf("%03d", $sum);
         } else {
@@ -34,7 +36,7 @@ class BannerController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Success Get Code Role',
-            'code'=> $new_number
+            'code' => $new_number
         ]);
     }
 
@@ -92,12 +94,12 @@ class BannerController extends Controller
             return response()->json([
                 'status'  => 'Success Show Role',
                 'data' => $banner
-            ],200);
+            ], 200);
         }
         return response()->json([
             'status' => false,
             'message' => 'Show failed, Please try again later.'
-        ],200);
+        ], 200);
     }
 
     /**
@@ -117,29 +119,35 @@ class BannerController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $image  = $request->file('file');
-            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
+            $banner = Banner::find($id);
+            $urlParts = explode('/', $banner->file);
+            $publicId = end($urlParts);
+            $deleted = CloudinaryStorage::delete($publicId);
+            if ($deleted) {
+                $image  = $request->file('file');
+                $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
 
-            $banner = Banner::find($id)->update([
-                'name' => $request->name,
-                'file' => $result, // Menyimpan URL file ke dalam kolom 'file'
-                'description' => $request->description,
-                'status' => $request->status,
-            ]);
+                $banner->update([
+                    'name' => $request->name,
+                    'file' => $result, // Menyimpan URL file ke dalam kolom 'file'
+                    'description' => $request->description,
+                    'status' => $request->status,
+                ]);
 
-            if ($banner) {
+                if ($banner) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Success Add Picture Gallery',
+                        'data'    => $banner,
+                    ], 201);
+                }
+            } else {
                 return response()->json([
-                    'success' => true,
-                    'message' => 'Success Add Picture Gallery',
-                    'data'    => $banner,
-                ], 201);
+                    'success' => false,
+                    'message' => 'Failed to delete the file.',
+                ], 400);
             }
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to upload file or create gallery',
-        ], 400);
     }
 
     /**
@@ -147,16 +155,23 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner, $id)
     {
-        $banner = Banner::find($id)->delete();
-        if ($banner) {
+        $banner = Banner::find($id);
+        $urlParts = explode('/', $banner->file);
+        $publicId = end($urlParts);
+        $deleted = CloudinaryStorage::delete($publicId);
+        if ($deleted) {
+            $banner->delete();
+            if ($banner) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Success Delete Role',
+                ], 200);
+            }
+        }else {
             return response()->json([
-                'status' => true,
-                'message' => 'Success Delete Role'
-            ],200);
+                'status' => false,
+                'message' => 'Delete failed, Please try again later.'
+            ], 200);
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Delete failed, Please try again later.'
-        ],200);
     }
 }
