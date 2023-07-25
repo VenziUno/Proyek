@@ -81,14 +81,11 @@ const EditRole = ({ id }) => {
   // set value
   useEffect(() => {
     if (res !== undefined) {
-      console.log(res)
       setForm({
         id: res.data.id,
         name: res.data.name,
         status: res.data.status,
       });
-
-      console.log(res.data.status)
       if (res.data.status === 0) {
         setStatus({ label: "Tidak Aktif", value: 0 });
       } else if (res.data.status === 1) {

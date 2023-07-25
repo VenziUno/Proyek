@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use Exception;
 use App\Models\User;
-use App\Models\Role;
+use App\Models\Banner;
 use App\Models\LogActivity;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +12,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 
-class RoleRepository
+class BannerRepository
 {
     function getData($status, $n, $page)
     {
-        $data = Role::orderBy('id', 'asc');
-
-        // $role = DB::table('roles')->paginate(5);
-
+        $data = Banner::orderBy('id', 'asc');
         if(request('search')){
             $keyword = request('search');
             $data->where([
@@ -41,7 +38,7 @@ class RoleRepository
 
     function getCode()
     {
-        $number = Role::orderBy('id', 'desc')->first();
+        $number = Banner::orderBy('id', 'desc')->first();
         if ($number) {
             $slice = substr($number->id,2);
             $sum = (int)$slice + 1;
@@ -54,7 +51,7 @@ class RoleRepository
 
     function getSingleData($id)
     {
-        $data = Role::find($id);
+        $data = Banner::find($id);
         return $data;
     }
 
@@ -63,16 +60,25 @@ class RoleRepository
         $validator = Validator::make(request()->all(), [
             'id' => 'required',
             'name' => 'required',
+            'description' => 'required',
+            'file' => 'required',
             'status' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            // Jika validasi gagal, Anda bisa menangani respons kesalahan di sini
+            return response()->json([
+                'status' => false,
+                'error' => $validator->errors()
+            ]);
         }
 
-        $data = Role::create([
+        // Jika validasi berhasil, maka simpan data ke database
+        $data = Banner::create([
             'id' => request('id'),
             'name' => request('name'),
+            'description' => request('description'),
+            'file' => request('file'),
             'status' => request('status'),
         ]);
 
@@ -82,8 +88,9 @@ class RoleRepository
     function edit($id)
     {
         $validator = Validator::make(request()->all(), [
-            'id' => 'required',
             'name' => 'required',
+            'description' => 'required',
+            'file' => 'required',
             'status' => 'required',
         ]);
 
@@ -91,15 +98,17 @@ class RoleRepository
             return response()->json($validator->errors());
         }
 
-        $data = Role::find($id)->update([
+        $data = Banner::find($id)->update([
             'name' => request('name'),
-            'status' => request('status')
+            'description' => request('description'),
+            'file' => request('file'),
+            'status' => request('status'),
         ]);
     }
 
     function delete($id)
     {
-        $data = Role::find($id)->delete();
+        $data = Banner::find($id)->delete();
     }
 
 }

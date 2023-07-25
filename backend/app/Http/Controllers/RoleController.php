@@ -23,13 +23,13 @@ class RoleController extends Controller
         if (count($data) == 0) {
             return response([
                 'status' => false,
-                'messages' => ["No Data"]
+                'message' => "No Data"
             ]);
         } else {
             return response([
                 'status' => true,
                 'data' => $data,
-                'messages' => ["All Data Active Building"]
+                'message' => "All Data Active Role"
             ]);
         }
     }
@@ -49,13 +49,13 @@ class RoleController extends Controller
         if ($data == null) {
             return response([
                 'status' => false,
-                 'messages' => ["No Data"]
+                 'message' => "No Data"
             ]);
         } else {
             return response([
                 'status' => true,
                 'data' => $data,
-                'messages' => ["Single Building"]
+                'message' => "Single Role"
             ]);
         }
     }
@@ -68,7 +68,7 @@ class RoleController extends Controller
             $message = [
                 'status' => true,
                 'data' => $data,
-                'messages' => ["Success Add Building"]
+                'message' => "Success Add Role"
             ];
         } catch (\Exception $exception) {
             DB::rollback();
@@ -88,6 +88,7 @@ class RoleController extends Controller
             DB::commit();
             $message = [
                 'status' => true,
+                'message' => "Success Edit Role"
             ];
         } catch (\Exception $exception) {
             DB::rollback();
@@ -106,7 +107,8 @@ class RoleController extends Controller
             $this->role->delete($id);
             DB::commit();
             $message = [
-                'status' => true
+                'status' => true,
+                'message' => "Success Delete Role"
             ];
         } catch (\Exception $exception) {
             DB::rollback();
