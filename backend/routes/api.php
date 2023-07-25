@@ -32,19 +32,20 @@ Route::post('login', [AuthController::class, 'login']);
         Route::get('/code', [BannerController::class, 'getCode'])->name('banner_view_code');
         Route::get('/{id}', [BannerController::class, 'show'])->name('banner_view_show');
         Route::post('/', [BannerController::class, 'store'])->name('banner_add_store');
+        Route::post('/storeImage', [BannerController::class, 'storeImage'])->name('banner_add_storeImage');
         Route::post('/{id}', [BannerController::class, 'update'])->name('banner_update_update');
         Route::delete('/{id}', [BannerController::class, 'destroy'])->name('banner_delete_destory');
     });
 
 
-    Route::middleware(['Authorizations'])->group(function () {
+    // Route::middleware(['Authorizations'])->group(function () {
         Route::prefix('/role')->group(function () {
-            Route::get('/', [RoleController::class, 'index'])->name('setting_role_view_index');
-            Route::get('/code', [RoleController::class, 'getCode'])->name('setting_role_view_code');
-            Route::get('/{id}', [RoleController::class, 'show'])->name('setting_role_view_show');
-            Route::post('/', [RoleController::class, 'store'])->name('setting_role_add_store');
-            Route::post('/{id}', [RoleController::class, 'update'])->name('setting_role_update_update');
-            Route::delete('/{id}', [RoleController::class, 'destroy'])->name('setting_role_delete_destory');
+            Route::get('/', [RoleController::class, 'getRole'])->name('setting_role_view_index');
+            Route::get('/code', [RoleController::class, 'getRoleCode'])->name('setting_role_view_code');
+            Route::get('/{id}', [RoleController::class, 'getSingleRole'])->name('setting_role_view_show');
+            Route::post('/', [RoleController::class, 'addRole'])->name('setting_role_add_store');
+            Route::post('/{id}', [RoleController::class, 'editRole'])->name('setting_role_update_update');
+            Route::delete('/{id}', [RoleController::class, 'deleteRole'])->name('setting_role_delete_destory');
         });
 
         Route::prefix('/admin')->group(function () {
@@ -58,5 +59,5 @@ Route::post('login', [AuthController::class, 'login']);
         Route::prefix('/authorization')->group(function () {
             Route::get('/', [AuthorizationController::class, 'index'])->name('setting_authorization_view_index');
         });
-    });
+    // });
 // });

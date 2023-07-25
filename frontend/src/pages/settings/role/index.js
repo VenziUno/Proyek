@@ -10,14 +10,8 @@ export default function Role ({ page }) {
   const { search, move, setMove, route } = basic;
   const location = useRouter();
   const { res, isLoading, isError } = useFetcher("role", page);
-  const [dataTableGedung, setDataTableGedung] = useState([]);
-  const [dataPagination, setDataPagination] = useState({
-    from: "",
-    to: "",
-    total: "",
-    current_page: "",
-    last_page: "",
-  });
+  const [dataTableGedung, setDataTableGedung] = useState(null);
+  const [dataPagination, setDataPagination] = useState(null);
 
   const list = [
     { label: "Semua", value: "" },
@@ -27,23 +21,16 @@ export default function Role ({ page }) {
 
   useEffect(() => {
     if (res) {
-      const data = res.data.map((gedung) => {
+      const data = res.data.data.map((gedung) => {
         const arr = Object.entries(gedung);
-        // const filterArr = arr.filter(
-        //   ([key, value]) => key !== "status" && typeof value !== "object"
-        // );
-        const newObj = Object.fromEntries(arr);
+        const filterArr = arr.filter(
+          ([key, value]) => key !== "status" && typeof value !== "object"
+        );
+        const newObj = Object.fromEntries(filterArr);
         return newObj;
       });
       setDataTableGedung(data);
-      setDataPagination({
-        ...dataPagination,
-        from: res.from,
-        to: res.to,
-        total: res.total,
-        current_page: res.current_page,
-        last_page: res.last_page,
-      });
+      setDataPagination(res.data);
       if (search && move) {
         setMove(false);
         location.push(`${route}?page=1`);

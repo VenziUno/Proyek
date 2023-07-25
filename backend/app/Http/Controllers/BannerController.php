@@ -41,6 +41,31 @@ class BannerController extends Controller
     }
 
     /**
+     *
+     */
+    public function storeImage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:jpeg,jpg,png|max:5120', // Format jpeg, jpg, atau png dengan ukuran maksimal 5 MB (5120 KB).
+        ], [
+            'file.mimes' => 'Harus berformat jpeg, jpg, atau png.',
+            'file.max' => 'Ukuran file maksimal adalah 5 MB.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $image  = $request->file('file');
+        $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
+        return [
+            'status' => true,
+            'messages' => 'Success Upload Photo',
+            'data' => $result,
+        ];
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -57,14 +82,12 @@ class BannerController extends Controller
             return response()->json($validator->errors());
         }
 
-        if ($request->hasFile('file')) {
-            $image  = $request->file('file');
-            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
-
+        DB::beginTransaction();
+        try {
             $banner = Banner::create([
                 'id' => $request->id,
                 'name' => $request->name,
-                'file' => $result, // Menyimpan URL file ke dalam kolom 'file'
+                'file' => $request->file, // Menyimpan URL file ke dalam kolom 'file'
                 'description' => $request->description,
                 'status' => $request->status,
             ]);
@@ -76,12 +99,13 @@ class BannerController extends Controller
                     'data'    => $banner,
                 ], 201);
             }
+        } catch (\Exception $exception){
+            DB::rollback();
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], 400);
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to upload file or create gallery',
-        ], 400);
     }
 
     /**
@@ -167,7 +191,7 @@ class BannerController extends Controller
                     'message' => 'Success Delete Role',
                 ], 200);
             }
-        }else {
+        } else {
             return response()->json([
                 'status' => false,
                 'message' => 'Delete failed, Please try again later.'

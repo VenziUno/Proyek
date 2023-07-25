@@ -4,6 +4,7 @@ import { HiUpload } from "react-icons/hi";
 import Image from "next/image";
 import axios from "axios";
 import { useAppContext } from "@/hooks/useAppContext";
+import { data } from "autoprefixer";
 
 const ImageUploader = ({ value, setValue, apiUrl, apiNameInput }) => {
   const [image, setImage] = useState(null);
@@ -40,7 +41,7 @@ const ImageUploader = ({ value, setValue, apiUrl, apiNameInput }) => {
     //     }
     //   }
     // } else {
-    //   setValue(null);
+      setValue(currentImage);
     // }
   };
 
@@ -69,15 +70,15 @@ const ImageUploader = ({ value, setValue, apiUrl, apiNameInput }) => {
           // onImageRemoveAll,
           onImageUpdate,
           onImageRemove,
-          isDragging,
+          // isDragging,
           dragProps,
         }) => {
-          let classBtn = "";
-          if (isDragging) {
-            classBtn = "bg-primary-50";
-          } else {
-            classBtn = "text-gray-400";
-          }
+          // let classBtn = "";
+          // if (isDragging) {
+          //   classBtn = "text-primary-900";
+          // } else {
+          //   classBtn = "text-gray-400";
+          // }
           return (
             <div className="flex flex-row gap-8 w-full h-full">
               {defaultValue ? (
@@ -91,7 +92,7 @@ const ImageUploader = ({ value, setValue, apiUrl, apiNameInput }) => {
                 </div>
               ) : imageList.length === 0 ? (
                 <button
-                  className={`w-20 h-full rounded-full border shadow-md flex justify-center items-center ${classBtn}`}
+                  className={`w-20 h-full rounded-full border shadow-md flex justify-center items-center`}
                   onClick={onImageUpload}
                   {...dragProps}
                 >

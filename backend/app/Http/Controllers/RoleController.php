@@ -2,138 +2,119 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Repository\RoleRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private $role;
+
+    function __construct()
     {
-        $role = DB::table('roles')->paginate(5);
-        return response()->json($role);
+        $this->role = new RoleRepository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function getCode(){
-        $number = Role::orderBy('id', 'desc')->first();
-        if ($number) {
-            $slice = substr($number->id,2);
-            $sum = (int)$slice + 1;
-            $new_number = 'RU' . sprintf("%03d", $sum);
+    function getRole(Request $request)
+    {
+        $page = $request->page;
+        $data = $this->role->getData(1,5,$page);
+
+        if (count($data) == 0) {
+            return response([
+                'status' => false,
+                'messages' => ["No Data"]
+            ]);
         } else {
-            $new_number = 'RU' . sprintf("%03d", 1);
-        }
-        return response()->json([
-            'status' => true,
-            'message' => 'Success Get Code Role',
-            'code'=> $new_number
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'id' => 'required|unique:roles',
-            'name' => 'required|unique:roles',
-            'status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        $role=Role::create([
-            'id' => $request->id,
-            'name' => $request->name,
-            'status' => $request->status,
-        ]);
-
-        if ($role) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Success Add Role',
-                'data'    => $role,
-            ], 201);
-        }
-
-        return response()->json([
-            'success' => false,
-            "message" => "Create failed, Please try again later."
-        ], 409);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Role $role, $id)
-    {
-        $role = Role::findOrFail($id);
-        if ($role) {
-            return response()->json([
-                'status'  => 'Success Show Role',
-                'data' => $role
-            ],200);
-        }
-        return response()->json([
-            'status' => false,
-            'message' => 'Show failed, Please try again later.'
-        ],200);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Role $role, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        $role=Role::find($id)->update([
-            'name' => $request->name,
-            'status' => $request->status,
-        ]);
-
-        if ($role) {
-            return response()->json([
-                'success' => true,
-                'message' => "Success Update Role",
-            ], 201);
-        }
-
-        return response()->json([
-            'success' => false,
-            "message" => "Update failed. Please try again later."
-        ], 409);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Role $role, $id)
-    {
-        $role = Role::find($id)->delete();
-        if ($role) {
-            return response()->json([
+            return response([
                 'status' => true,
-                'message' => 'Success Delete Role'
-            ],200);
+                'data' => $data,
+                'messages' => ["All Data Active Building"]
+            ]);
         }
-        return response()->json([
-            'status' => false,
-            'message' => 'Delete failed, Please try again later.'
-        ],200);
+    }
+
+    function getRoleCode()
+    {
+        $data = $this->role->getCode();
+        return response([
+            'status' => true,
+            'code' => $data,
+        ]);
+    }
+
+    function getSingleRole(Request $request, $id)
+    {
+        $data = $this->role->getSingleData($id);
+        if ($data == null) {
+            return response([
+                'status' => false,
+                 'messages' => ["No Data"]
+            ]);
+        } else {
+            return response([
+                'status' => true,
+                'data' => $data,
+                'messages' => ["Single Building"]
+            ]);
+        }
+    }
+
+    function addRole(Request $request){
+        DB::beginTransaction();
+        try {
+            $data = $this->role->add();
+            DB::commit();
+            $message = [
+                'status' => true,
+                'data' => $data,
+                'messages' => ["Success Add Building"]
+            ];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => $exception->getMessage()
+            ];
+        }
+        return response()->json($message);
+    }
+
+    function editRole(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->role->edit($id);
+            DB::commit();
+            $message = [
+                'status' => true,
+            ];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => $exception->getMessage()
+            ];
+        }
+        return response()->json($message);
+    }
+
+    function deleteRole($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->role->delete($id);
+            DB::commit();
+            $message = [
+                'status' => true
+            ];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => "Something Wrong"
+            ];
+        }
+        return response()->json($message);
     }
 }
