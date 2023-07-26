@@ -40,11 +40,11 @@ class BannerRepository
     {
         $number = Banner::orderBy('id', 'desc')->first();
         if ($number) {
-            $slice = substr($number->id,2);
+            $slice = substr($number->id,1);
             $sum = (int)$slice + 1;
-            $new_number = 'RU' . sprintf("%03d", $sum);
+            $new_number = 'B' . sprintf("%03d", $sum);
         } else {
-            $new_number = 'RU' . sprintf("%03d", 1);
+            $new_number = 'B' . sprintf("%03d", 1);
         }
         return $new_number;
     }
@@ -55,13 +55,12 @@ class BannerRepository
         return $data;
     }
 
-    function add()
+    function add($path)
     {
         $validator = Validator::make(request()->all(), [
             'id' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'file' => 'required',
             'status' => 'required',
         ]);
 
@@ -78,7 +77,7 @@ class BannerRepository
             'id' => request('id'),
             'name' => request('name'),
             'description' => request('description'),
-            'file' => request('file'),
+            'file' => $path,
             'status' => request('status'),
         ]);
 

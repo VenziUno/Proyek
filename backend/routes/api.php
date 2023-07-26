@@ -28,13 +28,13 @@ Route::post('login', [AuthController::class, 'login']);
     Route::get('menu', [MenuController::class, 'index']);
 
     Route::prefix('/banner')->group(function () {
-        Route::get('/', [BannerController::class, 'index'])->name('banner_view_index');
-        Route::get('/code', [BannerController::class, 'getCode'])->name('banner_view_code');
+        Route::get('/', [BannerController::class, 'getBanner'])->name('banner_view_index');
+        Route::get('/code', [BannerController::class, 'getRoleCode'])->name('banner_view_code');
         Route::get('/{id}', [BannerController::class, 'show'])->name('banner_view_show');
-        Route::post('/', [BannerController::class, 'store'])->name('banner_add_store');
-        Route::post('/storeImage', [BannerController::class, 'storeImage'])->name('banner_add_storeImage');
-        Route::post('/{id}', [BannerController::class, 'update'])->name('banner_update_update');
-        Route::delete('/{id}', [BannerController::class, 'destroy'])->name('banner_delete_destory');
+        Route::post('/', [BannerController::class, 'addRole'])->name('banner_add_store');
+        Route::post('/uploadImage', [BannerController::class, 'uploadImage'])->name('banner_add_storeImage');
+        Route::post('/{id}', [BannerController::class, 'editRole'])->name('banner_update_update');
+        Route::delete('/{id}', [BannerController::class, 'deleteRole'])->name('banner_delete_destory');
     });
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Repository\BannerRepository;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,43 +11,58 @@ use Illuminate\Support\Facades\DB;
 
 class BannerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    private $banner;
+
+    function __construct()
     {
-        $banner = DB::table('banners')->paginate(5);
-        return response()->json($banner);
+        $this->banner = new BannerRepository;
     }
 
     /**
      *
      */
 
-    public function getCode()
+    function getBanner(Request $request)
     {
-        $number = Banner::orderBy('id', 'desc')->first();
-        if ($number) {
-            $slice = substr($number->id, 1);
-            $sum = (int)$slice + 1;
-            $new_number = 'B' . sprintf("%03d", $sum);
+        $page = $request->page;
+        $data = $this->banner->getData(1, 5, $page);
+
+        if (count($data) == 0) {
+            return response([
+                'status' => false,
+                'message' => "No Data"
+            ]);
         } else {
-            $new_number = 'B' . sprintf("%03d", 1);
+            return response([
+                'status' => true,
+                'data' => $data,
+                'message' => "All Data Active Role"
+            ]);
         }
-        return response()->json([
+    }
+
+    /**
+     *
+     */
+
+    function getRoleCode()
+    {
+        $data = $this->banner->getCode();
+        return response([
             'status' => true,
-            'message' => 'Success Get Code Role',
-            'code' => $new_number
+            'code' => $data,
         ]);
     }
 
     /**
      *
      */
-    public function storeImage(Request $request)
+
+    public function uploadImage(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:jpeg,jpg,png|max:5120', // Format jpeg, jpg, atau png dengan ukuran maksimal 5 MB (5120 KB).
+            'file' => 'required|mimes:jpeg,jpg,png|max:5120',
         ], [
             'file.mimes' => 'Harus berformat jpeg, jpg, atau png.',
             'file.max' => 'Ukuran file maksimal adalah 5 MB.',
@@ -66,136 +82,78 @@ class BannerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     *
      */
-    public function store(Request $request)
+
+    function addRole(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'file' => 'required',
-            'status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
         DB::beginTransaction();
         try {
-            $banner = Banner::create([
-                'id' => $request->id,
-                'name' => $request->name,
-                'file' => $request->file, // Menyimpan URL file ke dalam kolom 'file'
-                'description' => $request->description,
-                'status' => $request->status,
-            ]);
+            $uploadedImage = $this->uploadImage($request);
+            $path = $uploadedImage['data'];
 
-            if ($banner) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Success Add Picture Gallery',
-                    'data'    => $banner,
-                ], 201);
-            }
-        } catch (\Exception $exception){
+            $data = $this->banner->add($path);
+            DB::commit();
+            $message = [
+                'status' => true,
+                'data' => $data,
+                'message' => "Success Add Role"
+            ];
+        } catch (\Exception $exception) {
             DB::rollback();
-            return response()->json([
-                'success' => false,
-                'message' => $exception->getMessage(),
-            ], 400);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Banner $banner, $id)
-    {
-        $banner = Banner::findOrFail($id);
-        if ($banner) {
-            return response()->json([
-                'status'  => 'Success Show Role',
-                'data' => $banner
-            ], 200);
-        }
-        return response()->json([
-            'status' => false,
-            'message' => 'Show failed, Please try again later.'
-        ], 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Banner $banner, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
-            'file' => 'required',
-            'status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        if ($request->hasFile('file')) {
-            $banner = Banner::find($id);
-            $urlParts = explode('/', $banner->file);
-            $publicId = end($urlParts);
-            $deleted = CloudinaryStorage::delete($publicId);
-            if ($deleted) {
-                $image  = $request->file('file');
-                $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
-
-                $banner->update([
-                    'name' => $request->name,
-                    'file' => $result, // Menyimpan URL file ke dalam kolom 'file'
-                    'description' => $request->description,
-                    'status' => $request->status,
-                ]);
-
-                if ($banner) {
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Success Add Picture Gallery',
-                        'data'    => $banner,
-                    ], 201);
-                }
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Failed to delete the file.',
-                ], 400);
-            }
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Banner $banner, $id)
-    {
-        $banner = Banner::find($id);
-        $urlParts = explode('/', $banner->file);
-        $publicId = end($urlParts);
-        $deleted = CloudinaryStorage::delete($publicId);
-        if ($deleted) {
-            $banner->delete();
-            if ($banner) {
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Success Delete Role',
-                ], 200);
-            }
-        } else {
-            return response()->json([
+            $message = [
                 'status' => false,
-                'message' => 'Delete failed, Please try again later.'
-            ], 200);
+                'error' => $exception->getMessage()
+            ];
         }
+        return response()->json($message);
+    }
+
+    /**
+     *
+     */
+
+    function editRole(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->banner->edit($id);
+            DB::commit();
+            $message = [
+                'status' => true,
+                'message' => "Success Edit Role"
+            ];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => $exception->getMessage()
+            ];
+        }
+        return response()->json($message);
+    }
+
+    /**
+     *
+     */
+
+    function deleteRole($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->banner->delete($id);
+            DB::commit();
+            $message = [
+                'status' => true,
+                'message' => "Success Delete Role"
+            ];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            $message = [
+                'status' => false,
+                'error' => "Something Wrong"
+            ];
+        }
+        return response()->json($message);
     }
 }
