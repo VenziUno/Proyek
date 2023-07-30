@@ -9,12 +9,23 @@ import { useFetcher } from "@/hooks/useFetcher";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ImageUploader from "@/components/imageUploader";
 
 export default function AddBanner() {
   const { banner, basic } = useAppContext();
   const { form, setForm, resetForm } = banner;
   const { notification, setNotification, handleShowNotification } = basic;
   const router = useRouter();
+
+  const [selectedImage, setSelectedImage] = useState();
+
+  // This function will be triggered when the file field change
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+    setForm({ ...form, file: e.target.files[0] });
+  };
 
   const handleCheck = () => {
     if (
@@ -24,6 +35,7 @@ export default function AddBanner() {
       form.file === null ||
       form.status === 0
     ) {
+      
       setNotification({
         show: true,
         type: "Warning",
@@ -77,7 +89,7 @@ export default function AddBanner() {
           }
         );
         resetForm();
-        console.log(res)
+        console.log(res);
         setNotification({
           show: true,
           type: "Success",
@@ -133,14 +145,12 @@ export default function AddBanner() {
             />
           </Label>
           <Label label="Banner Image">
-            <InputFields
+            <ImageUploader
               type="file"
               style="w-full"
               placeholder="Banner Image"
               title="Banner Image"
-              setValue={(e) =>
-                setForm({ ...form, file: e.target.files[0] })
-              }
+              onChildValueChange={(imageList)=>setForm({ ...form, file: imageList })}
             />
           </Label>
           <Label label="Status">

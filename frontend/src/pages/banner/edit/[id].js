@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Selects from "@/components/selects";
 import TextArea from "@/components/textArea";
+import ImageUploader from "@/components/imageUploader";
 
 const EditBanner = ({ id }) => {
   const { banner, basic } = useAppContext();
@@ -80,13 +81,13 @@ const EditBanner = ({ id }) => {
 
   // client side data fetching
   const { res, isLoading, isError } = useFetcher(`banner/${id}`);
-  
-  console.log(res)
+
+  console.log(res);
 
   // set value
   useEffect(() => {
     if (res !== undefined) {
-      console.log(res)
+      console.log(res);
       setForm({
         id: res.data.id,
         name: res.data.name,
@@ -102,13 +103,12 @@ const EditBanner = ({ id }) => {
     }
   }, [res, setForm]);
 
-
   return (
     <Layout>
       <div className="space-y-5 p-2">
-      <Label label="Edit Banner" type="title" />
+        <Label label="Edit Banner" type="title" />
         <div className="">
-        <Label label="Banner Code">
+          <Label label="Banner Code">
             <InputFields
               type="text"
               style="w-full"
@@ -141,13 +141,23 @@ const EditBanner = ({ id }) => {
             />
           </Label>
           <Label label="Banner Image">
-            <InputFields
+            {/* <InputFields
               type="file"
               style="w-full"
               placeholder="Banner Image"
               title="Banner Image"
               // value={form.file}
               setValue={(e) => setForm({ ...form, file: e.target.files[0] })}
+            /> */}
+            <ImageUploader
+            value={form.file}
+              type="file"
+              style="w-full"
+              placeholder="Banner Image"
+              title="Banner Image"
+              onChildValueChange={(imageList) =>
+                setForm({ ...form, file: imageList })
+              }
             />
           </Label>
           <Label label="Status">
@@ -164,11 +174,7 @@ const EditBanner = ({ id }) => {
           </Label>
         </div>
         <div className="flex flex-row justify-end gap-5">
-          <Button
-            action="light"
-            link="/banner"
-            handleClick={resetForm}
-          >
+          <Button action="light" link="/banner" handleClick={resetForm}>
             Back
           </Button>
           <Button

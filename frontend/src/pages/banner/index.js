@@ -11,14 +11,8 @@ export default function Banner ({ page }) {
   const location = useRouter();
   const { res, isLoading, isError } = useFetcher("banner", page);
   const [dataTableBanner, setDataTableBanner] = useState([]);
-  const [dataPagination, setDataPagination] = useState({
-    from: "",
-    to: "",
-    total: "",
-    current_page: "",
-    last_page: "",
-  });
-
+  const [dataPagination, setDataPagination] = useState(null)
+  
   const list = [
     { label: "Semua", value: "" },
     { label: "Aktif", value: 1 },
@@ -27,7 +21,7 @@ export default function Banner ({ page }) {
 
   useEffect(() => {
     if (res) {
-      const data = res.data.map((banner) => {
+      const data = res.data.data.map((banner) => {
         const arr = Object.entries(banner);
         // const filterArr = arr.filter(
         //   ([key, value]) => key !== "status" && typeof value !== "object"
@@ -36,14 +30,7 @@ export default function Banner ({ page }) {
         return newObj;
       });
       setDataTableBanner(data);
-      setDataPagination({
-        ...dataPagination,
-        from: res.from,
-        to: res.to,
-        total: res.total,
-        current_page: res.current_page,
-        last_page: res.last_page,
-      });
+      setDataPagination(res.data);
       if (search && move) {
         setMove(false);
         location.push(`${route}?page=1`);

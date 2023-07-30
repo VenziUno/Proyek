@@ -31,13 +31,14 @@ class BannerController extends Controller
         if (count($data) == 0) {
             return response([
                 'status' => false,
+                'data' => $data,
                 'message' => "No Data"
             ]);
         } else {
             return response([
                 'status' => true,
                 'data' => $data,
-                'message' => "All Data Active Role"
+                'message' => "All Data Active Banner"
             ]);
         }
     }
@@ -46,7 +47,7 @@ class BannerController extends Controller
      *
      */
 
-    function getRoleCode()
+    function getBannerCode()
     {
         $data = $this->banner->getCode();
         return response([
@@ -59,45 +60,39 @@ class BannerController extends Controller
      *
      */
 
-    public function uploadImage(Request $request)
+    function getSingleBanner(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:jpeg,jpg,png|max:5120',
-        ], [
-            'file.mimes' => 'Harus berformat jpeg, jpg, atau png.',
-            'file.max' => 'Ukuran file maksimal adalah 5 MB.',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
+        $data = $this->banner->getSingleData($id);
+        if ($data == null) {
+            return response([
+                'status' => false,
+                'message' => "No Data"
+            ]);
+        } else {
+            return response([
+                'status' => true,
+                'data' => $data,
+                'message' => "Single Banner"
+            ]);
         }
-
-        $image  = $request->file('file');
-        $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
-        return [
-            'status' => true,
-            'messages' => 'Success Upload Photo',
-            'data' => $result,
-        ];
     }
 
     /**
      *
      */
 
-    function addRole(Request $request)
+    function addBanner(Request $request)
     {
         DB::beginTransaction();
         try {
-            $uploadedImage = $this->uploadImage($request);
-            $path = $uploadedImage['data'];
 
-            $data = $this->banner->add($path);
+
+            $data = $this->banner->add();
             DB::commit();
             $message = [
                 'status' => true,
                 'data' => $data,
-                'message' => "Success Add Role"
+                'message' => "Success Add Banner"
             ];
         } catch (\Exception $exception) {
             DB::rollback();
@@ -113,7 +108,7 @@ class BannerController extends Controller
      *
      */
 
-    function editRole(Request $request, $id)
+    function editBanner(Request $request, $id)
     {
         DB::beginTransaction();
         try {
@@ -121,7 +116,7 @@ class BannerController extends Controller
             DB::commit();
             $message = [
                 'status' => true,
-                'message' => "Success Edit Role"
+                'message' => "Success Add Banner"
             ];
         } catch (\Exception $exception) {
             DB::rollback();
@@ -137,7 +132,7 @@ class BannerController extends Controller
      *
      */
 
-    function deleteRole($id)
+    function deleteBanner($id)
     {
         DB::beginTransaction();
         try {
@@ -145,7 +140,7 @@ class BannerController extends Controller
             DB::commit();
             $message = [
                 'status' => true,
-                'message' => "Success Delete Role"
+                'message' => "Success Delete Banner"
             ];
         } catch (\Exception $exception) {
             DB::rollback();

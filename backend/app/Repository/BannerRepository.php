@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Http\Controllers\CloudinaryStorage;
 use Exception;
 use App\Models\User;
 use App\Models\Banner;
@@ -17,7 +18,7 @@ class BannerRepository
     function getData($status, $n, $page)
     {
         $data = Banner::orderBy('id', 'asc');
-        if(request('search')){
+        if (request('search')) {
             $keyword = request('search');
             $data->where([
                 ['status', $status],
@@ -40,7 +41,7 @@ class BannerRepository
     {
         $number = Banner::orderBy('id', 'desc')->first();
         if ($number) {
-            $slice = substr($number->id,1);
+            $slice = substr($number->id, 1);
             $sum = (int)$slice + 1;
             $new_number = 'B' . sprintf("%03d", $sum);
         } else {
@@ -55,38 +56,10 @@ class BannerRepository
         return $data;
     }
 
-    function add($path)
+    function add()
     {
         $validator = Validator::make(request()->all(), [
             'id' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            // Jika validasi gagal, Anda bisa menangani respons kesalahan di sini
-            return response()->json([
-                'status' => false,
-                'error' => $validator->errors()
-            ]);
-        }
-
-        // Jika validasi berhasil, maka simpan data ke database
-        $data = Banner::create([
-            'id' => request('id'),
-            'name' => request('name'),
-            'description' => request('description'),
-            'file' => $path,
-            'status' => request('status'),
-        ]);
-
-        return $data;
-    }
-
-    function edit($id)
-    {
-        $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'description' => 'required',
             'file' => 'required',
@@ -97,17 +70,66 @@ class BannerRepository
             return response()->json($validator->errors());
         }
 
-        $data = Banner::find($id)->update([
-            'name' => request('name'),
-            'description' => request('description'),
-            'file' => request('file'),
-            'status' => request('status'),
-        ]);
+        // Jika validasi berhasil, maka simpan data ke database
+        if (request('file')) {
+            $image  = request('file');
+            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
+
+            $data = Banner::create([
+                'id' => request('id'),
+                'name' => request('name'),
+                'description' => request('description'),
+                'file' => $result,
+                'status' => request('status'),
+            ]);
+        }
+        return $data;
+    }
+
+    function edit($id)
+    {
+        $validator = Validator::make(
+            request()->all(),
+            [
+                'name' => 'required',
+                'file' => 'required|max:5120',
+                'description' => 'required',
+                'status' => 'required',
+            ],
+            [
+                // 'file.mimes' => 'Harus berformat jpeg, jpg, atau png.',
+                'file.max' => 'Ukuran file maksimal adalah 5 MB.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        $data = Banner::find($id);
+        $urlParts = explode('/', $data->file);
+        $publicId = end($urlParts);
+        $deleted = CloudinaryStorage::delete($publicId);
+        if ($deleted) {
+            $image  = request('file');
+            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
+
+            $data->update([
+                'name' => request('name'),
+                'description' => request('description'),
+                'file' => $result,
+                'status' => request('status'),
+            ]);
+        }
     }
 
     function delete($id)
     {
-        $data = Banner::find($id)->delete();
+        $data = Banner::find($id);
+        $urlParts = explode('/', $data->file);
+        $publicId = end($urlParts);
+        $deleted = CloudinaryStorage::delete($publicId);
+        if ($deleted) {
+            $data->delete();
+        }
     }
-
 }
