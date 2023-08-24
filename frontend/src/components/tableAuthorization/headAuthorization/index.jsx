@@ -4,7 +4,7 @@ import Button from '@/components/button';
 
 const HeadAuthorization = () => {
   return (
-    <div className='flex justify-between py-5 px-10'>
+    <div className='flex justify-between py-4 px-4'>
         <div className="flex gap-4">
           <Selects
             list={[
@@ -17,8 +17,7 @@ const HeadAuthorization = () => {
           <Button>Update</Button>
         </div>
         <div className='flex font-semibold text-xl justify-center items-center gap-4'>
-            <input type='checkbox' />
-            <p> Tandai Semua</p>
+          <Button>Tandai Semua</Button>
         </div>
       </div>
   )
