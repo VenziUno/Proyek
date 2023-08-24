@@ -1,7 +1,7 @@
 import React from "react";
 import ListAuthorization from "./listAuthorization";
 
-const BodyAuthorization = () => {
+const BodyAuthorization = ({permissions, setPermissions, checkAllState, setCheckAllState, menu}) => {
   return (
     <table className="border-separate border-spacing-y-1 w-full px-4">
       <thead className="uppercase">
@@ -23,7 +23,7 @@ const BodyAuthorization = () => {
           </td>
         </tr>
       </thead>
-      <ListAuthorization />
+      <ListAuthorization permissions={permissions} setPermissions={setPermissions} checkAllState={checkAllState} setCheckAllState={setCheckAllState} menu={menu}/>
     </table>
   );
 };

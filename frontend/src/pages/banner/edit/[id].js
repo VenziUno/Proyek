@@ -140,26 +140,6 @@ const EditBanner = ({ id }) => {
               }
             />
           </Label>
-          <Label label="Banner Image">
-            {/* <InputFields
-              type="file"
-              style="w-full"
-              placeholder="Banner Image"
-              title="Banner Image"
-              // value={form.file}
-              setValue={(e) => setForm({ ...form, file: e.target.files[0] })}
-            /> */}
-            <ImageUploader
-            value={form.file}
-              type="file"
-              style="w-full"
-              placeholder="Banner Image"
-              title="Banner Image"
-              onChildValueChange={(imageList) =>
-                setForm({ ...form, file: imageList })
-              }
-            />
-          </Label>
           <Label label="Status">
             {status && (
               <Selects
@@ -171,6 +151,18 @@ const EditBanner = ({ id }) => {
                 }
               />
             )}
+          </Label>
+          <Label label="Banner Image">
+            <ImageUploader
+              value={form.file}
+              type="file"
+              style="w-full"
+              placeholder="Banner Image"
+              title="Banner Image"
+              onChildValueChange={(imageList) =>
+                setForm({ ...form, file: imageList })
+              }
+            />
           </Label>
         </div>
         <div className="flex flex-row justify-end gap-5">

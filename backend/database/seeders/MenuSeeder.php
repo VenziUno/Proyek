@@ -23,6 +23,10 @@ class MenuSeeder extends Seeder
                 'name' => 'Settings',
                 'route_name' => 'setting',
             ],
+            [
+                'name' => 'Banner',
+                'route_name' => 'Banner',
+            ],
         ]);
     }
 }

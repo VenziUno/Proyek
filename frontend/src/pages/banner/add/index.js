@@ -144,6 +144,13 @@ export default function AddBanner() {
               }
             />
           </Label>
+          <Label label="Status">
+            <Selects
+              list={pilihan_status}
+              placeholder="Pilih Status"
+              handleChange={(item) => setForm({ ...form, status: item.value })}
+            />
+          </Label>
           <Label label="Banner Image">
             <ImageUploader
               type="file"
@@ -151,13 +158,6 @@ export default function AddBanner() {
               placeholder="Banner Image"
               title="Banner Image"
               onChildValueChange={(imageList)=>setForm({ ...form, file: imageList })}
-            />
-          </Label>
-          <Label label="Status">
-            <Selects
-              list={pilihan_status}
-              placeholder="Pilih Status"
-              handleChange={(item) => setForm({ ...form, status: item.value })}
             />
           </Label>
         </div>

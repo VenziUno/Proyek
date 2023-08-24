@@ -93,6 +93,30 @@ class AuthorizationSeeder extends Seeder
                 'sub_menu_id' => 3,
                 'authorization_type_id' => 1
             ],
+            [
+                'role_id' => 'RU001',
+                'menu_id' => 3,
+                'sub_menu_id' => null,
+                'authorization_type_id' => 1
+            ],
+            [
+                'role_id' => 'RU001',
+                'menu_id' => 3,
+                'sub_menu_id' => null,
+                'authorization_type_id' => 2
+            ],
+            [
+                'role_id' => 'RU001',
+                'menu_id' => 3,
+                'sub_menu_id' => null,
+                'authorization_type_id' => 3
+            ],
+            [
+                'role_id' => 'RU001',
+                'menu_id' => 3,
+                'sub_menu_id' => null,
+                'authorization_type_id' => 4
+            ],
         ]);
     }
 }
