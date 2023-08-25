@@ -1,10 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const ListAuthorization = ({
-  permissions,
-  setPermissions,
-  menu,
-}) => { 
+const ListAuthorization = ({ permissions, setPermissions, menu }) => {
   const handlePermissionChange = (event, menuId, subMenuId, permission) => {
     const newPermissions = { ...permissions };
 
@@ -36,10 +32,10 @@ const ListAuthorization = ({
             </td>
             {menuItem.subMenuList !== null ? (
               <>
-                <td className="p-4 border-y text-center border-slate-400"></td>
-                <td className="p-4 border-y text-center border-slate-400"></td>
-                <td className="p-4 border-y text-center border-slate-400"></td>
-                <td className="p-4 border-y border-r rounded-r-lg  text-center border-slate-400"></td>
+                <td className="p-4 border-y text-center border-slate-400" />
+                <td className="p-4 border-y text-center border-slate-400" />
+                <td className="p-4 border-y text-center border-slate-400" />
+                <td className="p-4 border-y border-r rounded-r-lg  text-center border-slate-400" />
               </>
             ) : (
               <>

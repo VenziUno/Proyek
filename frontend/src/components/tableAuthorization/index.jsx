@@ -1,10 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeadAuthorization from "./headAuthorization";
 import BodyAuthorization from "./bodyAuthorization";
+import { useAppContext } from "@/hooks/useAppContext";
+import { useRouter } from "next/router";
+import { useFetcher } from "@/hooks/useFetcher";
 
-const TableAuthorization = () => {
+const TableAuthorization = ({page}) => {
   const [permissions, setPermissions] = useState({});
   const [checkAllState, setCheckAllState] = useState(false);
+  const { basic } = useAppContext();
+  const { search, move, setMove, route } = basic;
+  const location = useRouter();
+  const { res, isLoading, isError } = useFetcher("role", page);
+  const [dataTableGedung, setDataTableGedung] = useState(null);
+
+  const list = [
+    { label: "Semua", value: "" },
+    { label: "Aktif", value: 1 },
+    { label: "Tidak Aktif", value: 0 },
+  ]
+
+  useEffect(() => {
+    if (res) {
+      const data = res.data.map((gedung) => {
+        const arr = Object.entries(gedung);
+        const filterArr = arr.filter(
+          ([key, value]) => key !== "status" && typeof value !== "object"
+        );
+        const newObj = Object.fromEntries(filterArr);
+        return newObj;
+      });
+      setDataTableGedung(data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [res]);
 
   const menu = [
     { id: 1, menu: "Dashboard", subMenuList: null },
@@ -12,10 +41,12 @@ const TableAuthorization = () => {
       id: 2,
       menu: "Setting",
       subMenuList: [
-        { id: 1, subMenu: "role" },
-        { id: 2, subMenu: "admin" },
+        { id: 1, subMenu: "Role" },
+        { id: 2, subMenu: "Admin" },
+        { id: 3, subMenu: "Authorizatiom" },
       ],
     },
+    { id: 3, menu: "Banner", subMenuList: null },
   ];
 
   const handleCheckAll = () => {
@@ -53,11 +84,9 @@ const TableAuthorization = () => {
     setCheckAllState(newCheckAllState); // Update checkAllState
   };
 
-  console.log(permissions)
-
   return (
     <div>
-      <HeadAuthorization handleCheckAll={handleCheckAll} />
+      <HeadAuthorization handleCheckAll={handleCheckAll} dataTableGedung={dataTableGedung}/>
       <BodyAuthorization
         permissions={permissions}
         setPermissions={setPermissions}
@@ -70,3 +99,9 @@ const TableAuthorization = () => {
 };
 
 export default TableAuthorization;
+
+export async function getServerSideProps(ctx) {
+  const page = ctx.query.page || 1;
+  const baseUrl = `${process.env.API_URL}/api/role`;
+  return { props: { page, baseUrl } };
+}
