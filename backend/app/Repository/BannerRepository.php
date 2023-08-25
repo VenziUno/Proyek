@@ -22,7 +22,7 @@ class BannerRepository
             $keyword = request('search');
             $data->where([
                 ['status', $status],
-                ['name', 'LIKE', "%$keyword%"],
+                ['title', 'LIKE', "%$keyword%"],
             ])->orWhere([
                 ['status', $status],
                 ['id', 'LIKE', "%$keyword%"],
@@ -60,7 +60,7 @@ class BannerRepository
     {
         $validator = Validator::make(request()->all(), [
             'id' => 'required',
-            'name' => 'required',
+            'title' => 'required',
             'description' => 'required',
             'file' => 'required',
             'status' => 'required',
@@ -77,7 +77,7 @@ class BannerRepository
 
             $data = Banner::create([
                 'id' => request('id'),
-                'name' => request('name'),
+                'title' => request('title'),
                 'description' => request('description'),
                 'file' => $result,
                 'status' => request('status'),
@@ -91,34 +91,41 @@ class BannerRepository
         $validator = Validator::make(
             request()->all(),
             [
-                'name' => 'required',
-                'file' => 'required|max:5120',
+                'title' => 'required',
                 'description' => 'required',
                 'status' => 'required',
             ],
-            [
-                // 'file.mimes' => 'Harus berformat jpeg, jpg, atau png.',
-                'file.max' => 'Ukuran file maksimal adalah 5 MB.',
-            ]
         );
 
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
-        $data = Banner::find($id);
-        $urlParts = explode('/', $data->file);
-        $publicId = end($urlParts);
-        $deleted = CloudinaryStorage::delete($publicId);
-        if ($deleted) {
-            $image  = request('file');
-            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
 
+        $data = Banner::find($id);
+        $oldFileUrl = $data->file;
+        $fileUrl = request('file');
+
+        if ($oldFileUrl === $fileUrl) {
             $data->update([
-                'name' => request('name'),
+                'title' => request('title'),
                 'description' => request('description'),
-                'file' => $result,
                 'status' => request('status'),
             ]);
+        } else {
+            $urlParts = explode('/', $data->file);
+            $publicId = end($urlParts);
+            $deleted = CloudinaryStorage::delete($publicId);
+
+            if ($deleted) {
+                $image  = request('file');
+                $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
+                $data->update([
+                    'title' => request('title'),
+                    'description' => request('description'),
+                    'file' => $result,
+                    'status' => request('status'),
+                ]);
+            }
         }
     }
 

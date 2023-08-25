@@ -30,7 +30,7 @@ export default function AddBanner() {
   const handleCheck = () => {
     if (
       form.id === "" ||
-      form.name === "" ||
+      form.title === "" ||
       form.description === "" ||
       form.file === null ||
       form.status === 0
@@ -128,8 +128,8 @@ export default function AddBanner() {
               style="w-full"
               placeholder="Banner Name"
               title="Banner Name"
-              value={form.name}
-              setValue={(e) => setForm({ ...form, name: e.target.value })}
+              value={form.title}
+              setValue={(e) => setForm({ ...form, title: e.target.value })}
             />
           </Label>
           <Label label="Banner Description">

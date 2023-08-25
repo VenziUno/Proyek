@@ -26,7 +26,7 @@ const EditBanner = ({ id }) => {
   const handleCheck = () => {
     if (
       form.id === "" ||
-      form.name === "" ||
+      form.title === "" ||
       form.description === "" ||
       form.file === "" ||
       form.status === 0
@@ -82,15 +82,12 @@ const EditBanner = ({ id }) => {
   // client side data fetching
   const { res, isLoading, isError } = useFetcher(`banner/${id}`);
 
-  console.log(res);
-
   // set value
   useEffect(() => {
     if (res !== undefined) {
-      console.log(res);
       setForm({
         id: res.data.id,
-        name: res.data.name,
+        title: res.data.title,
         description: res.data.description,
         file: res.data.file,
         status: res.data.status,
@@ -102,6 +99,8 @@ const EditBanner = ({ id }) => {
       } else setStatus(null);
     }
   }, [res, setForm]);
+
+  console.log(form)
 
   return (
     <Layout>
@@ -124,8 +123,8 @@ const EditBanner = ({ id }) => {
               style="w-full"
               placeholder="Banner Name"
               title="Banner Name"
-              value={form.name}
-              setValue={(e) => setForm({ ...form, name: e.target.value })}
+              value={form.title}
+              setValue={(e) => setForm({ ...form, title: e.target.value })}
             />
           </Label>
           <Label label="Banner Description">

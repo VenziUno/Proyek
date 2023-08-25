@@ -13,7 +13,7 @@ class Banner extends Model
     protected $guarded = [];
     protected $fillable = [
         'id',
-        'name',
+        'title',
         'description',
         'file',
         'status'

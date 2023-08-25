@@ -10,7 +10,7 @@ export const useBannerProvider = () => {
 
   const [form, setForm] = useState({
     id: "",
-    name: "",
+    title: "",
     description: "",
     file: "",
     status: null,
@@ -19,7 +19,7 @@ export const useBannerProvider = () => {
   const resetForm = () => {
     setForm({
       id: "",
-      name: "",
+      title: "",
       description: "",
       file: "",
       status: null,
@@ -29,7 +29,7 @@ export const useBannerProvider = () => {
   const handleCheck = () => {
     if (
       form.id === "" ||
-      form.name === "" ||
+      form.title === "" ||
       form.description === "" ||
       form.file === "" ||
       form.status === 0

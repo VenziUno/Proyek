@@ -85,8 +85,6 @@ class BannerController extends Controller
     {
         DB::beginTransaction();
         try {
-
-
             $data = $this->banner->add();
             DB::commit();
             $message = [
@@ -116,7 +114,7 @@ class BannerController extends Controller
             DB::commit();
             $message = [
                 'status' => true,
-                'message' => "Success Add Banner"
+                'message' => "Success Edit Banner"
             ];
         } catch (\Exception $exception) {
             DB::rollback();

@@ -25,7 +25,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('menu', [MenuController::class, 'index']);
 
-    Route::middleware(['Authorizations'])->group(function () {
+    // Route::middleware(['Authorizations'])->group(function () {
         Route::prefix('/role')->group(function () {
             Route::get('/', [RoleController::class, 'getRole'])->name('setting_role_view_index');
             Route::get('/code', [RoleController::class, 'getRoleCode'])->name('setting_role_view_code');
@@ -49,12 +49,12 @@ Route::middleware(['auth:api'])->group(function () {
             Route::get('/{id}', [BannerController::class, 'getSingleBanner'])->name('banner_view_show');
             Route::post('/', [BannerController::class, 'addBanner'])->name('banner_add_store');
             Route::post('/uploadImage', [BannerController::class, 'uploadImage'])->name('banner_add_storeImage');
-            Route::post('/{id}', [BannerController::class, 'editBanner'])->name('banner_update_update');
+            Route::post('/{id}', [BannerController::class, 'editBanner'])->name('banner_edit_storeImage');
             Route::delete('/{id}', [BannerController::class, 'deleteBanner'])->name('banner_delete_destory');
         });
 
         Route::prefix('/authorization')->group(function () {
             Route::get('/', [AuthorizationController::class, 'index'])->name('setting_authorization_view_index');
         });
-    });
+    // });
 });

@@ -38,7 +38,7 @@ const InputFields = ({
                 autoComplete="off"
                 type="text"
                 value={value}
-                onChange={setValue}
+                onChange={(e) => setValue(e)}
                 placeholder={placeholder}
                 disabled={disabled}
                 title={title}
@@ -54,7 +54,7 @@ const InputFields = ({
                 autoComplete="off"
                 type={type}
                 value={value}
-                onChange={setValue}
+                onChange={(e) => setValue(e)}
                 placeholder={placeholder}
                 disabled={disabled}
                 title={title}
@@ -79,7 +79,7 @@ const InputFields = ({
             autoComplete="off"
             type={type}
             value={value}
-            onChange={setValue}
+            onChange={(e) => setValue(e)}
             placeholder={placeholder}
             disabled={disabled}
             title={title}
@@ -94,7 +94,7 @@ const InputFields = ({
             autoComplete="off"
             type={type}
             value={value}
-            onChange={setValue}
+            onChange={(e) => setValue(e)}
             placeholder={placeholder}
             disabled={disabled}
             className={`flex border border-slate-400 bg-white shadow rounded px-2 text-base py-2 outline-none ${style}`}
