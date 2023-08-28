@@ -19,6 +19,8 @@ export default function Admin({ page }) {
     { label: "Tidak Aktif", value: 0 },
   ];
 
+  console.log(dataPagination)
+
   useEffect(() => {
     if (res) {
       const data = res.data.map((gedung) => {
@@ -26,7 +28,11 @@ export default function Admin({ page }) {
         const filterArr = arr.filter(
           ([key, value]) => key !== "status" && key !== "id" && key !== "email_verified_at" && key !== "role_id" && typeof value !== "object"
         );
-        const newObj = Object.fromEntries(filterArr);
+        const obj = Object.fromEntries(filterArr);
+        const newObj = {
+          ...obj,
+          role_name: gedung.role.name,
+        };
         return newObj;
       });
       setDataTableGedung(data);

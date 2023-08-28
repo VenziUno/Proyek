@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function index()
     {
-        $user = User::with('profile')->paginate(5);
+        $user = User::with('profile','role')->paginate(5);
         return response()->json($user);
     }
 

@@ -68,7 +68,10 @@ export default function Login() {
             <Button style="w-full" width="w-full" handleClick={handleApi}>
               Sign in to your account
             </Button>
-            <div className="flex items-center justify-between">
+            <div className="flex justify-center p-2"> 
+              Develop by <span className="font-bold px-1">PENDI</span> - 2023
+            </div>
+            {/* <div className="flex items-center justify-between">
               <p className="text-sm font-light text-gray-500">
                 Don’t have an account yet?{" "}
                 <Link href="register" legacyBehavior>
@@ -82,7 +85,7 @@ export default function Login() {
                   Forget Password ?
                 </a>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

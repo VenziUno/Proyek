@@ -4,13 +4,19 @@ import { HiOutlineBell, HiOutlineCog } from "react-icons/hi";
 import { useAppContext } from "@/hooks/useAppContext";
 
 const Header = () => {
-  const { menu } = useAppContext();
-  const { header} = menu;
-
+  const { menu, user } = useAppContext();
+  const { setShowLogout } = user;
+  const { header } = menu;
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const handleToggleProfileDropdown = () => {
     setShowProfileDropdown(!showProfileDropdown);
   };
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    setShowLogout(true);
+  };
+
   return (
     <div className="flex flex-row justify-between items-center bg-primary-500 shadow rounded-lg px-6 w-full h-[100px] py-auto">
       <div className="flex flex-col space-y-2">

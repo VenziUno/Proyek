@@ -10,7 +10,7 @@ const TableTopNav = ({ path, title, buttonAdd, buttonPrint, search, list }) => {
         <div className="flex justify-between items-center ">
           <div className="flex flex-row items-center gap-2">
             {search && <InputFields icon="search"></InputFields>}
-            {list && <Selects list={list} size="w-full" placeholder="Status" />}
+            {list && <Selects list={list} size="w-36" placeholder="Status" />}
           </div>
           <div className="flex flex-row items-center gap-2">
           {buttonAdd && (
