@@ -9,7 +9,7 @@ const RichEditor = ({ onChange }) => {
     }
   };
   return (
-    <>
+    <React.Fragment>
       <Editor
         apiKey={"x7nrsk0h1tm1rmvzd31ktuhv71fgumfqcr7xd7z9wf5a2td5"}
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -29,7 +29,7 @@ const RichEditor = ({ onChange }) => {
         }}
         onEditorChange={handleEditorChange}
       />
-    </>
+    </React.Fragment>
   );
 };
 

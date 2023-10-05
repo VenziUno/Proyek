@@ -47,13 +47,13 @@ const TableBody = ({
                     />
                   </div>
                 ) : (
-                  <>
+                  <React.Fragment>
                     {item[head].length > 45 ? (
                       <div title={item[head]}>{item[head].slice(0, 50)}...</div>
                     ) : (
-                      <>{item[head]}</>
+                      <React.Fragment>{item[head]}</React.Fragment>
                     )}
-                  </>
+                  </React.Fragment>
                 )}
               </td>
             ))}

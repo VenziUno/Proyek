@@ -49,7 +49,7 @@ const Tabel = ({
         list={list}
       />
       {data && data.length > 0 ? (
-        <>
+        <React.Fragment>
           <table className="border-separate border-spacing-y-3 w-full">
             <TableHead
               table_head_formatted={table_head_formatted}
@@ -67,7 +67,7 @@ const Tabel = ({
             />
           </table>
           {pagination && <TableBottomNav pagination={pagination} />}
-        </>
+        </React.Fragment>
       ) : (
         <div className="flex flex-col justify-center items-center gap-2 h-80">
           <HiOutlineXCircle size={40} className="text-primary-400" />

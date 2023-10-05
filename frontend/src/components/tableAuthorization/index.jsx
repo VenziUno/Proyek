@@ -5,20 +5,28 @@ import { useAppContext } from "@/hooks/useAppContext";
 import { useRouter } from "next/router";
 import { useFetcher } from "@/hooks/useFetcher";
 
-const TableAuthorization = ({page}) => {
+const TableAuthorization = ({ page }) => {
   const [permissions, setPermissions] = useState({});
   const [checkAllState, setCheckAllState] = useState(false);
   const { basic } = useAppContext();
   const { search, move, setMove, route } = basic;
   const location = useRouter();
   const { res, isLoading, isError } = useFetcher("role", page);
+  const { res:resMenu, isLoading:isLoadingMenu, isError:isErrorMenu } = useFetcher("menu",page);
   const [dataTableGedung, setDataTableGedung] = useState(null);
 
   const list = [
     { label: "Semua", value: "" },
     { label: "Aktif", value: 1 },
     { label: "Tidak Aktif", value: 0 },
-  ]
+  ];
+
+  const [pilihanGedung, setPilihanGedung] = useState([]);
+  useEffect(() => {
+    if (resMenu !== undefined) {
+      setPilihanGedung(resMenu);
+    }
+  }, [resMenu]);
 
   useEffect(() => {
     if (res) {
@@ -35,19 +43,16 @@ const TableAuthorization = ({page}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [res]);
 
-  const menu = [
-    { id: 1, menu: "Dashboard", subMenuList: null },
-    {
-      id: 2,
-      menu: "Setting",
-      subMenuList: [
-        { id: 1, subMenu: "Role" },
-        { id: 2, subMenu: "Admin" },
-        { id: 3, subMenu: "Authorizatiom" },
-      ],
-    },
-    { id: 3, menu: "Banner", subMenuList: null },
-  ];
+  const menu = pilihanGedung.map(item => ({
+    id: item.id,
+    menu: item.name,
+    subMenuList: item.sub_menus.length > 0
+      ? item.sub_menus.map(subItem => ({
+          id: subItem.id,
+          subMenu: subItem.name
+        }))
+      : null
+  }));
 
   const handleCheckAll = () => {
     const newPermissions = { ...permissions };
@@ -86,7 +91,10 @@ const TableAuthorization = ({page}) => {
 
   return (
     <div>
-      <HeadAuthorization handleCheckAll={handleCheckAll} dataTableGedung={dataTableGedung}/>
+      <HeadAuthorization
+        handleCheckAll={handleCheckAll}
+        dataTableGedung={dataTableGedung}
+      />
       <BodyAuthorization
         permissions={permissions}
         setPermissions={setPermissions}

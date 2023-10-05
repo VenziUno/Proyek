@@ -31,9 +31,9 @@ const InputFields = ({
       className={`flex border border-slate-400 bg-white shadow text-base py-2 outline-none ${style} rounded px-2`}
     >
       {icon == "eye" ? (
-        <>
+        <React.Fragment>
           {isActive ? (
-            <>
+            <React.Fragment>
               <input
                 autoComplete="off"
                 type="text"
@@ -47,9 +47,9 @@ const InputFields = ({
               <button className="cursor-pointer px-2">
                 <AiOutlineEye onClick={() => setIsActive(!isActive)} />
               </button>
-            </>
+            </React.Fragment>
           ) : (
-            <>
+            <React.Fragment>
               <input
                 autoComplete="off"
                 type={type}
@@ -67,11 +67,11 @@ const InputFields = ({
                   }}
                 />
               </button>
-            </>
+            </React.Fragment>
           )}
-        </>
+        </React.Fragment>
       ) : (
-        <>
+        <React.Fragment>
           <button className="px-1 hover:rounded-full hover:bg-slate-400">
             <AiOutlineSearch />
           </button>
@@ -85,11 +85,11 @@ const InputFields = ({
             title={title}
             className={`${style} pl-1 outline-none`}
           />
-        </>
+        </React.Fragment>
       )}
     </div>
   ) : (
-        <>
+        <React.Fragment>
           <input
             autoComplete="off"
             type={type}
@@ -102,7 +102,7 @@ const InputFields = ({
             max={max}
             title={title}
           />
-        </>
+        </React.Fragment>
   );
 };
 
