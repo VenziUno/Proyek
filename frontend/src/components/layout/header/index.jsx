@@ -76,14 +76,14 @@ const Header = () => {
                     Profile
                   </div>
                 </Link>
-                <Link href="/resetPassword" legacyBehavior>
+                <Link href="/password" legacyBehavior>
                   <div className="px-4 py-2 text-md hover:text-primary-800">
                     Password
                   </div>
                 </Link>
               </div>
               <div className="py-2.5 flex flex-col">
-                <Link href="/settings" legacyBehavior>
+                <Link href="/settings/account" legacyBehavior>
                   <div className="px-4 py-2 text-md hover:text-primary-800 hover:underline">
                     Settings
                   </div>

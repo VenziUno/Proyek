@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { AiOutlineLogout } from "react-icons/ai";
-import {
-  RiArticleLine,
-  RiDashboardLine,
-} from "react-icons/ri";
+import { RiArticleLine, RiDashboardLine } from "react-icons/ri";
 
 export const useMenuProvider = () => {
   const configMenu = {
@@ -26,48 +23,40 @@ export const useMenuProvider = () => {
       },
       {
         id: 3,
-        route: "/gallery",
-        name: "Gallery",
-        title: "Gallery",
-        detail: "Gallery Details",
+        route: "/book",
+        name: "Book",
+        title: "Book",
+        detail: "Book Details",
         icon: <RiDashboardLine />,
       },
       {
         id: 4,
-        route: "/structure",
-        name: "Structure",
-        title: "Structure",
-        detail: "Structure Details",
+        route: "/member",
+        name: "Member",
+        title: "Member",
+        detail: "Member Details",
         icon: <RiDashboardLine />,
       },
       {
         id: 5,
-        route: "/facility",
-        name: "Facility",
-        title: "Facility",
-        detail: "Facility Details",
-        icon: <RiDashboardLine />,
-      },
-      {
-        id: 6,
-        route: "/aboutUs",
-        name: "About Us",
-        title: "About Us",
+        route: "/transaction",
+        name: "Transaction",
+        title: "Transaction",
         icon: <RiDashboardLine />,
         subMenu: [
           {
             id: 10,
-            route: "/aboutUs/history",
-            name: "History",
-            title: "History Details",
-            detail: "See history details here!",
+            route: "/transaction/borrowing",
+            name: "Borrowing",
+            title: "Borrowing",
+            detail: "See borrowing details here!",
           },
           {
             id: 11,
-            route: "/aboutUs/missionAndVision",
-            name: "Mission And Vision",
-            title: "Mission And Vision Details",
-            detail: "See mission and Vision details here!",
+            route: "/transaction/reversion",
+            name: "Reversion",
+            title: "Reversion",
+            detail: "See reversion details here!",
           },
         ],
       },
@@ -83,7 +72,7 @@ export const useMenuProvider = () => {
             route: "/settings/account",
             name: "Account",
             title: "Account Details",
-            detail: "See account details here!",
+            detail: "See Account details here!",
           },
           {
             id: 13,
@@ -99,13 +88,13 @@ export const useMenuProvider = () => {
             title: "Authorization Details",
             detail: "See Authorization details here!",
           },
-          {
-            id: 14,
-            route: "/settings/activity",
-            name: "Activity Log",
-            title: "Activity Log Details",
-            detail: "See Authorization details here!",
-          },
+          // {
+          //   id: 14,
+          //   route: "/settings/activity",
+          //   name: "Activity Log",
+          //   title: "Activity Log Details",
+          //   detail: "See Authorization details here!",
+          // },
         ],
       },
       {
@@ -114,7 +103,7 @@ export const useMenuProvider = () => {
         name: "Logout",
         title: "Logout",
         detail: "Logout",
-        icon: <AiOutlineLogout />, 
+        icon: <AiOutlineLogout />,
       },
     ],
     additionalMenu: [
@@ -125,7 +114,7 @@ export const useMenuProvider = () => {
         detail: "Update your photo and details here!",
       },
       {
-        route: "/resetPassword",
+        route: "/password",
         name: "Password",
         title: "Change Password",
         detail: "Update your Password here!",
@@ -139,7 +128,7 @@ export const useMenuProvider = () => {
 
   let header;
   const findSelectedMenuInMain = configMenu.mainMenu.find(
-    (i) => selectedMenu  === i.route
+    (i) => selectedMenu === i.route
   );
   if (findSelectedMenuInMain) {
     header = {

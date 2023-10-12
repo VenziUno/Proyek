@@ -1,8 +1,8 @@
 import Layout from '@/components/layout'
 import React from 'react'
 
-export default function Structure() {
-  return (
+export default function Password() {
+  return ( 
     <Layout></Layout>
   )
 }
